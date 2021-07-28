@@ -1,0 +1,502 @@
+################# Outline of the documentation for AutoDoc #########################
+
+@Chapter Introduction
+
+@Chapter Examples
+
+A few simple examples illustrating the use of the
+package.  For more information see Chapter <Ref Label="Chapter_AllFunctions"/>
+
+@Section The 5-qubit code
+@Section Hyperbolic codes from a file
+@Section Randomly generated cyclic codes
+
+
+@Chapter Description 
+@ChapterTitle Description of the algorithm 
+
+@Chapter AllFunctions
+@ChapterTitle All Functions 
+
+@Section DistanceFunctions 
+@SectionLabel DistanceFunctions 
+@SectionTitle Functions for computing the distance 
+
+@Section IOFunctions 
+@SectionLabel IOFunctions 
+@SectionTitle Input/Output Functions 
+
+@Section HelperFunctions
+@SectionLabel HelperFunctions
+@SectionTitle Helper Functions
+
+@Chapter FileFormat
+@ChapterTitle Extended MTX (MTXE) File Format
+@ChapterLabel FileFormat
+
+@Section General information
+
+@Section Example of MTXE file
+
+
+@Chapter Introduction
+
+The &GAP; package &QDistRnd; gives a reference implementation of a
+probabilistic algorithm for finding the distance of a $q$-ary quantum
+low-density parity-check code linear over a finite field $F=GF(q)$.
+While there is no guarantee of the performance of the algorithm (the
+existing bounds in the case of quantum LDPC codes are weak, see <Ref
+Label="Subsection_TheAlgorithmDetails"/>), an empirical convergence
+criterion is given to estimate the probability that a minimum weight
+codeword has been found.  Versions for CSS and regular stabilizer
+codes are given, see Section <Ref Label="Section_DistanceFunctions"/>
+
+In addition, a format for storing matrices associated with $q$-ary
+quantum codes is introduced and implemented, see Chapter <Ref
+Label="Chapter_FileFormat"/> and Sec. <Ref Label="Section_IOFunctions"/>.  The
+format is based on the well establised MaTrix market eXchange (MTX)
+Coordinate format developed at NIST, and is designed for full backward
+compatibility with this format.  Thus, the files are readable by any
+software package which supports MTX.
+
+The routines in the package are derived from the code originally written
+by one of the authors (LPP).  A related Covering Set algorithm has a
+provable performance for generic (non-LDPC) quantum codes based on
+random matrices <Cite Key="Dumer-Kovalev-Pryadko-IEEE-2017"/>.
+Implemented version is a variant of the random **information set**
+(IS) algorithm based on random column permutations and Gauss'
+elimination <Cite Key="Leon-1988"/> <Cite Key="Kruk-1989"/> <Cite
+Key="Coffey-Goodman-1990"/>.
+
+The &GAP; computer algebra system was chosen because of its excellent
+support for linear algebra over finite fields.  Here we give a
+reference implementation of the algorithm, with a focus on matrix
+formats and generality, as opposed to performance.  Nevertheless, the
+routines are sufficiently fast when dealing with codes of practically
+important block lengths $n\lesssim 10^3$.
+
+@Chapter Examples
+
+@Chapter Description
+
+@Section Elementary version
+@SectionLabel SimpleVersion
+
+@Subsection What it does?
+@SubsectionLabel TheGoal
+
+
+In the simplest possible terms, we are given a pair of matrices $P$
+and $Q$ with orthogonal rows, $PQ^T=0$.  The matrices have entries in
+a finite field $F=GF(q)$, where $q$ is a power of a prime.  The goal
+is to find the smallest weight of a vector $c$ over the same field
+$F$, such that $c$ be orthogonal with the rows of $P$, $Pc^T=0$, and
+linearly independent from the rows of $Q$.
+
+@Subsection The algorithm
+@SubsectionLabel TheProcedure
+
+We first construct a generator matrix $G$ whose rows form
+a basis of the $F$-linear space of all vectors orthogonal to the rows
+of $P$.  At each step, a random permutation $S$ is generated and
+applied to the columns of $G$.  Then, Gauss' elimination with back
+substitution  renders the resulting matrix to the reduced
+row echelon form, after which the inverse permutation $S^{-1}$ is
+applied to the columns.  Rows of the resulting matrix $G_S$ that are
+linearly independent from the rows of $Q$ are considered as candidates
+for the minimum weight vectors.  Thus, after $N$ steps, we are getting
+an upper bound on the distance which is improving with increasing $N$.
+
+@Subsection Intuition
+@SubsectionLabel Intuition
+
+
+The intuition is that each row of $G_S$ is guaranteed to contain at
+least `rank`$(G_S)-1$ zeros.  Thus, we are sampling mostly 
+lower-weight vectors from the linear space orthogonal to the rows of
+$P$.  
+
+@Subsection CSS version of the algorithm
+@SubsectionLabel DistRandCSS
+
+The described version of the algorithm is implemented in the function
+`DistRandCSS` <Ref Label="DistRandCSS"/>.  It applies to the case of
+Calderbank-Shor-Steane (CSS) codes, where the matrices $P=H_X$ and
+$Q=H_Z$ are called the CSS generator matrices, and the computed
+minimum weight is the distance $d_Z$ of the code.  The number of
+columns $n$ is the block length of the code, and it encodes $k$
+qudits, where $k=n-$`rank`$(H_X)-$`rank`$(H_Z)$.  To completely
+characterize the code, we also need the distance $d_X$ which can be
+obtained by calling the same function with the two matrices interchanged.
+The conventional code distance $d$ is the minimum of $d_X$ and $d_Z$.
+Parameters of such a $q$-ary CSS code are commonly denoted as
+$[[n,k,(d_X,d_Z)]]_q$, or simply $[[n,k,d]]_q$ as for a general
+$q$-ary stabilizer code.
+
+@Subsection Generic version of the algorithm
+@SubsectionLabel DistRandStab
+
+CSS codes are a subclass of general $F$-linear stabilizer codes which
+are specified by a single stabilizer generator matrix $H=(A|B)$
+written in terms of two blocks of $n$ columns each.  The orthogonality
+condition is given in a symplectic form, $$ A B^T-B A^T=0, $$ or,
+equivalently, as orthogonality between the rows of $H$ and the
+symplectic-dual matrix $\tilde H=(B|-A)$.  Non-trivial vectors in the code must be
+orthogonal to the rows of $P=\tilde H$ and linearly independent from
+the rows of $Q=H$.  The difference with the CSS version of the
+algorithm is that we must minimize the **symplectic** weight of
+$c=(a|b)$, given by the number of positions $i$, $1\le i\le n$, such
+that either $a_i$ or $b_i$ (or both) be non-zero.
+
+The parameters of such a code are denoted as $[[n,k,d]]_q$, where
+$k=n-$`rank`$H$ is the number of encoded qudits, and $d$ is the
+minimal symplectic weight of a non-trivial vector in the code.  It is
+easy to check that a CSS code can also be represented in terms of a
+single stabilizer generator matrix.  Namely, for a CSS code with
+generators $H_X$ and $H_Z$, the stabilizer generator matrix has a
+block-diagonal form, $H=$`diag`$(H_X,H_Z)$.
+
+A version of the algorithm for general $F$-linear stabilizer codes is
+implemented in the function `DistRandStab` <Ref Label="DistRandStab"/>.
+
+**Important Notice**: In general, here one could use most general
+permutations of $2n$ columns, or restricted permutations of $n$
+two-column blocks preserving the pair structure of the matrix.  While
+the latter method would be much faster, there is no guarantee that
+every vector would be found.  As a result, we decided to use general
+permutations of $2n$ columns.
+
+@Section Some more details 
+@Subsection Quantum stabilizer codes
+
+Representation of quantum codes in terms of linear spaces
+is just a convenient map.  In the case $q=2$ (qubits), the details can
+be found, e.g., in the book of Nielsen and Chuang, <Cite
+Key="Nielsen-book"/>.  Further details on the theory of stabilizer
+quantum error correcting codes based on qubits can be found in the
+Caltech Ph.D. thesis of Daniel Gottesman <Cite Key="gottesman-thesis"/>
+and in the definitive 1997 paper by Calderbank, Rains, Shor, and
+Sloane <Cite Key="Calderbank-1997"/>.  Theory of stabilizer quantum
+ codes based on qudits ($q$-state quantum systems)
+was developed by Ashikhmin and Knill
+<Cite Key="Ashikhmin-Knill-2001"/>
+(prime fields with $q$ prime) and by Ketkar, Klappenecker, Kumar, &#38; Sarvepalli <Cite
+Key="Ketkar-Klappenecker-Kumar-Sarvepalli-2006"/> (extension fields
+with $q$ a non-trivial power of a prime).
+
+In the binary case (more generally, when $q$ is a prime), $F$-linear
+codes coincide with **additive** codes.  The **linear** codes [e.g.,
+over $GF(4)$ in the binary case <Cite Key="Calderbank-1997"/>] is a
+different construction which assumes an additional symmetry.  A brief
+summary of $F$-linear quantum codes [where $F=GF(q)$ with $q=p^m$,
+$m>1$ a non-trivial power of a prime] can be found in the introduction
+of Ref. <Cite Key="Zeng-Pryadko-hprod-2020"/>.  The construction is
+equivalent to a more physical approach in terms of a lifted Pauli
+group suggested by Gottesman <Cite
+Key="Gottesman-prime-power-2014"/>.
+
+@Subsection The algorithm
+@SubsectionLabel TheAlgorithmDetails 
+
+Case of **classical linear codes** 
+
+The algorithm <Ref Label="Subsection_TheProcedure"/> is closely
+related to the algorithm for finding minimum-weight codewords in a
+classical linear code as presented by Leon <Cite Key="Leon-1988"/>,
+and a related family of **information set** (IS) decoding algorithms <Cite
+Key="Kruk-1989"/> <Cite Key="Coffey-Goodman-1990"/>.
+
+Consider a classical linear $q$-ary code $[n,k,d]_q$ encoding $k$
+symbols into $n$, specified by a generator matrix $G$ of rank $k$.
+Using Gauss' algorithm and column permutations, the generator matrix
+can be rendered into a **systematic form**, $G=(I|A)$, where the two
+blocks are $I$, the size-$k$ identity matrix, and a $k$ by $n-k$
+matrix $A$.  In such a representation, the first $k$ positions are
+called the information set of the code (since the corresponding
+symbols are transmitted directly) and the remaining $n-k$ symbols
+provide the redundancy.  Any $k$ linearly-independent columns of $G$
+can be chosen as the information set, which defines the systematic
+form of $G$ up to a permutation of the rows of $A$.
+
+The IS algorithm and the original performance bounds
+<Cite Key="Leon-1988"/>
+<Cite Key="Kruk-1989"/>
+<Cite Key="Coffey-Goodman-1990"/>
+are based on the observation that for a long random code a set of
+$k+\Delta$ randomly selected columns, with $\Delta$ of order one, are
+likely to contain an information set. ISs are (approximately) in
+one-to-one correspondence with the column permutations, and a random
+IS can thus be generated as a set of **pivot** columns in the Gauss'
+algorithm after a random column permutation.  Thus, if there is a
+codeword $c$ of weight $d$, the probability to find it among the rows
+of reduced-row-echelon form $G_S$ after a column permutation $S$ can
+be estimated as that for a randomly selected set of $k$ columns to hit
+exactly one non-zero position in $c$.
+
+The statistics of ISs is more complicated in other ensembles of random
+codes, e.g., in linear **low-density parity-check** (LDPC) codes where
+the check matrix $H$ (of rank $n-k$ and with rows orthogonal to those
+of $G$) is additionally required to be sparse.  Nevertheless, a
+provable bound can be obtained for a related **covering set** (CS)
+algorithm where a randomly selected set of $s\ge k-1$ positions of a
+putative codeword are set to be zero, and the remaining positions are
+constructed with the help of linear algebra.  In this case, the
+optimal choice <Cite Key="Dumer-Kovalev-Pryadko-IEEE-2017"/> is to
+take $s\approx n(1-\theta)$, where $\theta $ is the erasure threshold
+of the family of the codes under consideration.  Since $\theta\ge R$
+(here $R=k/n$ is the code rate), here more zeros must be selected, and
+the complexity would grow (assuming the distance $d$ remains the same,
+which is usually **not** the case for LDPC codes).
+
+Note however that rows of $G_P$ other than the last are not expected
+to contain as many zeros (e.g., the first row is only guaranteed to
+have $k-1$ zeros), so it is **possible** that the performance of the IS
+algorithm on LDPC codes is actually closer to that on random codes as
+estimated by Leon <Cite Key="Leon-1988"/>.
+
+Case of **quantum CSS codes**
+
+In the case of a random CSS code (with matrices $P$ and $Q$ selected
+randomly, with the only requirement being the orthogonality between
+the rows of $P$ and $Q$), the performance of the algorithm <Ref
+Label="Subsection_TheProcedure"/> can be estimated as that of the CS
+algorithm, in terms of the erasure threshold of a linear code with the
+parity matrix $P$, see <Cite Key="Dumer-Kovalev-Pryadko-IEEE-2017"/>.
+
+Unfortunately, such an estimate fails dramatically in the case of
+**quantum LDPC codes**, where rows of $P$ and $Q$ have weights bounded
+by some constant $w$.  This is a reasonable requirement since the
+corresponding quantum operators (supported on $w$ qudits) have to
+actually be measured frequently as a part of the operation of the
+code, and it is reasonable to expect that the measurement accuracy
+goes down (exponentially) quickly as $w$ is increased.  Then, the
+linear code orthogonal to the rows of $P$ has the distance $\le w$
+(the minimal weight of the rows of $Q$), and the corresponding erasure
+threshold is exactly zero.  In other words, there is a finite
+probability that a randomly selected $w$ symbols contain a vector
+orthogonal to the rows of $P$ (and such a vector would likely have nothing to
+do with non-trivial **quantum** codewords which must be linearly
+independent from the rows of $Q$).
+
+On the other hand, for every permutation $S$ in the algorithm <Ref
+Label="Subsection_TheProcedure"/>, the matrix $G_S$ contains exactly
+$k=n-$`rank`$(P)-$`rank`$(Q)$ rows orthogonal to rows of $P$ and
+linearly independent from rows of $Q$ (with columns properly
+permuted).  These vectors contain at least $s$ zeros, where
+$[1-\theta_*(P,Q)] n\le s\le n-$`rank`$(Q)$, where $\theta_*(P,Q)$ is
+the erasure threshold for $Z$-like codewords in the quantum CSS code
+with $H_X=P$ and $H_Z=Q$.
+
+
+**What is it that we do not understand?**
+
+What missing is an understanding of the statistics of the ISs of
+interest, namely, the ISs that overlap with a minimum-weight codeword
+in one (or a few) positions.  
+
+Second, we know that a given column permutation $S$ leads to the
+unique information set, and that every information set can be obtained
+by a suitably chosen column permutation.  However, there is no
+guarantee that the resulting information sets have equal
+probabilities.  In fact, it is easy to construct small matrices where
+different information sets are obtained from different numbers of
+column permutations (and thus have different probabilities).  It is
+not clear whether some of the ISs may have vanishingly small
+probabilities in the limit of large codes; in such a case the
+algorithm would fail.
+
+@Section Empirical estimate of the success probability
+@SectionLabel Empirical
+
+The probability to find a codeword after $N$ rounds of the algorithm
+can be estimated empirically, by counting the number of times each
+codeword of the minimum weight was discovered.  We **expect** the
+probability $P(c)$ to discover a given codeword $c$ to depend only on
+its (symplectic) weight `wgt`$(c)$, with the probability a
+monotonously decreasing function of the weight.  If, after $N$ steps,
+codewords $c_1$, $c_2$, $\ldots$ , $c_m$ of the same (minimal) weight $w$
+are discovered $n_1$, $n_2$, $\ldots$ , $n_m$ times, respectively, we can
+estimate the corresponding Poisson parameter as
+$$ \lambda_w =\frac{1}{N m}\sum_{i=1}^m n_i. $$
+
+Then, the probability that a codeword $c_0$ of the true minimal weight
+$ d &lt; w $ be **not** discovered after $N$ steps can be upper
+bounded as (the inequalities here become equalities in the limit of
+small $\lambda_w$)  $$ P_{\rm fail} &lt; (1-\lambda_w)^N &lt;
+e^{-N\lambda_w}=\exp\left(-m^{-1}\sum_{i=1}^m n_i\right)\equiv
+\exp(-\langle n\rangle).
+$$
+Thus, the probability to fail is decreasing as an exponent of the
+parameter $\langle n\rangle$, the **average number of times a minimum-weight
+codeword has been found.**
+
+The hypothesis about all $P(c_i)$ being equal to $\lambda_w$ is
+testable, e.g., if one considers the distribution of the ratios
+$x_i=n_i/N$, where $N=\sum_{i=1}^m n_i$ is the total number of
+codewords found.  These quantities sum up to one and are distributed
+according to multinomial distribution<Cite
+Key="Steel-1953"/>.  Further, under our assumption
+of all $P(c_i)$ being equal, we also expect the outcome probabilities
+in the multinomial distribution to be all equal, $\pi_i=1/m$, $1\le
+i\le m$.
+
+This hypothesis can be tested using Pearson's $\chi^2$ test.  Namely,
+in the limit where the total number of observations $N$ diverges, the
+quantity $$ X^2=\sum_{i=1}^m \frac{(n_i-N \pi_i)^2}{ N\pi_i}=
+N^{-1}\sum_{i=1}^m \frac{n_i^2}{\pi_i}-N
+\stackrel{\pi_i=1/m}=\frac{m}{N}\sum_{i=1}^m n_i^2-N, $$ is expected to be
+distributed according to the $\chi^2_{m-1}$ distribution with $m-1$
+parameters, see <Cite Key="Chernoff-Lehmann-1954"/> <Cite
+Key="Cramer-book-1999"/>.
+
+In practice, we can approximate with the $\chi^2_{m-1}$ distribution
+as long as the total $N$ be large compared to the number $m$ of the
+codewords found (i.e., the average $\langle n\rangle$ must be large,
+which is the same condition as needed for confidence in the result.)
+
+With `debug[4]` set (binary value 8) in `DistRandCSS` and
+`DistRandStab` <Ref Label="Section_DistanceFunctions"/>, whenever more
+than one minimum-weight vector is found, the quantity $X^2$ is
+computed and output along with the average number of times $\langle
+n\rangle$ a minimum-weight codeword has been found.  However, no
+attempt is made to analyze the corresponding value or calculate the
+likelihood of the null hypothesis that the codewords be equiprobable.
+
+@Chapter FileFormat
+
+@Section General information
+
+
+The code supports reading matrices from an MTX file using `ReadMTXE`
+and writing new MTX file using `WriteMTXE` functions. Below the
+comprehensive description of the format is presented.
+
+@Subsection Representation of field elements via integers
+
+Every finite field is isomorphic to a Galois field $F=GF(q)$, where
+$q$ is a power of a prime, $q=p^m$.
+
+* When $q=p$ is a prime, $F$ is a prime field, isomorphic to the
+  ring Z$(q)$ of integers modulo
+  $q$.  In such a case, elements of the field are stored
+  directly as integers from Z$(p)$, ranging from $0$
+  to $p-1$.
+
+* When $q=p^m$ with $m &gt; 1$, $F$ is an extension field.  Elements
+  of such a field could in principle be represented as polynomials
+  modulo an irreducible polynomial with coefficients in the prime
+  field $GF(p)$.  In the actual file format, we chose to represent
+  non-zero elements as integers, specifying the powers of a primitive
+  element, while the field zero is represented as $-1$.  Notice that,
+  depending on the choice of the primitive element, the elements of
+  the field may be permuted.  However, any such permutation is a field
+  isomorphism preserving the multiplication table.  In particular,
+  orthogonality between the rows of the matrices is necessarily
+  preserved.
+
+* On input, other integer values are allowed; they are taken modulo
+  $p$ for a prime field, and as the powers of the primitive element
+  for an extension field.  This is often convenient, e.g., with $\pm1$
+  matrices which obey the orthogonality condition already over
+  integers, and thus retain orthogonality over Z$(q)$ with any $q$.
+	
+@Subsection Matrix storage format
+
+The generator matrix storage format dependes on 2 parameters: `pair` and `type`.
+
+* With `pair=0` the matrix is assumed to be one of the block-matrices for a CSS code. In this case `type=integer`, since all elements of the matrix are integers.
+
+* With `pair=1` the block matrix $(A,B)$ is assumed to be stored with intercalated
+  columns $(a_1,b_1,\ldots,a_n,b_n)$. In this case `type=integer`.
+
+* With `pair=2` the block matrix $(A,B)$ is assumed to be stored with
+  separated columns $(a_1,\ldots,a_n,b_1,\ldots,b_n)$. In this case
+  `type=integer`.
+
+* With `pair=3` the block matrix $(A,B)$ is assumed to be stored as a
+   complex matrix $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i
+   b_n)$. In this case `type=complex`, since matrix elements are
+   complex integers.
+
+By default, `pair=0` corresponds to `type=integer` and `pair=3` corresponds to `type=complex`.
+
+For efficiency reasons, the function `DistRandStab` <Ref
+Label="Section_DistanceFunctions"/> assumes the generator
+matrix with intercalated columns. 
+
+@Subsection Explicit format of each line
+
+The first line must have the following form:
+@BeginCode MMXFormatLine1
+%%MatrixMarket matrix coordinate `type` general
+@EndCode
+@InsertCode MMXFormatLine1
+with `type` either `integer` or `complex`.
+
+The second line is optional and specifies
+the field.  The field may be left undefined; by default, it is $GF(2)$,
+or it can be specified by hand when reading the matrices.  
+@BeginCode MMXFormatLine2
+% Field: GF(q) 
+@EndCode
+@InsertCode MMXFormatLine2
+
+Next the comment section is specified, with each line starting with
+the `%` symbol:
+@BeginCode MMXFormatLine3
+% Example of the comment line
+@EndCode
+@InsertCode MMXFormatLine3
+
+After the comment section there is the line with properties of the matrix:
+@BeginCode MMXFormatLineA
+rows     columns     (number of non-zero elements)
+@EndCode
+@InsertCode MMXFormatLineA
+
+Then all non-zero elements are listed according to the `type`:
+
+* `type=integer`:
+@BeginCode  MMXFormatLineB
+row     column     element
+@EndCode
+@InsertCode MMXFormatLineB
+
+* `type=complex`:	
+@BeginCode  MMXFormatLineC
+row     column     Aj     Bj
+@EndCode
+@InsertCode MMXFormatLineC
+
+@Section Example of MTXE file
+
+In this section an example of MTXE file with 5-qubit generator matrix, stored with `type=integer` and `pair=1` is presented.
+
+@BeginCode SampleFile
+%%MatrixMarket matrix coordinate integer general		
+% Field: GF(2)
+% 5-qubit generator matrix in a normal storage with permuted columns
+5 10 20
+1 1 1
+1 4 1
+1 6 1
+1 7 1
+2 3 1
+2 6 1
+2 8 1
+2 9 1
+3 1 1
+3 5 1
+3 8 1
+3 10 1
+4 2 1
+4 3 1
+4 7 1
+4 10 1
+5 2 1
+5 4 1
+5 5 1
+5 9 1
+@EndCode
+@InsertCode SampleFile
+

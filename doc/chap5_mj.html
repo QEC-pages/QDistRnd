@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QDistRnd) - Chapter 5: Extended MTX (MTXE) File Format</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap5"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap5.html">[MathJax off]</a></p>
+<p><a id="X7D0187B5831B764D" name="X7D0187B5831B764D"></a></p>
+<div class="ChapSects"><a href="chap5_mj.html#X7D0187B5831B764D">5 <span class="Heading">Extended MTX (MTXE) File Format</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7E294E8678035D23">5.1 <span class="Heading">General information</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X8269F2367856BB1E">5.1-1 <span class="Heading">Representation of field elements via integers</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X86FBB72C7BC3B8D2">5.1-2 <span class="Heading">Matrix storage format</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X80B886F0796AF0D5">5.1-3 <span class="Heading">Explicit format of each line</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X796491B7838B9D4D">5.2 <span class="Heading">Example of MTXE file</span></a>
+</span>
+</div>
+</div>
+
+<h3>5 <span class="Heading">Extended MTX (MTXE) File Format</span></h3>
+
+<p><a id="X7E294E8678035D23" name="X7E294E8678035D23"></a></p>
+
+<h4>5.1 <span class="Heading">General information</span></h4>
+
+<p>The code supports reading matrices from an MTX file using <code class="code">ReadMTXE</code> and writing new MTX file using <code class="code">WriteMTXE</code> functions. Below the comprehensive description of the format is presented.</p>
+
+<p><a id="X8269F2367856BB1E" name="X8269F2367856BB1E"></a></p>
+
+<h5>5.1-1 <span class="Heading">Representation of field elements via integers</span></h5>
+
+<p>Every finite field is isomorphic to a Galois field <span class="SimpleMath">\(F=GF(q)\)</span>, where <span class="SimpleMath">\(q\)</span> is a power of a prime, <span class="SimpleMath">\(q=p^m\)</span>.</p>
+
+
+<ul>
+<li><p>When <span class="SimpleMath">\(q=p\)</span> is a prime, <span class="SimpleMath">\(F\)</span> is a prime field, isomorphic to the ring Z<span class="SimpleMath">\((q)\)</span> of integers modulo <span class="SimpleMath">\(q\)</span>. In such a case, elements of the field are stored directly as integers from Z<span class="SimpleMath">\((p)\)</span>, ranging from <span class="SimpleMath">\(0\)</span> to <span class="SimpleMath">\(p-1\)</span>.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>When <span class="SimpleMath">\(q=p^m\)</span> with <span class="SimpleMath">\(m &gt; 1\)</span>, <span class="SimpleMath">\(F\)</span> is an extension field. Elements of such a field could in principle be represented as polynomials modulo an irreducible polynomial with coefficients in the prime field <span class="SimpleMath">\(GF(p)\)</span>. In the actual file format, we chose to represent non-zero elements as integers, specifying the powers of a primitive element, while the field zero is represented as <span class="SimpleMath">\(-1\)</span>. Notice that, depending on the choice of the primitive element, the elements of the field may be permuted. However, any such permutation is a field isomorphism preserving the multiplication table. In particular, orthogonality between the rows of the matrices is necessarily preserved.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>On input, other integer values are allowed; they are taken modulo <span class="SimpleMath">\(p\)</span> for a prime field, and as the powers of the primitive element for an extension field. This is often convenient, e.g., with <span class="SimpleMath">\(\pm1\)</span> matrices which obey the orthogonality condition already over integers, and thus retain orthogonality over Z<span class="SimpleMath">\((q)\)</span> with any <span class="SimpleMath">\(q\)</span>.</p>
+
+</li>
+</ul>
+<p><a id="X86FBB72C7BC3B8D2" name="X86FBB72C7BC3B8D2"></a></p>
+
+<h5>5.1-2 <span class="Heading">Matrix storage format</span></h5>
+
+<p>The generator matrix storage format dependes on 2 parameters: <code class="code">pair</code> and <code class="code">type</code>.</p>
+
+
+<ul>
+<li><p>With <code class="code">pair=0</code> the matrix is assumed to be one of the block-matrices for a CSS code. In this case <code class="code">type=integer</code>, since all elements of the matrix are integers.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=1</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is assumed to be stored with intercalated columns <span class="SimpleMath">\((a_1,b_1,\ldots,a_n,b_n)\)</span>. In this case <code class="code">type=integer</code>.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=2</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is assumed to be stored with separated columns <span class="SimpleMath">\((a_1,\ldots,a_n,b_1,\ldots,b_n)\)</span>. In this case <code class="code">type=integer</code>.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=3</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is assumed to be stored as a complex matrix <span class="SimpleMath">\(A+iB\)</span>, with columns <span class="SimpleMath">\((a_1 + i b_1,\ldots,a_n + i b_n)\)</span>. In this case <code class="code">type=complex</code>, since matrix elements are complex integers.</p>
+
+</li>
+</ul>
+<p>By default, <code class="code">pair=0</code> corresponds to <code class="code">type=integer</code> and <code class="code">pair=3</code> corresponds to <code class="code">type=complex</code>.</p>
+
+<p>For efficiency reasons, the function <code class="code">DistRandStab</code> <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a> assumes the generator matrix with intercalated columns.</p>
+
+<p><a id="X80B886F0796AF0D5" name="X80B886F0796AF0D5"></a></p>
+
+<h5>5.1-3 <span class="Heading">Explicit format of each line</span></h5>
+
+<p>The first line must have the following form:</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate `type` general
+</pre></div>
+
+<p>with <code class="code">type</code> either <code class="code">integer</code> or <code class="code">complex</code>.</p>
+
+<p>The second line is optional and specifies the field. The field may be left undefined; by default, it is <span class="SimpleMath">\(GF(2)\)</span>, or it can be specified by hand when reading the matrices.</p>
+
+
+<div class="example"><pre>
+% Field: GF(q) 
+</pre></div>
+
+<p>Next the comment section is specified, with each line starting with the <code class="code">%</code> symbol:</p>
+
+
+<div class="example"><pre>
+% Example of the comment line
+</pre></div>
+
+<p>After the comment section there is the line with properties of the matrix:</p>
+
+
+<div class="example"><pre>
+rows     columns     (number of non-zero elements)
+</pre></div>
+
+<p>Then all non-zero elements are listed according to the <code class="code">type</code>:</p>
+
+
+<ul>
+<li><p><code class="code">type=integer</code>:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+row     column     element
+</pre></div>
+
+
+<ul>
+<li><p><code class="code">type=complex</code>:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+row     column     Aj     Bj
+</pre></div>
+
+<p><a id="X796491B7838B9D4D" name="X796491B7838B9D4D"></a></p>
+
+<h4>5.2 <span class="Heading">Example of MTXE file</span></h4>
+
+<p>In this section an example of MTXE file with 5-qubit generator matrix, stored with <code class="code">type=integer</code> and <code class="code">pair=1</code> is presented.</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate integer general		
+% Field: GF(2)
+% 5-qubit generator matrix in a normal storage with permuted columns
+5 10 20
+1 1 1
+1 4 1
+1 6 1
+1 7 1
+2 3 1
+2 6 1
+2 8 1
+2 9 1
+3 1 1
+3 5 1
+3 8 1
+3 10 1
+4 2 1
+4 3 1
+4 7 1
+4 10 1
+5 2 1
+5 4 1
+5 5 1
+5 9 1
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>
