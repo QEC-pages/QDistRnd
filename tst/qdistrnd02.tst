@@ -10,30 +10,30 @@
 #
 gap> START_TEST( "qdistrnd02.tst");
 
-# doc/_Chapter_AllFunctions.xml:16-22
+# doc/_Chapter_AllFunctions.xml:19-25
 gap> F:=GF(5);;
 gap> Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;
 gap> Hz:=One(F)*[[1, 1,1,1]];;
-gap> DistRandCSS(Hz,Hx,100,0 : field:=F);
+gap> DistRandCSS(Hz,Hx,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:29-32
-gap> DistRandCSS(Hz,Hx,100,2 : field:=F);
+# doc/_Chapter_AllFunctions.xml:32-35
+gap> DistRandCSS(Hz,Hx,100,2,2 : field:=F);
 -2
 
-# doc/_Chapter_AllFunctions.xml:39-46
+# doc/_Chapter_AllFunctions.xml:42-49
 gap> F:=GF(5);;
 gap> H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
 >            [0,0,  0,0,  1,0, -1,0 ],
 >            [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions
-gap> DistRandStab(H,100,0 : field:=F);
+gap> DistRandStab(H,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:303-306
+# doc/_Chapter_AllFunctions.xml:306-309
 gap> QDR_AverageCalc([2,3,4,5]);
 3.5
 
-# doc/_Chapter_AllFunctions.xml:309-320
+# doc/_Chapter_AllFunctions.xml:312-323
 gap> F:=GF(3);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1-x);;
 gap> n:=5;;

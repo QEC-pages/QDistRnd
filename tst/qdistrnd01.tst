@@ -45,7 +45,7 @@ gap> lisX:=ReadMTXE("matrices/QX80.mtx",0);;
 gap> GX:=lisX[3];;
 gap> lisZ:=ReadMTXE("matrices/QZ80.mtx",0);;
 gap> GZ:=lisZ[3];;
-gap> DistRandCSS(GX,GZ,100,1:field:=GF(2));
+gap> DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 5
 
 #
