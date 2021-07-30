@@ -20,6 +20,8 @@ LoadPackage("qdistrnd");
 #Print("\n");
 Test("tst/qdistrnd01.tst");
 Test("tst/qdistrnd02.tst");
+Test("tst/qdistrnd03.tst");
+#Test("tst/qdistrnd04.tst");
 
 if false then 
     q:=2;; F:=GF(q);; n:=7;;
@@ -39,5 +41,7 @@ if false then
     fi;
 fi;
 
-# Read("examples/cyclic.g" );
+if false then 
+    Read("lib/cyclic.g" );
+fi;
 
