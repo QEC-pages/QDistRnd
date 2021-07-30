@@ -72,7 +72,7 @@ InstallGlobalFunction(QDR_WeightMat,
                       
 
 #! @Description aux function to print out the relevant probabilities given
-#! the list `mult` of multiplicities of the vectors found.  Additional
+#! the list `vector` of multiplicities of the codewords found.  Additional
 #! parameters are `n`, the code length, and `num`, the number of
 #! repetitions; these are ignored in the present version of the
 #! program.  See <Ref Label="Section_Empirical"/> for 
@@ -151,7 +151,7 @@ InstallGlobalFunction(QDR_DoProbOut,
 #!
 #! See Chapter <Ref Label="Chapter_FileFormat"/> for the details of how the elements
 #! of the group are represented depending on whether the field is a prime
-#! field ($ q $ a prime) or an extension field with $ q=p^m $, $ m>1 $.
+#! field ($ q $ a prime) or an extension field with $ q=p^m $, $p$ prime, and $m>1$.
 #! 
 DeclareGlobalFunction("ReadMTXE");#function(StrPath, [pair]... ) # supported option: "field"
 InstallGlobalFunction(ReadMTXE,
@@ -522,7 +522,7 @@ InstallGlobalFunction(QDR_MakeH,
 
 #! @Section DistanceFunctions 
 #!
-#! @Arguments HX, HZ, num, mindist [, debug] : field:=GF(2), maxav:=fail
+#! @Arguments HX, HZ, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the CSS distance $d_Z$
 #! @Description Computes an upper bound on the distance $d_Z$ of the
 #! $q$-ary code with stabilizer generator matrices $H_X$, $H_Z$ whose rows
@@ -596,8 +596,8 @@ InstallGlobalFunction(DistRandCSS,
                                  if (TempWeight > 0) and (TempWeight <= DistBound) then
                                      if WeightVecFFE(WX*TempVec)>0 then # lin-indep from rows of GX
                                          if debug[2]=1 then # Check that H*c = 0
-                                             if (WeightVecFFE(GZ * TempVec) > 0) then
-                                                 Print("\nSomething wrong: codeword found is not orthogonal to rows of H!\n");
+                                             if (WeightVecFFE(GX * TempVec) > 0) then
+                                                 Print("\nError: codeword found is not orthogonal to rows of HX!\n");
 	                                         if (colsWZ <= 100) then
 	                                             Print("The improper vector is:\n");
 	                                             Display(TempVec);
@@ -682,7 +682,7 @@ InstallGlobalFunction(DistRandCSS,
                      );
 
 
-#! @Arguments H, num, mindist [, debug] : field:=GF(2), maxav:=fail
+#! @Arguments H, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the code distance $d$
 #! @Description Computes an upper bound on the distance $d$ of the
 #! $F$-linear stabilizer code with generator matrix $H$ whose rows

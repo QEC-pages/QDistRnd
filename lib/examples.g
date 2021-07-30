@@ -95,7 +95,7 @@ lisX:=ReadMTXE("matrices/QX80.mtx",0);;
 GX:=lisX[3];;
 lisZ:=ReadMTXE("matrices/QZ80.mtx",0);;
 GZ:=lisZ[3];;
-DistRandCSS(GX,GZ,100,1:field:=GF(2));
+DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! 5
 #! @EndExample
 
@@ -115,7 +115,7 @@ DistRandCSS(GX,GZ,100,1:field:=GF(2));
 #! @Section Randomly generated cyclic codes
 
 #! As a final and hopefully somewhat useful example, the file 
-#! "examples/cyclic.g" contains a piece of 
+#! "lib/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
 #! $n=15$ over the field $GF(5)$, and generator weight `wei=4`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
@@ -127,12 +127,15 @@ DistRandCSS(GX,GZ,100,1:field:=GF(2));
 #! @Section DistanceFunctions
 #! @Subsection Examples
 
-#! Here are a few simple examples illustrating the use of distance functions.
+#! Here are a few simple examples illustrating the use of distance
+#! functions.  In all examples, we use `DistRandCSS` and
+#! `DistRandStab` with `debug=2` to ensure that row
+#! orthogonality in the input matrices is verified.
 #! @BeginExample
 F:=GF(5);;
 Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;
 Hz:=One(F)*[[1, 1,1,1]];;
-DistRandCSS(Hz,Hx,100,0 : field:=F);
+DistRandCSS(Hz,Hx,100,0,2 : field:=F);
 #! 2
 #! @EndExample
 #! Now, if we set the minimum distance `mindist` parameter too large,
@@ -140,7 +143,7 @@ DistRandCSS(Hz,Hx,100,0 : field:=F);
 #! weight is found; in such a case the result is returned with the
 #! negative sign.
 #! @BeginExample
-DistRandCSS(Hz,Hx,100,2 : field:=F);
+DistRandCSS(Hz,Hx,100,2,2 : field:=F);
 #! -2
 #! @EndExample
 #! The function `DistRandStab` takes 
@@ -152,7 +155,7 @@ F:=GF(5);;
 H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
            [0,0,  0,0,  1,0, -1,0 ],
            [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions
-DistRandStab(H,100,0 : field:=F);
+DistRandStab(H,100,0,2 : field:=F);
 #! 2
 #! @EndExample
 
