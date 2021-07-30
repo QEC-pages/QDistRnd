@@ -1,0 +1,56 @@
+  
+  
+  [1XReferences[101X
+  
+  [[20XAK01[120X] [16XAshikhmin, A. and Knill, E.[116X, [17XNonbinary quantum stabilizer codes[117X, [18XIEEE
+  Trans. Info. Th.[118X, [19X47[119X, 7 (2001), 3065-3072.
+  
+  [[20XCRSS98[120X]  [16XCalderbank, A. R., Rains, E. M., Shor, P. M. and Sloane, N. J. A.[116X,
+  [17XQuantum  error correction via codes over GF(4)[117X, [18XIEEE Trans. Info. Theory[118X, [19X44[119X
+  (1998), 1369-1387.
+  
+  [[20XCL54[120X]  [16XChernoff,  H.  and  Lehmann,  E.  L.[116X,  [17XThe Use of Maximum Likelihood
+  Estimates  in  χ^2  Tests  for  Goodness  of Fit[117X, [18XThe Annals of Mathematical
+  Statistics[118X, Institute of Mathematical Statistics, [19X25[119X, 3 (1954), 579 -- 586.
+  
+  [[20XCG90[120X]  [16XCoffey,  J. T. and Goodman, R. M.[116X, [17XThe complexity of information set
+  decoding[117X, [18XIEEE Trans. Info. Theory[118X, [19X36[119X, 5 (1990), 1031 -1037.
+  
+  [[20XCra99[120X]   [16XCram{\'e}r,   H.[116X,  [17XMathematical  Methods  of  Statistics  (PMS-9)[117X,
+  Princeton University Press (1999).
+  
+  [[20XDKP17[120X]  [16XDumer, I., Kovalev, A. A. and Pryadko, L. P.[116X, [17XDistance Verification
+  for  Classical  and  Quantum LDPC Codes[117X, [18XIEEE Trans. Inf. Th.[118X, [19X63[119X, 7 (2017),
+  4675-4686.
+  
+  [[20XGot97[120X]  [16XGottesman, D.[116X, [17XStabilizer Codes and Quantum Error Correction[117X, Ph.D.
+  thesis, Caltech (1997).
+  
+  [[20XGot14[120X]  [16XGottesman,  D.[116X,  [17XStabilizer  codes  with prime power qudits[117X (2014),
+  ((Invited talk at QEC 2014 (ETH Zurich))).
+  
+  [[20XKKKS06[120X]  [16XKetkar,  A.,  Klappenecker,  A.,  Kumar, S. and Sarvepalli, P. K.[116X,
+  [17XNonbinary  Stabilizer Codes Over Finite Fields[117X, [18X{IEEE} Trans. Info. Th.[118X, [19X52[119X,
+  11 (2006), 4892-4914.
+  
+  [[20XKru89[120X]  [16XKruk,  E.  A.[116X,  [17XDecoding  Complexity  Bound for Linear Block Codes[117X,
+  [18XProbl. Peredachi Inf.[118X, [19X25[119X, 3 (1989), 103-107, (((In Russian))).
+  
+  [[20XLeo88[120X] [16XLeon, J. S.[116X, [17XA probabilistic algorithm for computing minimum weights
+  of  large  error-correcting  codes[117X,  [18XIEEE Trans. Info. Theory[118X, [19X34[119X, 5 (1988),
+  1354 -1359.
+  
+  [[20XNC00[120X]  [16XNielsen,  M.  A.  and Chuang, I. L.[116X, [17XQuantum Computation and Quantum
+  Infomation[117X, Cambridge Unive. Press, Cambridge, MA (2000).
+  
+  [[20XSte53[120X]   [16XSteel,   R.  G.  D.[116X,  [17XRelation  Between  Poisson  and  Multinomial
+  Distributions[117X,   Biometrics  Unit  Technical  Reports,  Cornell  University,
+  BU-39-M (1953).
+  
+  [[20XZP20[120X]  [16XZeng,  W.  and Pryadko, L. P.[116X, [17XMinimal distances for certain quantum
+  product  codes  and  tensor  products  of chain complexes[117X, [18XPhys. Rev. A[118X, [19X102[119X
+  (2020), 062402.
+  
+  
+  
+  [32X

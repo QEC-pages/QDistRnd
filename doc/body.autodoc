@@ -36,7 +36,7 @@ package.  For more information see Chapter <Ref Label="Chapter_AllFunctions"/>
 
 @Section General information
 
-@Section Example of MTXE file
+@Section Example MTXE files
 
 
 @Chapter Introduction
@@ -52,8 +52,9 @@ codeword has been found.  Versions for CSS and regular stabilizer
 codes are given, see Section <Ref Label="Section_DistanceFunctions"/>
 
 In addition, a format for storing matrices associated with $q$-ary
-quantum codes is introduced and implemented, see Chapter <Ref
-Label="Chapter_FileFormat"/> and Sec. <Ref Label="Section_IOFunctions"/>.  The
+quantum codes is introduced and implemented, see
+Chapter <Ref Label="Chapter_FileFormat"/> and
+Sec. <Ref Label="Section_IOFunctions"/>.  The
 format is based on the well establised MaTrix market eXchange (MTX)
 Coordinate format developed at NIST, and is designed for full backward
 compatibility with this format.  Thus, the files are readable by any
@@ -198,7 +199,9 @@ Key="Gottesman-prime-power-2014"/>.
 @Subsection The algorithm
 @SubsectionLabel TheAlgorithmDetails 
 
+@LatexOnly \noindent\underline{%
 Case of **classical linear codes** 
+@LatexOnly }
 
 The algorithm <Ref Label="Subsection_TheProcedure"/> is closely
 related to the algorithm for finding minimum-weight codewords in a
@@ -254,7 +257,9 @@ have $k-1$ zeros), so it is **possible** that the performance of the IS
 algorithm on LDPC codes is actually closer to that on random codes as
 estimated by Leon <Cite Key="Leon-1988"/>.
 
+@LatexOnly \medskip\noindent\underline{%
 Case of **quantum CSS codes**
+@LatexOnly }
 
 In the case of a random CSS code (with matrices $P$ and $Q$ selected
 randomly, with the only requirement being the orthogonality between
@@ -288,7 +293,9 @@ the erasure threshold for $Z$-like codewords in the quantum CSS code
 with $H_X=P$ and $H_Z=Q$.
 
 
+@LatexOnly \medskip\noindent\underline{%
 **What is it that we do not understand?**
+@LatexOnly }
 
 What missing is an understanding of the statistics of the ISs of
 interest, namely, the ISs that overlap with a minimum-weight codeword
@@ -344,7 +351,7 @@ This hypothesis can be tested using Pearson's $\chi^2$ test.  Namely,
 in the limit where the total number of observations $N$ diverges, the
 quantity $$ X^2=\sum_{i=1}^m \frac{(n_i-N \pi_i)^2}{ N\pi_i}=
 N^{-1}\sum_{i=1}^m \frac{n_i^2}{\pi_i}-N
-\stackrel{\pi_i=1/m}=\frac{m}{N}\sum_{i=1}^m n_i^2-N, $$ is expected to be
+\stackrel{\pi_i=1/m}\to\frac{m}{N}\sum_{i=1}^m n_i^2-N, $$ is expected to be
 distributed according to the $\chi^2_{m-1}$ distribution with $m-1$
 parameters, see <Cite Key="Chernoff-Lehmann-1954"/> <Cite
 Key="Cramer-book-1999"/>.
@@ -368,8 +375,8 @@ likelihood of the null hypothesis that the codewords be equiprobable.
 
 
 The code supports reading matrices from an MTX file using `ReadMTXE`
-and writing new MTX file using `WriteMTXE` functions. Below the
-comprehensive description of the format is presented.
+and writing new MTX file using `WriteMTXE` functions.
+Below a description of the format is given.
 
 @Subsection Representation of field elements via integers
 
@@ -387,7 +394,7 @@ $q$ is a power of a prime, $q=p^m$.
   modulo an irreducible polynomial with coefficients in the prime
   field $GF(p)$.  In the actual file format, we chose to represent
   non-zero elements as integers, specifying the powers of a primitive
-  element, while the field zero is represented as $-1$.  Notice that,
+  element, while the zero field element is represented as $-1$.  Notice that,
   depending on the choice of the primitive element, the elements of
   the field may be permuted.  However, any such permutation is a field
   isomorphism preserving the multiplication table.  In particular,
@@ -398,24 +405,29 @@ $q$ is a power of a prime, $q=p^m$.
   $p$ for a prime field, and as the powers of the primitive element
   for an extension field.  This is often convenient, e.g., with $\pm1$
   matrices which obey the orthogonality condition already over
-  integers, and thus retain orthogonality over Z$(q)$ with any $q$.
+  integers, and thus retain orthogonality over Z$(q)$ with any $q$
+  (what is more relevant here, the same matrix would work with any
+  prime field).
 	
 @Subsection Matrix storage format
 
 The generator matrix storage format dependes on 2 parameters: `pair` and `type`.
 
-* With `pair=0` the matrix is assumed to be one of the block-matrices for a CSS code. In this case `type=integer`, since all elements of the matrix are integers.
+* With `pair=0` the matrix elements are stored in the usual order..
+  This is the defailt storage format for stabilizer generator matrices
+  of CSS codes.  In this case `type=integer`, since matrix elements
+  are stored as integers.
 
-* With `pair=1` the block matrix $(A,B)$ is assumed to be stored with intercalated
-  columns $(a_1,b_1,\ldots,a_n,b_n)$. In this case `type=integer`.
+* With `pair=1` the block matrix $(A,B)$ is stored with intercalated
+  columns $(a_1,b_1,\ldots,a_n,b_n)$.  In this case `type=integer`.
 
-* With `pair=2` the block matrix $(A,B)$ is assumed to be stored with
-  separated columns $(a_1,\ldots,a_n,b_1,\ldots,b_n)$. In this case
+* With `pair=2` the block matrix $(A,B)$ is stored with
+  separated columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$. In this case
   `type=integer`.
 
-* With `pair=3` the block matrix $(A,B)$ is assumed to be stored as a
-   complex matrix $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i
-   b_n)$. In this case `type=complex`, since matrix elements are
+* With `pair=3` the block matrix $(A,B)$ is stored as a complex matrix
+   $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i b_n)$. In this
+   case `type=complex`, since matrix elements are represented as
    complex integers.
 
 By default, `pair=0` corresponds to `type=integer` and `pair=3` corresponds to `type=complex`.
@@ -458,45 +470,112 @@ Then all non-zero elements are listed according to the `type`:
 
 * `type=integer`:
 @BeginCode  MMXFormatLineB
-row     column     element
+i     j     element[i,j]
 @EndCode
 @InsertCode MMXFormatLineB
 
 * `type=complex`:	
 @BeginCode  MMXFormatLineC
-row     column     Aj     Bj
+i     j     a[i,j]     b[i,j]
 @EndCode
 @InsertCode MMXFormatLineC
 
-@Section Example of MTXE file
+Notice that column and row numbers start with 1. 
 
-In this section an example of MTXE file with 5-qubit generator matrix, stored with `type=integer` and `pair=1` is presented.
+@Section Example MTXE files
 
-@BeginCode SampleFile
+In this section we give two sample MTXE files storing the stabilizer generator
+matrix of 5-qubit codes.
+
+First, matrix (with one redundant linearly-dependent row) stored with
+`type=integer` and `pair=1` (intercalated columns
+$[a_1,b_1,a_2,b_2,\ldots]$) is presented.  Notice that the number of
+columns is twice the actual length of the code. Even though the field
+is specified explicitly, this matrix would work with any
+prime field.
+
+@BeginCode SampleFileA
 %%MatrixMarket matrix coordinate integer general		
-% Field: GF(2)
-% 5-qubit generator matrix in a normal storage with permuted columns
+% Field: GF(7)
+% 5-qubit code generator matrix / normal storage with intercalated cols
 5 10 20
 1 1 1
 1 4 1
-1 6 1
-1 7 1
+1 6 -1
+1 7 -1
 2 3 1
 2 6 1
-2 8 1
-2 9 1
-3 1 1
+2 8 -1
+2 9 -1
+3 1 -1
 3 5 1
 3 8 1
-3 10 1
-4 2 1
-4 3 1
+3 10 -1
+4 2 -1
+4 3 -1
 4 7 1
 4 10 1
 5 2 1
-5 4 1
-5 5 1
+5 4 -1
+5 5 -1
 5 9 1
 @EndCode
-@InsertCode SampleFile
+@InsertCode SampleFileA
 
+This same matrix is stored in the file `matrices/n5k1A.mtx`.  This is
+how the matrix can be read and distance calculated:
+@BeginExample
+    lis:=ReadMTXE("matrices/n5k1A.mtx" );;
+    Print("field ",lis[1],"\n");
+#! field GF(7)
+    dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);
+#! 3
+@EndExample 
+
+
+The same matrix can also be stored with `type=complex` and `pair=3`
+(complex pairs $[a_1+i b_1,a_2+i b_2,\ldots]$).  In this format, the
+number of columns equals the code length.  
+
+@BeginCode SampleFileB
+%%MatrixMarket matrix coordinate complex general
+% works with any prime field
+% 5-qubit code generator matrix / normal storage with intercalated cols
+% [[5,1,3]]_p
+4 5 16
+1 1 1 0
+1 2 0 1
+1 3 0 -1
+1 4 -1 0
+2 2 1 0
+2 3 0 1
+2 4 0 -1
+2 5 -1 0
+3 1 -1 0
+3 3 1 0
+3 4 0 1
+3 5 0 -1
+4 1 0 -1
+4 2 -1 0
+4 4 1 0
+4 5 0 1
+@EndCode
+@InsertCode SampleFileB
+
+The matrix above is written in the file `matrices/n5k1.mtx`.  To
+calculate the distance, we need to specify the field [unless we want
+to use the default binary field].
+
+@BeginExample
+    lis:=ReadMTXE("matrices/n5k1.mtx" );;
+    Print("field ",lis[1],"\n");
+#! field GF(2)
+    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
+#! 3
+    q:=17;;
+    lis:=ReadMTXE("matrices/n5k1.mtx" : field:= GF(q));;
+    Print("field ",lis[1],"\n");
+#! field GF(17)
+    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
+#! 3
+@EndExample

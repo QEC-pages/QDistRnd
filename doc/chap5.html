@@ -32,7 +32,7 @@
 <span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5.html#X80B886F0796AF0D5">5.1-3 <span class="Heading">Explicit format of each line</span></a>
 </span>
 </div></div>
-<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X796491B7838B9D4D">5.2 <span class="Heading">Example of MTXE file</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5.html#X7F2C657F869D90AD">5.2 <span class="Heading">Example MTXE files</span></a>
 </span>
 </div>
 </div>
@@ -43,7 +43,7 @@
 
 <h4>5.1 <span class="Heading">General information</span></h4>
 
-<p>The code supports reading matrices from an MTX file using <code class="code">ReadMTXE</code> and writing new MTX file using <code class="code">WriteMTXE</code> functions. Below the comprehensive description of the format is presented.</p>
+<p>The code supports reading matrices from an MTX file using <code class="code">ReadMTXE</code> and writing new MTX file using <code class="code">WriteMTXE</code> functions. Below a description of the format is given.</p>
 
 <p><a id="X8269F2367856BB1E" name="X8269F2367856BB1E"></a></p>
 
@@ -59,13 +59,13 @@
 </ul>
 
 <ul>
-<li><p>When <span class="Math">q=p^m</span> with <span class="Math">m &gt; 1</span>, <span class="Math">F</span> is an extension field. Elements of such a field could in principle be represented as polynomials modulo an irreducible polynomial with coefficients in the prime field <span class="Math">GF(p)</span>. In the actual file format, we chose to represent non-zero elements as integers, specifying the powers of a primitive element, while the field zero is represented as <span class="Math">-1</span>. Notice that, depending on the choice of the primitive element, the elements of the field may be permuted. However, any such permutation is a field isomorphism preserving the multiplication table. In particular, orthogonality between the rows of the matrices is necessarily preserved.</p>
+<li><p>When <span class="Math">q=p^m</span> with <span class="Math">m &gt; 1</span>, <span class="Math">F</span> is an extension field. Elements of such a field could in principle be represented as polynomials modulo an irreducible polynomial with coefficients in the prime field <span class="Math">GF(p)</span>. In the actual file format, we chose to represent non-zero elements as integers, specifying the powers of a primitive element, while the zero field element is represented as <span class="Math">-1</span>. Notice that, depending on the choice of the primitive element, the elements of the field may be permuted. However, any such permutation is a field isomorphism preserving the multiplication table. In particular, orthogonality between the rows of the matrices is necessarily preserved.</p>
 
 </li>
 </ul>
 
 <ul>
-<li><p>On input, other integer values are allowed; they are taken modulo <span class="Math">p</span> for a prime field, and as the powers of the primitive element for an extension field. This is often convenient, e.g., with <span class="Math">\pm1</span> matrices which obey the orthogonality condition already over integers, and thus retain orthogonality over Z<span class="Math">(q)</span> with any <span class="Math">q</span>.</p>
+<li><p>On input, other integer values are allowed; they are taken modulo <span class="Math">p</span> for a prime field, and as the powers of the primitive element for an extension field. This is often convenient, e.g., with <span class="Math">\pm1</span> matrices which obey the orthogonality condition already over integers, and thus retain orthogonality over Z<span class="Math">(q)</span> with any <span class="Math">q</span> (what is more relevant here, the same matrix would work with any prime field).</p>
 
 </li>
 </ul>
@@ -77,25 +77,25 @@
 
 
 <ul>
-<li><p>With <code class="code">pair=0</code> the matrix is assumed to be one of the block-matrices for a CSS code. In this case <code class="code">type=integer</code>, since all elements of the matrix are integers.</p>
+<li><p>With <code class="code">pair=0</code> the matrix elements are stored in the usual order.. This is the defailt storage format for stabilizer generator matrices of CSS codes. In this case <code class="code">type=integer</code>, since matrix elements are stored as integers.</p>
 
 </li>
 </ul>
 
 <ul>
-<li><p>With <code class="code">pair=1</code> the block matrix <span class="Math">(A,B)</span> is assumed to be stored with intercalated columns <span class="Math">(a_1,b_1,\ldots,a_n,b_n)</span>. In this case <code class="code">type=integer</code>.</p>
+<li><p>With <code class="code">pair=1</code> the block matrix <span class="Math">(A,B)</span> is stored with intercalated columns <span class="Math">(a_1,b_1,\ldots,a_n,b_n)</span>. In this case <code class="code">type=integer</code>.</p>
 
 </li>
 </ul>
 
 <ul>
-<li><p>With <code class="code">pair=2</code> the block matrix <span class="Math">(A,B)</span> is assumed to be stored with separated columns <span class="Math">(a_1,\ldots,a_n,b_1,\ldots,b_n)</span>. In this case <code class="code">type=integer</code>.</p>
+<li><p>With <code class="code">pair=2</code> the block matrix <span class="Math">(A,B)</span> is stored with separated columns <span class="Math">(a_1,\ldots,a_n, b_1,\ldots,b_n)</span>. In this case <code class="code">type=integer</code>.</p>
 
 </li>
 </ul>
 
 <ul>
-<li><p>With <code class="code">pair=3</code> the block matrix <span class="Math">(A,B)</span> is assumed to be stored as a complex matrix <span class="Math">A+iB</span>, with columns <span class="Math">(a_1 + i b_1,\ldots,a_n + i b_n)</span>. In this case <code class="code">type=complex</code>, since matrix elements are complex integers.</p>
+<li><p>With <code class="code">pair=3</code> the block matrix <span class="Math">(A,B)</span> is stored as a complex matrix <span class="Math">A+iB</span>, with columns <span class="Math">(a_1 + i b_1,\ldots,a_n + i b_n)</span>. In this case <code class="code">type=complex</code>, since matrix elements are represented as complex integers.</p>
 
 </li>
 </ul>
@@ -147,7 +147,7 @@ rows     columns     (number of non-zero elements)
 </ul>
 
 <div class="example"><pre>
-row     column     element
+i     j     element[i,j]
 </pre></div>
 
 
@@ -158,41 +158,100 @@ row     column     element
 </ul>
 
 <div class="example"><pre>
-row     column     Aj     Bj
+i     j     a[i,j]     b[i,j]
 </pre></div>
 
-<p><a id="X796491B7838B9D4D" name="X796491B7838B9D4D"></a></p>
+<p>Notice that column and row numbers start with 1.</p>
 
-<h4>5.2 <span class="Heading">Example of MTXE file</span></h4>
+<p><a id="X7F2C657F869D90AD" name="X7F2C657F869D90AD"></a></p>
 
-<p>In this section an example of MTXE file with 5-qubit generator matrix, stored with <code class="code">type=integer</code> and <code class="code">pair=1</code> is presented.</p>
+<h4>5.2 <span class="Heading">Example MTXE files</span></h4>
+
+<p>In this section we give two sample MTXE files storing the stabilizer generator matrix of 5-qubit codes.</p>
+
+<p>First, matrix (with one redundant linearly-dependent row) stored with <code class="code">type=integer</code> and <code class="code">pair=1</code> (intercalated columns <span class="Math">[a_1,b_1,a_2,b_2,\ldots]</span>) is presented. Notice that the number of columns is twice the actual length of the code. Even though the field is specified explicitly, this matrix would work with any prime field.</p>
 
 
 <div class="example"><pre>
 %%MatrixMarket matrix coordinate integer general		
-% Field: GF(2)
-% 5-qubit generator matrix in a normal storage with permuted columns
+% Field: GF(7)
+% 5-qubit code generator matrix / normal storage with intercalated cols
 5 10 20
 1 1 1
 1 4 1
-1 6 1
-1 7 1
+1 6 -1
+1 7 -1
 2 3 1
 2 6 1
-2 8 1
-2 9 1
-3 1 1
+2 8 -1
+2 9 -1
+3 1 -1
 3 5 1
 3 8 1
-3 10 1
-4 2 1
-4 3 1
+3 10 -1
+4 2 -1
+4 3 -1
 4 7 1
 4 10 1
 5 2 1
-5 4 1
-5 5 1
+5 4 -1
+5 5 -1
 5 9 1
+</pre></div>
+
+<p>This same matrix is stored in the file <code class="code">matrices/n5k1A.mtx</code>. This is how the matrix can be read and distance calculated:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE("matrices/n5k1A.mtx" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(7)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);</span>
+3
+</pre></div>
+
+<p>The same matrix can also be stored with <code class="code">type=complex</code> and <code class="code">pair=3</code> (complex pairs <span class="Math">[a_1+i b_1,a_2+i b_2,\ldots]</span>). In this format, the number of columns equals the code length.</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate complex general
+% works with any prime field
+% 5-qubit code generator matrix / normal storage with intercalated cols
+% [[5,1,3]]_p
+4 5 16
+1 1 1 0
+1 2 0 1
+1 3 0 -1
+1 4 -1 0
+2 2 1 0
+2 3 0 1
+2 4 0 -1
+2 5 -1 0
+3 1 -1 0
+3 3 1 0
+3 4 0 1
+3 5 0 -1
+4 1 0 -1
+4 2 -1 0
+4 4 1 0
+4 5 0 1
+</pre></div>
+
+<p>The matrix above is written in the file <code class="code">matrices/n5k1.mtx</code>. To calculate the distance, we need to specify the field [unless we want to use the default binary field].</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE("matrices/n5k1.mtx" );;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(2)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);</span>
+3
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    q:=17;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE("matrices/n5k1.mtx" : field:= GF(q));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(17)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);</span>
+3
 </pre></div>
 
 

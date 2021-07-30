@@ -60,14 +60,14 @@
 
 <h5>4.1-1 <span class="Heading">Examples</span></h5>
 
-<p>Here are a few simple examples illustrating the use of distance functions.</p>
+<p>Here are a few simple examples illustrating the use of distance functions. In all examples, we use <code class="code">DistRandCSS</code> and <code class="code">DistRandStab</code> with <code class="code">debug=2</code> to ensure that row orthogonality in the input matrices is verified.</p>
 
 
 <div class="example"><pre>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F:=GF(5);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hz:=One(F)*[[1, 1,1,1]];;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,0 : field:=F);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,0,2 : field:=F);</span>
 2
 </pre></div>
 
@@ -75,7 +75,7 @@
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,2 : field:=F);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,2,2 : field:=F);</span>
 -2
 </pre></div>
 
@@ -87,7 +87,7 @@
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,0,  0,0,  1,0, -1,0 ],</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandStab(H,100,0 : field:=F);</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandStab(H,100,0,2 : field:=F);</span>
 2
 </pre></div>
 
@@ -250,7 +250,7 @@
 
 <p>Any additional entries in the second line are silently ignored. By default, <span class="Math">GF(2)</span> is assumed; the default can be overriden by the optional <code class="code">field</code> argument. If the field is specified both in the file and by the optional argument, the corresponding values must match.</p>
 
-<p>See Chapter <a href="chap5.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> for the details of how the elements of the group are represented depending on whether the field is a prime field (<span class="Math"> q </span> a prime) or an extension field with <span class="Math"> q=p^m </span>, <span class="Math"> m&gt;1 </span>.</p>
+<p>See Chapter <a href="chap5.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> for the details of how the elements of the group are represented depending on whether the field is a prime field (<span class="Math"> q </span> a prime) or an extension field with <span class="Math"> q=p^m </span>, <span class="Math">p</span> prime, and <span class="Math">m&gt;1</span>.</p>
 
 <p><a id="X82F72B6082EEDDF9" name="X82F72B6082EEDDF9"></a></p>
 
@@ -353,7 +353,7 @@
 <h5>4.3-5 QDR_DoProbOut</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_DoProbOut</code>( <var class="Arg">vector</var>, <var class="Arg">n</var>, <var class="Arg">num</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>aux function to print out the relevant probabilities given the list <code class="code">mult</code> of multiplicities of the vectors found. Additional parameters are <code class="code">n</code>, the code length, and <code class="code">num</code>, the number of repetitions; these are ignored in the present version of the program. See <a href="chap3.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a> for the importance of these parameters.</p>
+<p>aux function to print out the relevant probabilities given the list <code class="code">vector</code> of multiplicities of the codewords found. Additional parameters are <code class="code">n</code>, the code length, and <code class="code">num</code>, the number of repetitions; these are ignored in the present version of the program. See <a href="chap3.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a> for the importance of these parameters.</p>
 
 <p><a id="X8020FCA787C830FE" name="X8020FCA787C830FE"></a></p>
 

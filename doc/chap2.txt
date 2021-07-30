@@ -1,0 +1,132 @@
+  
+  [1X2 [33X[0;0YExamples[133X[101X
+  
+  [33X[0;0YA  few  simple  examples  illustrating  the  use  of  the  package. For more
+  information see Chapter [14X4[114X[133X
+  
+  
+  [1X2.1 [33X[0;0YThe 5-qubit code[133X[101X
+  
+  [33X[0;0YGenerate the matrix of the 5-qubit code over GF(3) with the stabilizer group
+  generated  by  cyclic  shifts of the operator [23XX_0Z_1 \bar Z_2 \bar X_3[123X which
+  corresponds to the polynomial [23Xh(x)=1+x^3-x^5-x^6[123X (a factor [23XX_i^a[123X corresponds
+  to  a  monomial  [23Xa  x^{2i}[123X,  and  a  factor [23XZ_i^b[123X to a monomial [23Xb x^{2i+1}[123X),
+  calculate the distance, and save into the file.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xq:=3;; F:=GF(q);; [127X[104X
+    [4X[25Xgap>[125X [27Xx:=Indeterminate(F,"x");; poly:=One(F)*(1+x^3-x^5-x^6);;[127X[104X
+    [4X[25Xgap>[125X [27Xn:=5;;[127X[104X
+    [4X[25Xgap>[125X [27Xmat:=QDR_DoCirc(poly,n-1,2*n,F);; #construct circulant matrix with 4 rows [127X[104X
+    [4X[25Xgap>[125X [27XDisplay(mat);[127X[104X
+    [4X[28X 1 . . 1 . 2 2 . . .[128X[104X
+    [4X[28X . . 1 . . 1 . 2 2 .[128X[104X
+    [4X[28X 2 . . . 1 . . 1 . 2[128X[104X
+    [4X[28X . 2 2 . . . 1 . . 1[128X[104X
+    [4X[25Xgap>[125X [27Xd:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27XWriteMTXE("tmp/n5_q3_complex.mtx",3,mat,[127X[104X
+    [4X[25X>[125X [27X        "% The 5-qubit code [[5,1,3]]_3",[127X[104X
+    [4X[25X>[125X [27X        "% Generated from h(x)=1+x^3-x^5-x^6",[127X[104X
+    [4X[25X>[125X [27X        "% Example from the QDistRnd GAP package"   : field:=F);[127X[104X
+    [4X[28XFile tmp/n5_q3_complex.mtx was created[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  is  the  contents  of  the  resulting  file which also illustrates the
+  [10Xcomplex[110X  data format. Here a pair [23X(a_{i,j},b_{i,j})[123X in row [23Xi[123X and column [23Xj[123X is
+  written as 4 integers, "[23Xi[123X [23Xj[123X [23Xa_{i,j}[123X [23Xb_{i,j}[123X", e.g., "1 2 0 1" for the second
+  entry in the 1st row, so that the matrix in the file has [23Xn[123X columns.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[28X%%MatrixMarket matrix coordinate complex general[128X[104X
+    [4X[28X% Field: GF(3)[128X[104X
+    [4X[28X% The 5-qubit code [[5,1,3]]_3[128X[104X
+    [4X[28X% Generated from h(x)=1+x^3-x^5-x^6[128X[104X
+    [4X[28X% Example from the QDistRnd GAP package[128X[104X
+    [4X[28X% Values Z(3) are given[128X[104X
+    [4X[28X4 5 20[128X[104X
+    [4X[28X1 1 1 0[128X[104X
+    [4X[28X1 2 0 1[128X[104X
+    [4X[28X1 3 0 2[128X[104X
+    [4X[28X1 4 2 0[128X[104X
+    [4X[28X2 2 1 0[128X[104X
+    [4X[28X2 3 0 1[128X[104X
+    [4X[28X2 4 0 2[128X[104X
+    [4X[28X2 5 2 0[128X[104X
+    [4X[28X3 1 2 0[128X[104X
+    [4X[28X3 3 1 0[128X[104X
+    [4X[28X3 4 0 1[128X[104X
+    [4X[28X3 5 0 2[128X[104X
+    [4X[28X4 1 0 2[128X[104X
+    [4X[28X4 2 2 0[128X[104X
+    [4X[28X4 4 1 0[128X[104X
+    [4X[28X4 5 0 1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAnd  now  let  us  read  the matrix back the file. In the simplest case, all
+  optional   parameters   are   read   from   the  file.  Output  is  a  list:
+  [10X[field,mode,matrix,(list  of  comments)][110X.  Notice  that  a  [10Xmode=2[110X or [10Xmode=3[110X
+  matrix  is  always  converted  to [10Xmode=1[110X, i.e., with [23X2n[123X intercalated columns
+  [23X(a_1,b_1,a_2,b_2,\ldots)[123X.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  [127X[104X
+    [4X[25Xgap>[125X [27Xlis[1]; # the field [127X[104X
+    [4X[28XGF(3)[128X[104X
+    [4X[25Xgap>[125X [27Xlis[2]; # converted to `mode=1`[127X[104X
+    [4X[28X1[128X[104X
+    [4X[25Xgap>[125X [27XDisplay(lis[3]);[127X[104X
+    [4X[28X 1 . . 1 . 2 2 . . .[128X[104X
+    [4X[28X . . 1 . . 1 . 2 2 .[128X[104X
+    [4X[28X 2 . . . 1 . . 1 . 2[128X[104X
+    [4X[28X . 2 2 . . . 1 . . 1[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  remaining  portion is the list of comments. Notice that the 1st and the
+  last coment lines have been added automatically.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27Xlis[4];[127X[104X
+    [4X[28X[ "% Field: GF(3)", "% The 5-qubit code [[5,1,3]]_3",[128X[104X
+    [4X[28X  "% Generated from h(x)=1+x^3-x^5-x^6",[128X[104X
+    [4X[28X  "% Example from the QDistRnd GAP package", "% Values Z(3) are given" ][128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.2 [33X[0;0YHyperbolic codes from a file[133X[101X
+  
+  [33X[0;0YHere we read a pair of matrices from two different files which correspond to
+  a  hyperbolic  code  [23X[[80,18,5]][123X with row weight [23Xw=5[123X and the asymptotic rate
+  [23X1/5[123X. Notice that [10Xpair=0[110X is used for both files (regular matrices).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XlisX:=ReadMTXE("matrices/QX80.mtx",0);;[127X[104X
+    [4X[25Xgap>[125X [27XGX:=lisX[3];;[127X[104X
+    [4X[25Xgap>[125X [27XlisZ:=ReadMTXE("matrices/QZ80.mtx",0);;[127X[104X
+    [4X[25Xgap>[125X [27XGZ:=lisZ[3];;[127X[104X
+    [4X[25Xgap>[125X [27XDistRandCSS(GX,GZ,100,1,2:field:=GF(2));[127X[104X
+    [4X[28X5[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  are  the matrices for a much bigger hyperbolic code [23X[[900,182,8]][123X from
+  the  same  family.  Note  that the distance here scales only logarithmically
+  with the code length (this code takes about 15 seconds on a typical notebook
+  and will not actually be executed).[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XlisX:=ReadMTXE("matrices/QX900.mtx",0);;[127X[104X
+    [4X[25Xgap>[125X [27XGX:=lisX[3];;[127X[104X
+    [4X[25Xgap>[125X [27XlisZ:=ReadMTXE("matrices/QZ900.mtx",0);;[127X[104X
+    [4X[25Xgap>[125X [27XGZ:=lisZ[3];;[127X[104X
+    [4X[25Xgap>[125X [27XDistRandCSS(GX,GZ,1000,1,0:field:=GF(2));[127X[104X
+    [4X[28X8[128X[104X
+  [4X[32X[104X
+  
+  
+  [1X2.3 [33X[0;0YRandomly generated cyclic codes[133X[101X
+  
+  [33X[0;0YAs  a  final  and hopefully somewhat useful example, the file "lib/cyclic.g"
+  contains  a piece of code searching for random one-generator cyclic codes of
+  length  [23Xn=15[123X  over the field [23XGF(5)[123X, and generator weight [10Xwei=4[110X. Note how the
+  [10Xmindist[110X parameter and the option [10Xmaxav[110X are used to speed up the calculation.[133X
+  

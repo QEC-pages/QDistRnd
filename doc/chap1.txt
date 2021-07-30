@@ -1,0 +1,33 @@
+  
+  [1X1 [33X[0;0YIntroduction[133X[101X
+  
+  [33X[0;0YThe [5XGAP[105X package [5XQDistRnd[105X gives a reference implementation of a probabilistic
+  algorithm   for   finding  the  distance  of  a  [23Xq[123X-ary  quantum  low-density
+  parity-check  code  linear  over  a  finite field [23XF=GF(q)[123X. While there is no
+  guarantee  of  the  performance of the algorithm (the existing bounds in the
+  case  of  quantum  LDPC codes are weak, see [14X3.2-2[114X), an empirical convergence
+  criterion  is  given  to  estimate  the  probability  that  a minimum weight
+  codeword  has  been found. Versions for CSS and regular stabilizer codes are
+  given, see Section [14X4.1[114X[133X
+  
+  [33X[0;0YIn  addition,  a  format  for storing matrices associated with [23Xq[123X-ary quantum
+  codes  is introduced and implemented, see Chapter [14X5[114X and Sec. [14X4.2[114X. The format
+  is  based  on  the  well  establised MaTrix market eXchange (MTX) Coordinate
+  format  developed  at  NIST, and is designed for full backward compatibility
+  with this format. Thus, the files are readable by any software package which
+  supports MTX.[133X
+  
+  [33X[0;0YThe  routines in the package are derived from the code originally written by
+  one  of  the  authors (LPP). A related Covering Set algorithm has a provable
+  performance  for  generic  (non-LDPC) quantum codes based on random matrices
+  [DKP17]. Implemented version is a variant of the random [13Xinformation set[113X (IS)
+  algorithm based on random column permutations and Gauss' elimination [Leo88]
+  [Kru89] [CG90].[133X
+  
+  [33X[0;0YThe  [5XGAP[105X computer algebra system was chosen because of its excellent support
+  for   linear   algebra   over  finite  fields.  Here  we  give  a  reference
+  implementation  of  the  algorithm,  with  a  focus  on  matrix  formats and
+  generality,  as  opposed  to  performance.  Nevertheless,  the  routines are
+  sufficiently  fast  when  dealing  with codes of practically important block
+  lengths [23Xn\lesssim 10^3[123X.[133X
+  

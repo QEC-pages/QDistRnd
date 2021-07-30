@@ -1,0 +1,209 @@
+  
+  [1X5 [33X[0;0YExtended MTX (MTXE) File Format[133X[101X
+  
+  
+  [1X5.1 [33X[0;0YGeneral information[133X[101X
+  
+  [33X[0;0YThe  code  supports  reading  matrices  from  an MTX file using [10XReadMTXE[110X and
+  writing  new  MTX file using [10XWriteMTXE[110X functions. Below a description of the
+  format is given.[133X
+  
+  
+  [1X5.1-1 [33X[0;0YRepresentation of field elements via integers[133X[101X
+  
+  [33X[0;0YEvery  finite  field  is  isomorphic to a Galois field [23XF=GF(q)[123X, where [23Xq[123X is a
+  power of a prime, [23Xq=p^m[123X.[133X
+  
+  [30X    [33X[0;6YWhen  [23Xq=p[123X  is a prime, [23XF[123X is a prime field, isomorphic to the ring Z[23X(q)[123X
+        of integers modulo [23Xq[123X. In such a case, elements of the field are stored
+        directly as integers from Z[23X(p)[123X, ranging from [23X0[123X to [23Xp-1[123X.[133X
+  
+  [30X    [33X[0;6YWhen  [23Xq=p^m[123X  with  [23Xm  > 1[123X, [23XF[123X is an extension field. Elements of such a
+        field  could  in  principle  be  represented  as polynomials modulo an
+        irreducible  polynomial with coefficients in the prime field [23XGF(p)[123X. In
+        the  actual  file  format,  we chose to represent non-zero elements as
+        integers, specifying the powers of a primitive element, while the zero
+        field  element  is  represented  as  [23X-1[123X. Notice that, depending on the
+        choice  of  the  primitive  element,  the elements of the field may be
+        permuted.  However,  any  such  permutation  is  a  field  isomorphism
+        preserving  the  multiplication  table.  In  particular, orthogonality
+        between the rows of the matrices is necessarily preserved.[133X
+  
+  [30X    [33X[0;6YOn  input,  other  integer values are allowed; they are taken modulo [23Xp[123X
+        for  a  prime field, and as the powers of the primitive element for an
+        extension  field.  This  is often convenient, e.g., with [23X\pm1[123X matrices
+        which obey the orthogonality condition already over integers, and thus
+        retain orthogonality over Z[23X(q)[123X with any [23Xq[123X (what is more relevant here,
+        the same matrix would work with any prime field).[133X
+  
+  
+  [1X5.1-2 [33X[0;0YMatrix storage format[133X[101X
+  
+  [33X[0;0YThe generator matrix storage format dependes on 2 parameters: [10Xpair[110X and [10Xtype[110X.[133X
+  
+  [30X    [33X[0;6YWith  [10Xpair=0[110X  the matrix elements are stored in the usual order.. This
+        is the defailt storage format for stabilizer generator matrices of CSS
+        codes.  In this case [10Xtype=integer[110X, since matrix elements are stored as
+        integers.[133X
+  
+  [30X    [33X[0;6YWith [10Xpair=1[110X the block matrix [23X(A,B)[123X is stored with intercalated columns
+        [23X(a_1,b_1,\ldots,a_n,b_n)[123X. In this case [10Xtype=integer[110X.[133X
+  
+  [30X    [33X[0;6YWith  [10Xpair=2[110X  the  block matrix [23X(A,B)[123X is stored with separated columns
+        [23X(a_1,\ldots,a_n, b_1,\ldots,b_n)[123X. In this case [10Xtype=integer[110X.[133X
+  
+  [30X    [33X[0;6YWith [10Xpair=3[110X the block matrix [23X(A,B)[123X is stored as a complex matrix [23XA+iB[123X,
+        with  columns  [23X(a_1  +  i  b_1,\ldots,a_n  +  i  b_n)[123X.  In  this  case
+        [10Xtype=complex[110X,   since  matrix  elements  are  represented  as  complex
+        integers.[133X
+  
+  [33X[0;0YBy  default,  [10Xpair=0[110X  corresponds  to [10Xtype=integer[110X and [10Xpair=3[110X corresponds to
+  [10Xtype=complex[110X.[133X
+  
+  [33X[0;0YFor  efficiency reasons, the function [10XDistRandStab[110X [14X4.1[114X assumes the generator
+  matrix with intercalated columns.[133X
+  
+  
+  [1X5.1-3 [33X[0;0YExplicit format of each line[133X[101X
+  
+  [33X[0;0YThe first line must have the following form:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate `type` general[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywith [10Xtype[110X either [10Xinteger[110X or [10Xcomplex[110X.[133X
+  
+  [33X[0;0YThe  second  line is optional and specifies the field. The field may be left
+  undefined;  by  default,  it  is  [23XGF(2)[123X, or it can be specified by hand when
+  reading the matrices.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Field: GF(q) [104X
+  [4X[32X[104X
+  
+  [33X[0;0YNext  the  comment  section is specified, with each line starting with the [10X%[110X
+  symbol:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Example of the comment line[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter the comment section there is the line with properties of the matrix:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xrows     columns     (number of non-zero elements)[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThen all non-zero elements are listed according to the [10Xtype[110X:[133X
+  
+  [30X    [33X[0;6Y[10Xtype=integer[110X:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xi     j     element[i,j][104X
+  [4X[32X[104X
+  
+  [30X    [33X[0;6Y[10Xtype=complex[110X:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xi     j     a[i,j]     b[i,j][104X
+  [4X[32X[104X
+  
+  [33X[0;0YNotice that column and row numbers start with 1.[133X
+  
+  
+  [1X5.2 [33X[0;0YExample MTXE files[133X[101X
+  
+  [33X[0;0YIn  this  section  we  give  two  sample  MTXE  files storing the stabilizer
+  generator matrix of 5-qubit codes.[133X
+  
+  [33X[0;0YFirst,  matrix  (with  one  redundant  linearly-dependent  row)  stored with
+  [10Xtype=integer[110X  and  [10Xpair=1[110X (intercalated columns [23X[a_1,b_1,a_2,b_2,\ldots][123X) is
+  presented.  Notice  that the number of columns is twice the actual length of
+  the  code.  Even though the field is specified explicitly, this matrix would
+  work with any prime field.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate integer general		[104X
+    [4X% Field: GF(7)[104X
+    [4X% 5-qubit code generator matrix / normal storage with intercalated cols[104X
+    [4X5 10 20[104X
+    [4X1 1 1[104X
+    [4X1 4 1[104X
+    [4X1 6 -1[104X
+    [4X1 7 -1[104X
+    [4X2 3 1[104X
+    [4X2 6 1[104X
+    [4X2 8 -1[104X
+    [4X2 9 -1[104X
+    [4X3 1 -1[104X
+    [4X3 5 1[104X
+    [4X3 8 1[104X
+    [4X3 10 -1[104X
+    [4X4 2 -1[104X
+    [4X4 3 -1[104X
+    [4X4 7 1[104X
+    [4X4 10 1[104X
+    [4X5 2 1[104X
+    [4X5 4 -1[104X
+    [4X5 5 -1[104X
+    [4X5 9 1[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  same  matrix is stored in the file [10Xmatrices/n5k1A.mtx[110X. This is how the
+  matrix can be read and distance calculated:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE("matrices/n5k1A.mtx" );;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(7)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  same  matrix  can  also be stored with [10Xtype=complex[110X and [10Xpair=3[110X (complex
+  pairs  [23X[a_1+i  b_1,a_2+i b_2,\ldots][123X). In this format, the number of columns
+  equals the code length.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate complex general[104X
+    [4X% works with any prime field[104X
+    [4X% 5-qubit code generator matrix / normal storage with intercalated cols[104X
+    [4X% [[5,1,3]]_p[104X
+    [4X4 5 16[104X
+    [4X1 1 1 0[104X
+    [4X1 2 0 1[104X
+    [4X1 3 0 -1[104X
+    [4X1 4 -1 0[104X
+    [4X2 2 1 0[104X
+    [4X2 3 0 1[104X
+    [4X2 4 0 -1[104X
+    [4X2 5 -1 0[104X
+    [4X3 1 -1 0[104X
+    [4X3 3 1 0[104X
+    [4X3 4 0 1[104X
+    [4X3 5 0 -1[104X
+    [4X4 1 0 -1[104X
+    [4X4 2 -1 0[104X
+    [4X4 4 1 0[104X
+    [4X4 5 0 1[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  matrix above is written in the file [10Xmatrices/n5k1.mtx[110X. To calculate the
+  distance,  we  need  to specify the field [unless we want to use the default
+  binary field].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE("matrices/n5k1.mtx" );;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(2)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27X    q:=17;;[127X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE("matrices/n5k1.mtx" : field:= GF(q));;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(17)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  

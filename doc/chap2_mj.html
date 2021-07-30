@@ -133,7 +133,7 @@ GF(3)
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GX:=lisX[3];;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lisZ:=ReadMTXE("matrices/QZ80.mtx",0);;</span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">GZ:=lisZ[3];;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(GX,GZ,100,1:field:=GF(2));</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(GX,GZ,100,1,2:field:=GF(2));</span>
 5
 </pre></div>
 
@@ -153,7 +153,7 @@ GF(3)
 
 <h4>2.3 <span class="Heading">Randomly generated cyclic codes</span></h4>
 
-<p>As a final and hopefully somewhat useful example, the file "examples/cyclic.g" contains a piece of code searching for random one-generator cyclic codes of length <span class="SimpleMath">\(n=15\)</span> over the field <span class="SimpleMath">\(GF(5)\)</span>, and generator weight <code class="code">wei=4</code>. Note how the <code class="code">mindist</code> parameter and the option <code class="code">maxav</code> are used to speed up the calculation.</p>
+<p>As a final and hopefully somewhat useful example, the file "lib/cyclic.g" contains a piece of code searching for random one-generator cyclic codes of length <span class="SimpleMath">\(n=15\)</span> over the field <span class="SimpleMath">\(GF(5)\)</span>, and generator weight <code class="code">wei=4</code>. Note how the <code class="code">mindist</code> parameter and the option <code class="code">maxav</code> are used to speed up the calculation.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>
