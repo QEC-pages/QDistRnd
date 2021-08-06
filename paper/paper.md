@@ -1,4 +1,4 @@
----
+--- 
 title: 'QDistRnd: A GAP package for computing the distance of quantum error-correcting codes'
 tags:
   - GAP
@@ -44,39 +44,28 @@ supports MTX.
 
 # Statement of need
 
-Quantum computation is hard, in particular, because of the fragility
-of multi-particle quantum correlations; in the presence of errors
-(noise, environment, or just random control errors) they can be
-destroyed rapidly.  Quantum error correction (QEC) gives a unique way
-of dealing with such a fragility and enables (at least theoretically)
-an arbitrarily long quantum computation when error probability $p$ is
-below certain threshold, $p_c>0$.  QEC requires the use of specially
-designed quantum error-correcting codes, whose development 
+Quantum computation is hard, primarily, because of the fragility of
+multi-particle quantum correlations; these correlations can be
+destroyed rapidly in the presence of errors (noise, environment, or
+just random control errors) [@Nielsen-book].  Quantum error correction
+(QEC) gives a unique way of dealing with such a fragility and enables
+(at least theoretically) an arbitrarily long quantum computation when
+error probability $p$ is below certain threshold, $p_c>0$.
+
+QEC requires the use of specially designed quantum error-correcting
+codes (QECCs).  One of the most important parameters of a QECC is the
+code distance, the minimum weight of a non-trivial logical operator in
+the code.  While for some code families the distance is known or can
+be related to that of a classical linear error-correcting code, e.g.,
+in the case of hypergraph-product and related codes
+[@Tillich-Zemor-2009,Zeng-Pryadko-2018; @Zeng-Pryadko-hprod-2020, in
+most cases the distance has to be computed numerically.
+
+So far, there has been very little available software for computing
+the distance of quantum codes, and none at all for non-binary codes.   
 
 Development of quantum error
 
-
-A significant hurdle to overcome is to build a
-sufficient number of non-trivial example codes.  Over the years, the
-PI has accumulated a number of such examples, generated with different
-techniques.  Some of these codes are now available in the repository
-\texttt{Quantum\_LDPC\_Codes} at the group's \texttt{github} page at
-\url{http://github.com/QEC-pages}.  The data files are currently
-ordered by construction.  As the number of different codes in the
-repository grows, additional listings ordering available codes by
-generator weight and block length, as, e.g., in David MacKay's
-Encyclopedia of Sparse Graph Codes\cite{MacKay-enciclopedia-2017},
-will be added.  The intent is to cover quantum codes with block sizes
-up to $n =10^3$.  Comparing codes directly will also permit
-task-specific optimization of codes.  \begin{problem} Expand the
-repository of quantum LDPC codes by new codes constructed.  Invite
-contributions by other researchers.  \end{problem} Notice that binary
-and $q$-ary codes can be easily stored in Matrix Market
-format\cite{nist-mm-format}, possibly with an extension specifying the
-base.  When mixed-base codes become available, their storage would
-require a special format to be developed (e.g., by listing each block
-of columns corresponding to qudits with different dimensions
-separately).
 
 Another issue of practical importance is the software for dealing with
 quantum codes, e.g., distance verification or syndrome-based decoding.
@@ -101,17 +90,6 @@ Presently available at the group's \texttt{github} repository are:
   The programs were used for simulations related to
   Refs.~\onlinecite{Zeng-Pryadko-2018,Zeng-Pryadko-hprod-2020}.
 \end{itemize}
-
-\begin{problem}
-  Publish in an open-source repository the programs implementing
-  algorithms designed during this Project.  Maintain already published
-  programs by fixing bugs and updating functionality occasionally.
-\end{problem}
-\noindent In addition, brief descriptions of the software packages
-deemed particularly useful to others will be published in {SoftwareX}
-(\url{https://www.journals.elsevier.com/softwarex/}) or the {Journal
-  of Open Research Software}
-(\url{https://openresearchsoftware.metajnl.com/}).
 
 
 The routines in the package are derived from the code originally written
