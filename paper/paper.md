@@ -23,7 +23,7 @@ affiliations:
   - name: Science Institute, University of Iceland, Dunhagi-3, IS-107 Reykjavik, Iceland
     index: 3
  date: 6 August 2021
- bibliography: QDistRnd.bib
+ bibliography: doc/QDistRnd.bib
  ---
 
 # Summary
