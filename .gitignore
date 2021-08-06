@@ -1,0 +1,8 @@
+# instruct git to ignore these files:
+*~
+*.el
+doc/*.html
+doc/chap*.txt
+doc/manual.pdf
+doc/*.tex
+auto/*
