@@ -6,3 +6,4 @@ doc/chap*.txt
 doc/manual.pdf
 doc/*.tex
 auto/*
+tst/*.tst
