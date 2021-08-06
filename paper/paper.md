@@ -58,7 +58,7 @@ code distance, the minimum weight of a non-trivial logical operator in
 the code.  While for some code families the distance is known or can
 be related to that of a classical linear error-correcting code, e.g.,
 in the case of hypergraph-product and related codes
-[@Tillich-Zemor-2009,Zeng-Pryadko-2018; @Zeng-Pryadko-hprod-2020, in
+[@Tillich-Zemor-2009,Zeng-Pryadko-2018; @Zeng-Pryadko-hprod-2020], in
 most cases the distance has to be computed numerically.
 
 So far, there has been very little available software for computing
@@ -70,25 +70,21 @@ Development of quantum error
 Another issue of practical importance is the software for dealing with
 quantum codes, e.g., distance verification or syndrome-based decoding.
 Writing an efficient program that works with large codes is highly
-non-trivial.  For example, recent Intel processors support extended
-instruction sets for bitwise logic on binary vectors of up to 512 bits
-in length (\texttt{AVX-512}); this speeds up linear algebra over
-$\mathbb{F}_2$ by orders of magnitude, compared to what one can get,
-e.g., with \href{http://itpp.sourceforge.net/}{\texttt{IT++}} library.
+non-trivial.  
 
 Presently available at the group's \texttt{github} repository are:
 \begin{itemize}
 \item a program written by Michael Woolls and Weilei Zeng for error
   propagation through a Clifford circuit.  The program was used in
   simulations for
-  Ref.~\onlinecite{Zeng-Ashikhmin-Woolls-Pryadko-2019}.
+  [@Zeng-Ashikhmin-Woolls-Pryadko-2019].
 \item two programs written by Weilei Zeng for generating
   higher-dimensional product codes and calculating their parameters;
   it includes a subroutine for calculating the distance of a quantum
   CSS code using random information set
-  decoder\cite{Prange-1962,Chua-Yang-1988,Dumer-Kovalev-Pryadko-IEEE-2017}.
+  decoder [@Prange-1962].
   The programs were used for simulations related to
-  Refs.~\onlinecite{Zeng-Pryadko-2018,Zeng-Pryadko-hprod-2020}.
+  [@Zeng-Pryadko-2018; @Zeng-Pryadko-hprod-2020].
 \end{itemize}
 
 
@@ -98,8 +94,7 @@ provable performance for generic (non-LDPC) quantum codes based on
 random matrices <Cite Key="Dumer-Kovalev-Pryadko-IEEE-2017"/>.
 Implemented version is a variant of the random **information set**
 (IS) algorithm based on random column permutations and Gauss'
-elimination <Cite Key="Leon-1988"/> <Cite Key="Kruk-1989"/> <Cite
-Key="Coffey-Goodman-1990"/>.
+elimination [@Leon-1988; @Kruk-1989; Coffey-Goodman-1990].
 
 The &GAP; computer algebra system was chosen because of its excellent
 support for linear algebra over finite fields.  Here we give a
@@ -109,8 +104,6 @@ routines are sufficiently fast when dealing with codes of practically
 important block lengths $n\lesssim 10^3$.
 
 # Statement of need
-
-# 
 
 # Acknowledgements
 
