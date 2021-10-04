@@ -1,5 +1,4 @@
 --- 
----
 title: 'QDistRnd: A GAP package for computing the distance of quantum error-correcting codes'
 tags:
   - GAP
