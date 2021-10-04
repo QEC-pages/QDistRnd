@@ -1,11 +1,13 @@
 ---
-title: 'Gala: A Python package for galactic dynamics'
+title: 'QDistRnd: A GAP package for computing the distance of quantum error-correcting codes'
 tags:
-  - Python
-  - astronomy
-  - dynamics
-  - galactic dynamics
-  - milky way
+  - GAP
+  - Quantum Error Correction
+  - QECC
+  - Quantum Error-Correcting Code
+  - Qudit code
+  - quantum stabilizer code
+  - CSS code
 authors:
   - name: Adrian M. Price-Whelan^[co-first author] # note this makes a footnote saying 'co-first author'
     orcid: 0000-0003-0872-7098
