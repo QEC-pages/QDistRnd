@@ -29,7 +29,7 @@ affiliations:
 
 # Summary
 
-The GAP package `QDistRnd` implements a probabilistic algorithm for
+The GAP [@Nielsen-book] package `QDistRnd` implements a probabilistic algorithm for
 finding the minimum distance of a quantum code linear over a finite
 field $\mathop{\rm GF}(q)$. At each step several codewords are
 randomly drawn from a distribution biased toward smaller weights. The
