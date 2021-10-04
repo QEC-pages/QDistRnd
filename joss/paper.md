@@ -18,11 +18,11 @@ authors:
     affiliation: 3
 affiliations: 
  - name: Department of Physics & Astronomy, University of California, Riverside, California, 92521 USA
-    index: 1
+   index: 1
  - name: The Department of Physics & Engineering, ITMO University, St. Petersburg, 197101 Russia
-    index: 2
+   index: 2
  - name: Science Institute, University of Iceland, Dunhagi-3, IS-107 Reykjavik, Iceland
-    index: 3
+   index: 3
 date: 04 October 2021
 bibliography: QDistRnd.bib
 
