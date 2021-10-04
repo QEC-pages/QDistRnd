@@ -9,13 +9,13 @@ tags:
   - quantum stabilizer code
   - CSS code
 authors:
-  - name: Adrian M. Price-Whelan^[co-first author] # note this makes a footnote saying 'co-first author'
-    orcid: 0000-0003-0872-7098
-    affiliation: "1, 2" # (Multiple affiliations must be quoted)
-  - name: Author Without ORCID^[co-first author] # note this makes a footnote saying 'co-first author'
+  - name: Leonid P. Pryadko
+    orcid: 0000-0002-4990-0259
+    affiliation: 1
+  - name: Vadim A. Shabashov
     affiliation: 2
-  - name: Author with no affiliation^[corresponding author]
-    affiliation: 3
+  - name: Valerii K. Kozin
+    affiliation: "2, 3"
 affiliations: 
  - name: Department of Physics & Astronomy, University of California, Riverside, California, 92521 USA
    index: 1
