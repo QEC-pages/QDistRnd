@@ -32,81 +32,122 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 # Summary
 
-The forces on stars, galaxies, and dark matter under external gravitational
-fields lead to the dynamical evolution of structures in the universe. The orbits
-of these bodies are therefore key to understanding the formation, history, and
-future state of galaxies. The field of "galactic dynamics," which aims to model
-the gravitating components of galaxies to study their structure and evolution,
-is now well-established, commonly taught, and frequently used in astronomy.
-Aside from toy problems and demonstrations, the majority of problems require
-efficient numerical tools, many of which require the same base code (e.g., for
-performing numerical orbit integration).
+The GAP [@Nielsen-book] package `QDistRnd` implements a probabilistic algorithm for
+finding the minimum distance of a quantum code linear over a finite
+field $\mathop{\rm GF}(q)$. At each step several codewords are
+randomly drawn from a distribution biased toward smaller weights. The
+corresponding weights are used to update the upper bound on the
+distance, which eventually converges to the minimum distance of the
+code. While there is no performance guarantee, an empirical convergence
+criterion is given to estimate the probability that a minimum weight
+codeword has been found. In addition, a format for storing matrices
+associated with $q$-ary quantum codes is introduced and implemented
+via the provided import/export functions. The format, MTXE, is based on
+the well established MaTrix market eXchange (MTX) Coordinate format
+developed at NIST, and is designed for full backward compatibility with
+this format. Thus, MTXE files are readable by any software package which
+supports MTX.
 
 # Statement of need
 
-`Gala` is an Astropy-affiliated Python package for galactic dynamics. Python
-enables wrapping low-level languages (e.g., C) for speed without losing
-flexibility or ease-of-use in the user-interface. The API for `Gala` was
-designed to provide a class-based and user-friendly interface to fast (C or
-Cython-optimized) implementations of common operations such as gravitational
-potential and force evaluation, orbit integration, dynamical transformations,
-and chaos indicators for nonlinear dynamics. `Gala` also relies heavily on and
-interfaces well with the implementations of physical units and astronomical
-coordinate systems in the `Astropy` package [@astropy] (`astropy.units` and
-`astropy.coordinates`).
+Multi-particle quantum correlations can be destroyed rapidly in the
+presence of errors due to noise, environment, or just random control
+errors. Quantum error correction (QEC) gives a unique way of controlling
+such errors and enables, at least theoretically, an arbitrarily long
+quantum computation when error probability $p$ is below certain
+threshold, $p_c>0$.
 
-`Gala` was designed to be used by both astronomical researchers and by
-students in courses on gravitational dynamics or astronomy. It has already been
-used in a number of scientific publications [@Pearson:2017] and has also been
-used in graduate courses on Galactic dynamics to, e.g., provide interactive
-visualizations of textbook material [@Binney:2008]. The combination of speed,
-design, and support for Astropy functionality in `Gala` will enable exciting
-scientific explorations of forthcoming data releases from the *Gaia* mission
-[@gaia] by students and experts alike.
+QEC requires the use of specially designed quantum error-correcting
+codes (QECCs). One of the most important parameters of a QECC is the
+code distance, the minimum weight of a non-trivial logical operator in
+the code. While for some code families the distance is known or can be
+related to that of a classical linear error-correcting code, as, e.g.,
+in the case of hypergraph-product and related codes, in many cases the
+distance has to be computed directly. Computing the distance is related
+to the problem of minimum-weight syndrome-based decoding; just like for
+the classical linear codes, this problem is NP-hard (note that truly
+optimal maximum-likelihood decoding for quantum codes requires
+degeneracy to be taken into account and is a \#P-complete problem).
 
-# Mathematics
+To our knowledge, there is no freely available software for computing
+the distance of a $q$-ary quantum stabilizer code. A version of
+Zimmermann algorithm for finding the distance of linear codes is
+implemented in Magma, and has been adapted in application to quantum
+codes, see
+<http://magma.maths.usyd.edu.au/magma/handbook/text/1971#22279>. Its
+performance, in particular, in application to practically important
+highly-degenerate quantum codes, also known as quantum LDPC codes, has
+not been tested by the authors. Several <span>`C`</span> and
+<span>`C++`</span> programs for computing the minimum distance of qubit
+(binary) Calderbank-Shor-Steane (CSS) codes in various stages of
+development can also be found at the github respository
+[QEC-pages](https://github.com/QEC-pages) owned by one of the authors.
 
-Single dollars ($) are required for inline mathematics e.g. $f(x) = e^{\pi/x}$
+The lack of available software caused researchers in the field of QECC
+to either skip the minimum distance calculations altogether, or develop
+their own suboptimal algorithms. In particular, Bravyi and Hastings used
+an exhaustive search over all non-trivial codewords for calculating the
+minimum distances.
 
-Double dollars make self-standing equations:
+Note that for some families of QECCs, the distance can be calculated
+efficiently. In particular, N. P. Breuckmann described an algorithm
+attributed to S. Bravyi for computing the distance of a surface code
+based on a locally planar graph; for such a code of length $n$ with
+$k$ logical qubits, the distance can be computed in
+$\mathcal{O}(kn^2\log n)$ steps. Similarly, a version of the
+error-impulse method based on the belief propagation decoding algorithm
+designed for linear LDPC codes can in principle be used for quantum LDPC
+codes. We are not aware of any applications of such a technique to
+QECCs.
 
-$$\Theta(x) = \left\{\begin{array}{l}
-0\textrm{ if } x < 0\cr
-1\textrm{ else}
-\end{array}\right.$$
+We should mention recent theoretical constructions which prove the
+existence of families of quantum LDPC codes with stabilizer generators
+of bounded weight and almost linear minimum distances. Hardly any of the
+codes from the described families have been explicitly constructed, the
+reason being that the constructions are expected to produce very long
+codes. Thus, there is also a need to develop software for calculating
+minimal distances of quantum codes and optimized specifically for long
+($n>10^3$) and very long ($n>10^5$) quantum LDPC codes based on
+qubits.
 
-You can also use plain \LaTeX for equations
-\begin{equation}\label{eq:fourier}
-\hat f(\omega) = \int_{-\infty}^{\infty} f(x) e^{i\omega x} dx
-\end{equation}
-and refer to \autoref{eq:fourier} from text.
+# Functionality of the package
 
-# Citations
+The distance-finding routines in the package <span>`QDistRnd`</span> are
+derived from the code originally written by one of the authors.
+Implemented algorithm is a variant of the random Information Set (IS)
+algorithm based on random column permutations and Gauss elimination. Its
+eventual convergence for quantum stabilizer codes can be proved based on
+the existence of a permutation matrix $P$ such that the reduced row
+echelon form of the matrix $G'=GP$ contains a vector with the weight
+equal to the distance of the linear code generated by the rows of $G$.
+Further, a related Covering Set (CS) algorithm has a provable
+performance for generic (non-LDPC) quantum codes based on random
+matrices; the corresponding estimate of the number of iterations needed
+to obtain the distance with probability sufficiently close to 1 also
+applies for the IS algorithm.
 
-Citations to entries in paper.bib should be in
-[rMarkdown](http://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html)
-format.
+The GAP computer algebra system was chosen because of its excellent
+support for linear algebra over finite fields. The package <span>` 
+QDistRnd `</span> gives a reference implementation of the algorithm,
+with a focus on generality and matrix formats, as opposed to
+performance. Nevertheless, the routines are sufficiently fast when
+dealing with codes of practically important block lengths
+$n\lesssim 10^3$.
 
-If you want to cite a software repository URL (e.g. something on GitHub without a preferred
-citation) then you can do it with the example BibTeX entry below for @fidgit.
+The package also contains functions for importing/exporting matrices
+with elements in a given (finite) Galois field, and a description of a
+text-based format <span>`MTXE`</span> based on the well established
+MaTrix market eXchange (MTX) Coordinate format developed at NIST. The
+extension is implemented via structured comments, which guarantees full
+backward compatibility with the original MTX format. Thus, MTXE files
+can be read directly by any software package which supports MTX,
+although some additional processing of matrix elements may be required.
 
-For a quick reference, the following citation commands can be used:
-- `@author:2001`  ->  "Author et al. (2001)"
-- `[@author:2001]` -> "(Author et al., 2001)"
-- `[@author1:2001; @author2:2001]` -> "(Author1 et al., 2001; Author2 et al., 2002)"
+#  Acknowledgements
 
-# Figures
-
-Figures can be included like this:
-![Caption for example figure.\label{fig:example}](figure.png)
-and referenced from text using \autoref{fig:example}.
-
-Figure sizes can be customized by adding an optional second parameter:
-![Caption for example figure.](figure.png){ width=20% }
-
-# Acknowledgements
-
-We acknowledge contributions from Brigitta Sipocz, Syrtis Major, and Semyeong
-Oh, and support from Kathryn Johnston during the genesis of this project.
+We are grateful to Ilya Dumer for multiple helpful discussions on the
+subject. LPP was financially supported in part by the NSF Division of
+Physics via grant No. 1820939, and by the Government of the Russian
+Federation through the ITMO Fellowship and Professorship Program.
 
 # References
