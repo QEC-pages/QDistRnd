@@ -16,14 +16,14 @@ authors:
     affiliation: 2
   - name: Author with no affiliation^[corresponding author]
     affiliation: 3
-affiliations:
- - name: Lyman Spitzer, Jr. Fellow, Princeton University
-   index: 1
- - name: Institution Name
-   index: 2
- - name: Independent Researcher
-   index: 3
-date: 13 August 2017
+affiliations: 
+ - name: Department of Physics & Astronomy, University of California, Riverside, California, 92521 USA
+    index: 1
+ - name: The Department of Physics & Engineering, ITMO University, St. Petersburg, 197101 Russia
+    index: 2
+ - name: Science Institute, University of Iceland, Dunhagi-3, IS-107 Reykjavik, Iceland
+    index: 3
+date: 04 October 2021
 bibliography: QDistRnd.bib
 
 # Optional fields if submitting to a AAS journal too, see this blog post:
