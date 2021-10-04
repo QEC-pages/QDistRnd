@@ -2,6 +2,7 @@
 ##  
 ##  PackageInfo.g for the package `QDistRnd'                     Leonid P. Pryadko
 ##                                                               Vadim A. Shabashov
+##                                                               Valerii K. Kozin
 ##  For the LoadPackage mechanism in GAP >= 4.5 the minimal set of needed
 ##  entries is .PackageName, .Version, and .AvailabilityTest, and an error
 ##  will occur if any of them is missing. Other important entries are
