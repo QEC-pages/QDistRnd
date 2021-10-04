@@ -32,7 +32,7 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 # Summary
 
-The GAP [@Nielsen-book] package `QDistRnd` implements a probabilistic algorithm for
+The GAP [@Pearson:2017] package `QDistRnd` implements a probabilistic algorithm for
 finding the minimum distance of a quantum code linear over a finite
 field $\mathop{\rm GF}(q)$. At each step several codewords are
 randomly drawn from a distribution biased toward smaller weights. The
