@@ -54,7 +54,7 @@ supports MTX.
 
 Multi-particle quantum correlations can be destroyed rapidly in the
 presence of errors due to noise, environment, or just random control
-errors[@Nielsen-book]. Quantum error correction (QEC) gives a unique way of controlling
+errors [@Nielsen-book]. Quantum error correction (QEC) gives a unique way of controlling
 such errors and enables, at least theoretically, an arbitrarily long
 quantum computation when error probability $p$ is below certain
 threshold, $p_c>0$.
@@ -64,7 +64,7 @@ codes (QECCs). One of the most important parameters of a QECC is the
 code distance, the minimum weight of a non-trivial logical operator in
 the code. While for some code families the distance is known or can be
 related to that of a classical linear error-correcting code, as, e.g.,
-in the case of hypergraph-product and related codes, in many cases the
+in the case of hypergraph-product and related codes [@Tillich-Zemor-2009;Zeng-Pryadko-2018;Zeng-Pryadko-hprod-2020], in many cases the
 distance has to be computed directly. Computing the distance is related
 to the problem of minimum-weight syndrome-based decoding; just like for
 the classical linear codes, this problem is NP-hard (note that truly
