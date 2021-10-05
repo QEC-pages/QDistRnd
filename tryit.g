@@ -14,7 +14,7 @@ Test("tst/qdistrnd03.tst");
 
 ## additional tests (may take a few actual minutes to run)
 ## change 'false' to 'true' in the line below to enable 
-if true then 
+if false then 
     Read("lib/cyclic.g" );
 fi;
 
