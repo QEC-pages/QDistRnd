@@ -34,7 +34,7 @@ aas-journal: Astrophysical Journal <- The name of the AAS journal.
 
 # Summary
 
-The GAP [@Nielsen-book] package `QDistRnd` implements a probabilistic algorithm for
+The GAP package `QDistRnd` implements a probabilistic algorithm for
 finding the minimum distance of a quantum code linear over a finite
 field $\mathop{\rm GF}(q)$. At each step several codewords are
 randomly drawn from a distribution biased toward smaller weights. The
@@ -65,19 +65,19 @@ code distance, the minimum weight of a non-trivial logical operator in
 the code. While for some code families the distance is known or can be
 related to that of a classical linear error-correcting code, as, e.g.,
 in the case of hypergraph-product and related codes [@Tillich-Zemor-2009; @Zeng-Pryadko-2018; @Zeng-Pryadko-hprod-2020], in many cases the
-distance has to be computed directly. Computing the distance is related
+distance has to be computed directly [@Kovalev-Pryadko-Hyperbicycle-2013; @Bravyi-Hastings-2013; @Guth-Lubotzky-2014; @Panteleev-Kalachev-2019]. Computing the distance is related
 to the problem of minimum-weight syndrome-based decoding; just like for
-the classical linear codes, this problem is NP-hard (note that truly
+the classical linear codes [@Evseev-1983], this problem is NP-hard (note that truly
 optimal maximum-likelihood decoding for quantum codes requires
-degeneracy to be taken into account and is a \#P-complete problem).
+degeneracy to be taken into account and is a \#P-complete problem [@Iyer-Poulin-2013]).
 
 To our knowledge, there is no freely available software for computing
 the distance of a $q$-ary quantum stabilizer code. A version of
 Zimmermann algorithm for finding the distance of linear codes is
-implemented in Magma, and has been adapted in application to quantum
+implemented in Magma [@magma-system], and has been adapted in application to quantum
 codes, see
 <http://magma.maths.usyd.edu.au/magma/handbook/text/1971#22279>. Its
-performance, in particular, in application to practically important
+performance, in particular, in application to practically important [@Kovalev-Pryadko-FT-2013]
 highly-degenerate quantum codes, also known as quantum LDPC codes, has
 not been tested by the authors. Several <span>`C`</span> and
 <span>`C++`</span> programs for computing the minimum distance of qubit
@@ -86,25 +86,25 @@ development can also be found at the github respository
 [QEC-pages](https://github.com/QEC-pages) owned by one of the authors.
 
 The lack of available software caused researchers in the field of QECC
-to either skip the minimum distance calculations altogether, or develop
-their own suboptimal algorithms. In particular, Bravyi and Hastings used
+to either skip the minimum distance calculations altogether [@Panteleev-Kalachev-2019], or develop
+their own suboptimal algorithms. In particular, Bravyi and Hastings [@Bravyi-Hastings-2013] used
 an exhaustive search over all non-trivial codewords for calculating the
 minimum distances.
 
 Note that for some families of QECCs, the distance can be calculated
-efficiently. In particular, N. P. Breuckmann described an algorithm
+efficiently. In particular, N. P. Breuckmann [@Breuckmann-thesis-2017] described an algorithm
 attributed to S. Bravyi for computing the distance of a surface code
 based on a locally planar graph; for such a code of length $n$ with
 $k$ logical qubits, the distance can be computed in
 $\mathcal{O}(kn^2\log n)$ steps. Similarly, a version of the
-error-impulse method based on the belief propagation decoding algorithm
+error-impulse method [@Hu-Fossorier-Eleftheriou-2004; @Declercq-Fossorier-2008] based on the belief propagation decoding algorithm
 designed for linear LDPC codes can in principle be used for quantum LDPC
 codes. We are not aware of any applications of such a technique to
 QECCs.
 
 We should mention recent theoretical constructions which prove the
 existence of families of quantum LDPC codes with stabilizer generators
-of bounded weight and almost linear minimum distances. Hardly any of the
+of bounded weight and almost linear minimum distances [@Hastings-Haah-ODonnell-2020; @Panteleev-Kalachev-2020; @Breuckmann-Eberhardt-2020]. Hardly any of the
 codes from the described families have been explicitly constructed, the
 reason being that the constructions are expected to produce very long
 codes. Thus, there is also a need to develop software for calculating
@@ -117,13 +117,13 @@ qubits.
 The distance-finding routines in the package <span>`QDistRnd`</span> are
 derived from the code originally written by one of the authors.
 Implemented algorithm is a variant of the random Information Set (IS)
-algorithm based on random column permutations and Gauss elimination. Its
+algorithm based on random column permutations and Gauss elimination [@Leon-1988; @Kruk-1989; @Coffey-Goodman-1990]. Its
 eventual convergence for quantum stabilizer codes can be proved based on
-the existence of a permutation matrix $P$ such that the reduced row
+the existence [@Cuellar-etal-2020] of a permutation matrix $P$ such that the reduced row
 echelon form of the matrix $G'=GP$ contains a vector with the weight
 equal to the distance of the linear code generated by the rows of $G$.
 Further, a related Covering Set (CS) algorithm has a provable
-performance for generic (non-LDPC) quantum codes based on random
+performance [@Dumer-Kovalev-Pryadko-IEEE-2017] for generic (non-LDPC) quantum codes based on random
 matrices; the corresponding estimate of the number of iterations needed
 to obtain the distance with probability sufficiently close to 1 also
 applies for the IS algorithm.
@@ -139,7 +139,7 @@ $n\lesssim 10^3$.
 The package also contains functions for importing/exporting matrices
 with elements in a given (finite) Galois field, and a description of a
 text-based format <span>`MTXE`</span> based on the well established
-MaTrix market eXchange (MTX) Coordinate format developed at NIST. The
+MaTrix market eXchange (MTX) Coordinate format developed at NIST [@nist-mm-format]. The
 extension is implemented via structured comments, which guarantees full
 backward compatibility with the original MTX format. Thus, MTXE files
 can be read directly by any software package which supports MTX,
