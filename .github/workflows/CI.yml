@@ -1,0 +1,49 @@
+name: CI
+
+# Trigger the workflow on push or pull request
+on:
+  - push
+  - pull_request
+
+jobs:
+  # The CI test job
+  test:
+    name: ${{ matrix.gap-branch }}
+    runs-on: ubuntu-latest
+    # Don't run this twice on PRs for branches pushed to the same repository
+    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+    strategy:
+      fail-fast: false
+      matrix:
+        gap-branch:
+          - master
+          - stable-4.11
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap@v2
+        with:
+          GAPBRANCH: ${{ matrix.gap-branch }}
+      - uses: gap-actions/build-pkg@v1
+      - uses: gap-actions/run-pkg-tests@v2
+      - uses: gap-actions/process-coverage@v2
+      - uses: codecov/codecov-action@v1
+
+  # The documentation job
+  manual:
+    name: Build manuals
+    runs-on: ubuntu-latest
+    # Don't run this twice on PRs for branches pushed to the same repository
+    if: ${{ !(github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gap-actions/setup-gap@v2
+      - uses: gap-actions/build-pkg-docs@v1
+        with:
+          use-latex: 'true'
+      - name: 'Upload documentation'
+        uses: actions/upload-artifact@v2
+        with:
+          name: manual
+          path: ./doc/manual.pdf

@@ -1,6 +1,7 @@
 # instruct git to ignore these files:
 *~
 *.el
+*.DS_Store
 doc/*.html
 doc/chap*.txt
 doc/manual.*
@@ -23,3 +24,26 @@ doc/QDistRnd.tex
 auto/*
 tst/*.tst
 tmp/*
+/doc/*.aux
+/doc/*.bbl
+/doc/*.blg
+/doc/*.brf
+/doc/*.css
+/doc/*.html
+/doc/*.idx
+/doc/*.ilg
+/doc/*.ind
+/doc/*.js
+/doc/*.log
+/doc/*.out
+/doc/*.pdf
+/doc/*.pnr
+/doc/*.tex
+/doc/*.toc
+/doc/*.txt
+/doc/*.xml.bib
+/doc/_*.xml
+/doc/QDistRnd.xml
+/doc/title.xml
+/doc/manual.lab
+/doc/manual.six
