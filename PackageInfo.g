@@ -90,10 +90,10 @@ SetPackageInfo(
              Status := "other",
 
              Dependencies := rec(
-                                  GAP := "4.11",
+                                  GAP := "4.10",
                                   NeededOtherPackages := [["GAPDoc", "1.5"], 
                                                           ["AutoDoc", "1.5"],
-                                                          ["Guava","3.15"]]
+                                                          ["Guava","3.14"]]
                                  ),
 
              AvailabilityTest := ReturnTrue,

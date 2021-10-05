@@ -5,4 +5,4 @@
 #DeclarePackageDocumentation( "QDistRnd", "doc" );
 
 # read the actual code.
-ReadPkg( "QDistRnd", "lib/qdistrnd.g");
+ReadPackage( "QDistRnd", "lib/qdistrnd.g");
