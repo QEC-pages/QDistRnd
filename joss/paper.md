@@ -54,7 +54,7 @@ supports MTX.
 
 Multi-particle quantum correlations can be destroyed rapidly in the
 presence of errors due to noise, environment, or just random control
-errors. Quantum error correction (QEC) gives a unique way of controlling
+errors[@Nielsen-book]. Quantum error correction (QEC) gives a unique way of controlling
 such errors and enables, at least theoretically, an arbitrarily long
 quantum computation when error probability $p$ is below certain
 threshold, $p_c>0$.
