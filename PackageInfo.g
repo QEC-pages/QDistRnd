@@ -16,8 +16,8 @@ SetPackageInfo(
         rec(
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.3.0",
-             Date := "30/07/2021",  
+             Version := "0.5.0",
+             Date := "05/10/2021",  
              License := "GPL-2.0-or-later",
              PackageWWWHome :=
              Concatenation( "https://gap-packages.github.io/", 
