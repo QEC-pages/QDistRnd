@@ -10,7 +10,6 @@ doc/*.xml
 doc/*.css
 doc/*.js
 auto/*
-tst/*.tst
 tmp/*
 /doc/*.aux
 /doc/*.bbl
