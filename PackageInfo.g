@@ -76,7 +76,22 @@ SetPackageInfo(
                                                                     "St. Petersburg, 197101\n",
                                                                     "Russia" ] ),
                                   Institution   := "ITMO University"
+                              ),
+                          rec( 
+                                  LastName      := "Kozin",
+                                  FirstNames    := "Valerii A.",
+                                  IsAuthor      := false,
+                                  IsMaintainer  := true,
+                                  Email         := "kozin.valera@gmail.com",
+                                  PostalAddress := Concatenation( [
+                                                                    "Valerii Kozin\n",
+                                                                    "The Department of Physics &amp; Engineering\n",
+                                                                    "ITMO University\n",
+                                                                    "St. Petersburg, 197101\n",
+                                                                    "Russia" ] ),
+                                  Institution   := "ITMO University"
                               )
+                          
              ],
 
 ##  Status information. Currently the following cases are recognized:
