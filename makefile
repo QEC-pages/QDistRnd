@@ -56,18 +56,24 @@ zip:
 
 tgz: 	html pdf
 	@${ECHO} "*** Making the release archive ***"
-	${TAR} -czvf ../qdistrnd.tgz -C .. QDistRnd/*.g QDistRnd/makefile QDistRnd/makefile.win \
-		QDistRnd/README.md QDistRnd/doc/body.autodoc QDistRnd/doc/QDistRnd.bib QDistRnd/lib/*.g \
-		QDistRnd/matrices/*.mtx QDistRnd/tmp QDistRnd/tst/testall.g QDistRnd/tst/*.tst QDistRnd/tmp 
+	${TAR} -czvf ../qdistrnd.tgz -C .. QDistRnd/init.g QDistRnd/makedoc.g QDistRnd/PackageInfo.g \
+		QDistRnd/makefile QDistRnd/makefile.win \
+		QDistRnd/README.md QDistRnd/doc/body.autodoc QDistRnd/doc/QDistRnd.bib \
+		QDistRnd/lib/examples.g QDistRnd/lib/qdistrnd.g QDistRnd/lib/cyclic.g \
+		QDistRnd/matrices QDistRnd/tmp QDistRnd/tst 
+		QDistRnd/doc/manual.pdf QDistRnd/doc/manual.six \
+		QDistRnd/doc/chap0.html QDistRnd/doc/chap1.html QDistRnd/doc/chap2.html \
+		QDistRnd/doc/chap3.html QDistRnd/doc/chap4.html QDistRnd/doc/chapBib.html \
+		QDistRnd/doc/chapInd.html QDistRnd/doc/chooser.html 
 	@${ECHO} "*** Done making the release archive ***"
 
 clean:
-	@${ECHO} "*** Cleaning up ***"
+	@${ECHO} "*** Cleaning up (keep the documentation) ***"
 	${RM} -f *~ tmp?.tex doc/*.blg doc/*.out doc/*.brf doc/*.idx doc/*.log  doc/*.synctex.gz \
-		doc/*.toc doc/*.xml doc/*.css doc/*.lab doc/*.js doc/*.bbl doc/*.pnr doc/*.aux doc/*.six */*~ \
-		doc/*.ilg doc/*.ind
+		 doc/*.xml doc/*.css doc/*.js doc/*.bbl doc/*.pnr doc/*.aux  */*~ \
+		doc/*.ilg doc/*.ind doc/*_mj.html 
 
-veryclean: clean
-	${RM} -f tst/*.tst tmp/* doc/*.html doc/*.txt doc/*.tex doc/*.pdf 
+veryclean: clean 
+	${RM} -f tst/*.tst tmp/* doc/*.html doc/*.txt doc/*.tex doc/*.pdf doc/*.six doc/*.toc doc/*.lab
 	${RM} -f -r doc/auto
 
