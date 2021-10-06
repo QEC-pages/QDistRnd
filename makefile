@@ -16,7 +16,8 @@ SED = /bin/sed
 CD = cd
 RM = /bin/rm
 MV = /bin/mv
-ZIP = /usr/bin/zip 
+ZIP = /usr/bin/zip
+TAR = /bin/tar 
 
 default: html try
 
@@ -52,6 +53,13 @@ zip:
 	@${ECHO} "*** Making the zip archive ***"
 	${ZIP} -9 ../qdistrnd.zip *.g makefile lib/*.g matrices/*.mtx \
 	  doc/body.autodoc doc/*.html doc/*.bib doc/*.pdf tmp/ README.md tst/*.tst 
+
+tgz: 	html pdf
+	@${ECHO} "*** Making the release archive ***"
+	${TAR} -czvf ../qdistrnd.tgz -C .. QDistRnd/*.g QDistRnd/makefile QDistRnd/makefile.win \
+		QDistRnd/README.md QDistRnd/doc/body.autodoc QDistRnd/doc/QDistRnd.bib QDistRnd/lib/*.g \
+		QDistRnd/matrices/*.mtx QDistRnd/tmp QDistRnd/tst/testall.g QDistRnd/tst/*.tst QDistRnd/tmp 
+	@${ECHO} "*** Done making the release archive ***"
 
 clean:
 	@${ECHO} "*** Cleaning up ***"

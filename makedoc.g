@@ -1,7 +1,7 @@
 LoadPackage( "AutoDoc" );
 AutoDoc( rec( scaffold := true, 
               autodoc := rec(
-                             scan_dirs := [".", "doc", "lib", "examples"] 
+                             scan_dirs := [".", "doc", "lib"] 
                              ),
               gapdoc := 
               rec(

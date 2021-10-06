@@ -108,7 +108,7 @@ SetPackageInfo(
 #     "For help, type: ?Example package \n",
 #     "----------------------------------------------------------------\n" ),
 
-# TestFile := "tst/testall.g",
+             TestFile := "tst/testall.g",
              Keywords := ["QECC", "quantum code", "stabilizer code", 
                           "quantum error correcting code", "distance"],
 
