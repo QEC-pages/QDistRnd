@@ -16,23 +16,38 @@ SetPackageInfo(
         rec(
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.5.0",
-             Date := "05/10/2021",  
+             Version := "0.6.0",
+             Date := "07/10/2021",  
              License := "GPL-2.0-or-later",
              PackageWWWHome :=
              Concatenation( "https://gap-packages.github.io/", 
                             LowercaseString( ~.PackageName ) ),
-             PackageInfoURL := "http://faculty.ucr.edu/~leonid/placeholder",
-             AbstractHTML :=   "http://faculty.ucr.edu/~leonid/placeholder",
-             ArchiveURL :=     "http://faculty.ucr.edu/~leonid/placeholder",
-             ArchiveFormats:="tar.gz",
-             README_URL :=      "http://faculty.ucr.edu/~leonid/placeholder",
-             
-#             
-# SourceRepository :=
-#    rec( Type := "git/hg/svn/cvs", # edit as necessary
-#         URL := ""),
-# IssueTrackerURL := "",
+             SourceRepository :=
+             rec( Type := "git", # edit as necessary
+                  URL := Concatenation( "https://github.com/VadimShabashov/" , ~.PackageName )
+                ),
+             IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
+             README_URL      := Concatenation( ~.PackageWWWHome, "/README" ),
+             PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
+             ArchiveURL      := Concatenation( ~.SourceRepository.URL,
+                                               "/releases/download/v", ~.Version,
+                                               "/", LowercaseString(~.PackageName), "-", ~.Version ),
+             AbstractHTML := "The GAP package <code>QDistRnd</code> 
+               implements a probabilistic algorithm for finding the       
+               minimum distance of a quantum code linear over a finite
+               field GF(<var>q</var>). There is no performance
+               guarantee, but an empirical convergence criterion is
+               given to estimate the probability that a minimum weight
+               codeword has been found. In addition, a format for
+               storing matrices associated with <var>q</var>-ary quantum
+               codes is introduced and implemented via the provided
+               import/export functions. The format, <code>MTXE</code>,
+               is based on the well established MaTrix market eXchange
+               ( <code>MTX</code>) Coordinate format developed at NIST,
+               and is designed for full backward compatibility with this
+               format. Thus, <code>MTXE</code> files are readable by any software
+               package which supports <code>MTX</code>.",
+             ArchiveFormats:="tar.gz",             
              SupportEmail := "leonid.pryadko@gmail.com",
              PackageDoc := rec(
                                 BookName  := ~.PackageName,
@@ -79,7 +94,7 @@ SetPackageInfo(
                               ),
                           rec( 
                                   LastName      := "Kozin",
-                                  FirstNames    := "Valerii A.",
+                                  FirstNames    := "Valerii K.",
                                   IsAuthor      := false,
                                   IsMaintainer  := true,
                                   Email         := "kozin.valera@gmail.com",
