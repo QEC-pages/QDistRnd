@@ -20,11 +20,11 @@ SetPackageInfo(
              Date := "07/10/2021",  
              License := "GPL-2.0-or-later",
              PackageWWWHome :=
-             Concatenation( "https://LeonidPryadko.github.io/", 
+             Concatenation( "https://QEC-pages.github.io/", 
                             LowercaseString( ~.PackageName ) ),
              SourceRepository :=
              rec( Type := "git", # edit as necessary
-                  URL := Concatenation( "https://github.com/LeonidPryadko/" , ~.PackageName )
+                  URL := Concatenation( "https://github.com/QEC-pages/" , ~.PackageName )
                 ),
              IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
              README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
