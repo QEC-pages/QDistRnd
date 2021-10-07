@@ -5,7 +5,7 @@
 @Chapter Examples
 
 A few simple examples illustrating the use of the
-package.  For more information see Chapter <Ref Label="Chapter_AllFunctions"/>
+package.  For more information see Chapter <Ref Chap="Chapter_AllFunctions"/>
 
 @Section The 5-qubit code
 @Section Hyperbolic codes from a file
@@ -46,15 +46,15 @@ probabilistic algorithm for finding the distance of a $q$-ary quantum
 low-density parity-check code linear over a finite field $F=GF(q)$.
 While there is no guarantee of the performance of the algorithm (the
 existing bounds in the case of quantum LDPC codes are weak, see <Ref
-Label="Subsection_TheAlgorithmDetails"/>), an empirical convergence
+Subsect="Subsection_TheAlgorithmDetails"/>), an empirical convergence
 criterion is given to estimate the probability that a minimum weight
 codeword has been found.  Versions for CSS and regular stabilizer
-codes are given, see Section <Ref Label="Section_DistanceFunctions"/>
+codes are given, see Section <Ref Sect="Section_DistanceFunctions"/>
 
 In addition, a format for storing matrices associated with $q$-ary
 quantum codes is introduced and implemented, see
-Chapter <Ref Label="Chapter_FileFormat"/> and
-Sec. <Ref Label="Section_IOFunctions"/>.  The
+Chapter <Ref Chap="Chapter_FileFormat"/> and
+Sec. <Ref Sect="Section_IOFunctions"/>.  The
 format is based on the well establised MaTrix market eXchange (MTX)
 Coordinate format developed at NIST, and is designed for full backward
 compatibility with this format.  Thus, the files are readable by any
@@ -121,7 +121,7 @@ $P$.
 @SubsectionLabel DistRandCSS
 
 The described version of the algorithm is implemented in the function
-`DistRandCSS` <Ref Label="DistRandCSS"/>.  It applies to the case of
+`DistRandCSS` <Ref Func="DistRandCSS"/>.  It applies to the case of
 Calderbank-Shor-Steane (CSS) codes, where the matrices $P=H_X$ and
 $Q=H_Z$ are called the CSS generator matrices, and the computed
 minimum weight is the distance $d_Z$ of the code.  The number of
@@ -158,7 +158,7 @@ generators $H_X$ and $H_Z$, the stabilizer generator matrix has a
 block-diagonal form, $H=$`diag`$(H_X,H_Z)$.
 
 A version of the algorithm for general $F$-linear stabilizer codes is
-implemented in the function `DistRandStab` <Ref Label="DistRandStab"/>.
+implemented in the function `DistRandStab` <Ref Func="DistRandStab"/>.
 
 **Important Notice**: In general, here one could use most general
 permutations of $2n$ columns, or restricted permutations of $n$
@@ -203,7 +203,7 @@ Key="Gottesman-prime-power-2014"/>.
 Case of **classical linear codes** 
 @LatexOnly }
 
-The algorithm <Ref Label="Subsection_TheProcedure"/> is closely
+The algorithm <Ref Subsect="Subsection_TheProcedure"/> is closely
 related to the algorithm for finding minimum-weight codewords in a
 classical linear code as presented by Leon <Cite Key="Leon-1988"/>,
 and a related family of **information set** (IS) decoding algorithms <Cite
@@ -264,7 +264,7 @@ Case of **quantum CSS codes**
 In the case of a random CSS code (with matrices $P$ and $Q$ selected
 randomly, with the only requirement being the orthogonality between
 the rows of $P$ and $Q$), the performance of the algorithm <Ref
-Label="Subsection_TheProcedure"/> can be estimated as that of the CS
+Subsect="Subsection_TheProcedure"/> can be estimated as that of the CS
 algorithm, in terms of the erasure threshold of a linear code with the
 parity matrix $P$, see <Cite Key="Dumer-Kovalev-Pryadko-IEEE-2017"/>.
 
@@ -284,7 +284,7 @@ do with non-trivial **quantum** codewords which must be linearly
 independent from the rows of $Q$).
 
 On the other hand, for every permutation $S$ in the algorithm <Ref
-Label="Subsection_TheProcedure"/>, the matrix $G_S$ contains exactly
+Subsect="Subsection_TheProcedure"/>, the matrix $G_S$ contains exactly
 $k=n-$`rank`$(P)-$`rank`$(Q)$ rows orthogonal to rows of $P$ and
 linearly independent from rows of $Q$ (with columns properly
 permuted).  These vectors contain at least $s$ zeros, where
@@ -362,7 +362,7 @@ codewords found (i.e., the average $\langle n\rangle$ must be large,
 which is the same condition as needed for confidence in the result.)
 
 With `debug[4]` set (binary value 8) in `DistRandCSS` and
-`DistRandStab` <Ref Label="Section_DistanceFunctions"/>, whenever more
+`DistRandStab` <Ref Sect="Section_DistanceFunctions"/>, whenever more
 than one minimum-weight vector is found, the quantity $X^2$ is
 computed and output along with the average number of times $\langle
 n\rangle$ a minimum-weight codeword has been found.  However, no
@@ -433,7 +433,7 @@ The generator matrix storage format dependes on 2 parameters: `pair` and `type`.
 By default, `pair=0` corresponds to `type=integer` and `pair=3` corresponds to `type=complex`.
 
 For efficiency reasons, the function `DistRandStab` <Ref
-Label="Section_DistanceFunctions"/> assumes the generator
+Sect="Section_DistanceFunctions"/> assumes the generator
 matrix with intercalated columns. 
 
 @Subsection Explicit format of each line

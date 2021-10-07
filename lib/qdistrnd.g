@@ -75,7 +75,7 @@ InstallGlobalFunction(QDR_WeightMat,
 #! the list `vector` of multiplicities of the codewords found.  Additional
 #! parameters are `n`, the code length, and `num`, the number of
 #! repetitions; these are ignored in the present version of the
-#! program.  See <Ref Label="Section_Empirical"/> for 
+#! program.  See <Ref Sect="Section_Empirical"/> for 
 #! the importance of these parameters.
 #! @Arguments vector, n, num
 DeclareGlobalFunction("QDR_DoProbOut");
@@ -112,7 +112,7 @@ InstallGlobalFunction(QDR_DoProbOut,
 #! with columns 
 #! $A=(a_1, a_2, \ldots , a_n)$ 
 #! and 
-#! $B=(b_1, b_2, \ldots , b_n)$, see Chapter <Ref Label="Chapter_FileFormat"/>.
+#! $B=(b_1, b_2, \ldots , b_n)$, see Chapter <Ref Chap="Chapter_FileFormat"/>.
 #!
 #! * `FilePath` name of existing file storing the matrix
 #! * `pair` (optional argument): specifies column ordering;
@@ -149,7 +149,7 @@ InstallGlobalFunction(QDR_DoProbOut,
 #! in the file and by the optional argument, the corresponding values
 #! must match. 
 #!
-#! See Chapter <Ref Label="Chapter_FileFormat"/> for the details of how the elements
+#! See Chapter <Ref Chap="Chapter_FileFormat"/> for the details of how the elements
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $p$ prime, and $m>1$.
 #! 
@@ -330,7 +330,7 @@ InstallGlobalFunction(ReadMTXE,
 #! as the first line of the comments, e.g., `"% Field: GF(256)"`
 #!
 #! 
-#! See Chapter <Ref Label="Chapter_FileFormat"/> for the details of how the elements
+#! See Chapter <Ref Chap="Chapter_FileFormat"/> for the details of how the elements
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $ m>1 $.
 #! 
@@ -528,7 +528,7 @@ InstallGlobalFunction(QDR_MakeH,
 #! $q$-ary code with stabilizer generator matrices $H_X$, $H_Z$ whose rows
 #! are assumed to be orthogonal (**orthogonality is not verified**).
 
-#! See Section <Ref Label="Section_SimpleVersion"/> for the
+#! See Section <Ref Sect="Section_SimpleVersion"/> for the
 #! description of the algorithm.  
 #!
 #! Details of the input parameters 
@@ -544,7 +544,7 @@ InstallGlobalFunction(QDR_MakeH,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $GF(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Label="Subsection_DistRandCSS"/>.  Not set by default.
+#!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
 DeclareGlobalFunction("DistRandCSS");#  (GX,GZ,num,mindist,opt...) ;supported options: field, maxav
 InstallGlobalFunction(DistRandCSS,
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
@@ -687,13 +687,13 @@ InstallGlobalFunction(DistRandCSS,
 #! @Description Computes an upper bound on the distance $d$ of the
 #! $F$-linear stabilizer code with generator matrix $H$ whose rows
 #! are assumed to be symplectic-orthogonal, see Section <Ref
-#! Label="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
+#! Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
 #!
 #! Details of the input parameters:
 #! * `H`: the input matrix with elements in the Galois `field` $F$
 #!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
 #! The remaining options are identical to those in the function
-#! `DistRandCSS` <Ref Label="DistRandCSS"/>.
+#! `DistRandCSS` <Ref Func="DistRandCSS"/>.
 #! * `num`: number of information sets to construct (should be large)
 #! * `mindist` - the algorithm stops when distance equal or smaller than `mindist`
 #!    is found - set it to 0 if you want the actual distance
@@ -704,7 +704,7 @@ InstallGlobalFunction(DistRandCSS,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $GF(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Label="Subsection_DistRandCSS"/>.  Not set by default.
+#!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
 DeclareGlobalFunction("DistRandStab");# function(G,num,mindist,opt...) # options: field, maxav                      
 InstallGlobalFunction(DistRandStab,
                      function(G,num,mindist,opt...) # supported options: field, maxav
