@@ -32,21 +32,13 @@ SetPackageInfo(
              ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                                "/releases/download/v", ~.Version,
                                                "/", LowercaseString(~.PackageName), "-", ~.Version ),
-             AbstractHTML := "The GAP package <code>QDistRnd</code> 
-               implements a probabilistic algorithm for finding the       
-               minimum distance of a quantum code linear over a finite
-               field GF(<var>q</var>). There is no performance
-               guarantee, but an empirical convergence criterion is
-               given to estimate the probability that a minimum weight
-               codeword has been found. In addition, a format for
-               storing matrices associated with <var>q</var>-ary quantum
-               codes is introduced and implemented via the provided
-               import/export functions. The format, <code>MTXE</code>,
-               is based on the well established MaTrix market eXchange
-               ( <code>MTX</code>) Coordinate format developed at NIST,
-               and is designed for full backward compatibility with this
-               format. Thus, <code>MTXE</code> files are readable by any software
-               package which supports <code>MTX</code>.",
+             AbstractHTML :=
+             Concatenation(
+                            "The GAP package <code>QDistRnd</code> \n" ,
+                            "implements a probabilistic algorithm for finding the \n" ,
+                            "minimum distance of a quantum code linear over a finite\n" ,
+                            "field GF(<var>q</var>).\n"
+                 ),
              ArchiveFormats:="tar.gz",             
              SupportEmail := "leonid.pryadko@gmail.com",
              PackageDoc := rec(
