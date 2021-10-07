@@ -20,14 +20,14 @@ SetPackageInfo(
              Date := "07/10/2021",  
              License := "GPL-2.0-or-later",
              PackageWWWHome :=
-             Concatenation( "https://gap-packages.github.io/", 
+             Concatenation( "https://LeonidPryadko.github.io/", 
                             LowercaseString( ~.PackageName ) ),
              SourceRepository :=
              rec( Type := "git", # edit as necessary
-                  URL := Concatenation( "https://github.com/VadimShabashov/" , ~.PackageName )
+                  URL := Concatenation( "https://github.com/LeonidPryadko/" , ~.PackageName )
                 ),
              IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
-             README_URL      := Concatenation( ~.PackageWWWHome, "/README" ),
+             README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
              PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
              ArchiveURL      := Concatenation( ~.SourceRepository.URL,
                                                "/releases/download/v", ~.Version,
