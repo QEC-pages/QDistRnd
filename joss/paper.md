@@ -15,13 +15,13 @@ authors:
   - name: Vadim A. Shabashov
     affiliation: 2
   - name: Valerii K. Kozin
-    affiliation: "2, 3"
+    affiliation: "3, 2"
 affiliations: 
  - name: Department of Physics & Astronomy, University of California, Riverside, California, 92521 USA
    index: 1
  - name: The Department of Physics & Engineering, ITMO University, St. Petersburg, 197101 Russia
    index: 2
- - name: Science Institute, University of Iceland, Dunhagi-3, IS-107 Reykjavik, Iceland
+ - name: Department of Physics, University of Basel, Klingelbergstrasse 82, CH-4056 Basel, Switzerland
    index: 3
 date: 04 October 2021
 bibliography: QDistRnd.bib
@@ -145,6 +145,7 @@ although some additional processing of matrix elements may be required.
 We are grateful to Ilya Dumer for multiple helpful discussions on the
 subject. LPP was financially supported in part by the NSF Division of
 Physics via grant No. 1820939, and by the Government of the Russian
-Federation through the ITMO Fellowship and Professorship Program.
+Federation through the ITMO Fellowship and Professorship Program. V. K. K. 
+acknowledges the support from the Georg H. Endress foundation.
 
 # References
