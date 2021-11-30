@@ -99,7 +99,8 @@ QECCs.
 
 We should mention recent theoretical constructions which prove the
 existence of families of quantum LDPC codes with stabilizer generators
-of bounded weight and almost linear minimum distances [@Hastings-Haah-ODonnell-2020; @Panteleev-Kalachev-2020; @Breuckmann-Eberhardt-2020]. Hardly any of the
+of bounded weight and linear (or almost linear) minimum distances 
+[@Hastings-Haah-ODonnell-2020; @Panteleev-Kalachev-2020; @Breuckmann-Eberhardt-2020; @Panteleev-Kalachev-2021]. Hardly any of the
 codes from the described families have been explicitly constructed, the
 reason being that the constructions are expected to produce very long
 codes. Thus, there is also a need to develop software for calculating
@@ -144,7 +145,7 @@ although some additional processing of matrix elements may be required.
 
 We are grateful to Ilya Dumer for multiple helpful discussions on the
 subject. LPP was financially supported in part by the NSF Division of
-Physics via grant No. 1820939, and by the Government of the Russian
+Physics via grants 1820939 and 2112848, and by the Government of the Russian
 Federation through the ITMO Fellowship and Professorship Program. V. K. K. 
 acknowledges the support from the Georg H. Endress foundation.
 
