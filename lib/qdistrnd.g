@@ -551,7 +551,7 @@ InstallGlobalFunction(DistRandCSS,
                          
                          local DistBound, i, j, dimsWZ, rowsWZ, colsWZ, F, debug, pos, CodeWords, mult,
                                VecCount,  maxav, WZ, WZ1, WZ2, WX,
-                               TempVec, FirstVecBound, TempWeight, per; 
+                               TempVec, FirstVecFound, TempWeight, per; 
 
                          if ValueOption("field")<>fail then
                              if not IsField(ValueOption("field")) then
@@ -612,8 +612,9 @@ InstallGlobalFunction(DistRandCSS,
                                              if debug[4] = 1  or ValueOption("maxav")<> fail then
                                                  CodeWords := [TempVec];;
                                                  mult := [1];;
-                                             elif debug[1] = 1 then
-                                                 FirstVecBound := TempVec;;
+                                             fi;                                             
+                                             if debug[1] = 1 then
+                                                 FirstVecFound := TempVec;;
                                              fi;
                                              
                                          elif TempWeight=DistBound then
@@ -641,8 +642,7 @@ InstallGlobalFunction(DistRandCSS,
                              od ;
 
                              if ((debug[3] = 1) and (RemInt(i, 200) = 0)) then
-                                 Print("Round ", i, " of ", num, "; lowest wgt found = ", DistBound, ";\n");
-                                 Print("Overall number of found vectors with the lowest weight: ", VecCount, "\n");
+                                 Print("Round ", i, " of ", num, "; lowest wgt = ", DistBound, " count=", VecCount, "\n");                                 
                                  if debug[4]=1 then
                                      Print("Average number of times vectors with the lowest weight were found = ",
                                            QDR_AverageCalc(mult), "\n");
@@ -659,16 +659,12 @@ InstallGlobalFunction(DistRandCSS,
                          if (debug[1] = 1) then # print additional information
                              Print(i," rounds of ", num," were made.", "\n");
                              if colsWZ <= 100 then
-                                 if debug[4] = 1 then
-                                     Print("First vector found with lowest weight:\n");
-                                     Display([CodeWords[1]]);
-                                 else
-                                     Print("First vector found with lowest weight:\n");
-                                     Display([FirstVecBound]);
-                                 fi;
+                                 Print("First vector found with lowest weight:\n");
+                                 Display([FirstVecFound]);
                              fi;
-                             Print("The overall number of times vectors with the lowest weight were found: ", VecCount, "\n");
-                             Print("[[", colsWZ, ",",colsWZ-RankMat(GX)-RankMat(GZ),",",DistBound, "]];", "  Field: ", F, "\n");
+                             Print("Miimum weight vector found ", VecCount, " times\n");
+                             Print("[[", colsWZ, ",",colsWZ-RankMat(GX)-RankMat(GZ),",",
+                                   DistBound, "]];", "  Field: ", F, "\n");
                          fi;
                          
                          if (debug[4] = 1) then
@@ -709,7 +705,7 @@ DeclareGlobalFunction("DistRandStab");# function(G,num,mindist,opt...) # options
 InstallGlobalFunction(DistRandStab,
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,
-          rows, cols, DistBound, FirstVecBound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,
+          rows, cols, DistBound, FirstVecFound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,
 	             per1, per2;
     # CodeWords - if debug[4] = 1, record the first 100 different CWs with the lowest weight found so far
     # mult - number of times codewords from CodeWords were found
@@ -817,10 +813,11 @@ InstallGlobalFunction(DistRandStab,
 
         			# Recording all discovered codewords of minimum weight and their multiplicities
               if debug[4] = 1 or ValueOption("maxav")<>fail then
-        			    CodeWords := [TempVec];;
-        			    mult := [1];;
-              elif debug[1] = 1 then
-                  FirstVecBound := TempVec;;
+        	  CodeWords := [TempVec];;
+        	  mult := [1];;
+              fi;                 
+              if debug[1] = 1 then
+                  FirstVecFound := TempVec;;
               fi;
 
   		      # If we already received such a weight (up to now - it is minimal),
@@ -855,8 +852,7 @@ InstallGlobalFunction(DistRandStab,
     od;
     # Optional progress info
     if ((debug[3] = 1) and (RemInt(i, 200) = 0)) then
-        Print("Round ", i, " of ", num, "; lowest weight found so far = ", DistBound, ";\n");
-        Print("Overall number of found vectors with the lowest weight: ", VecCount, "\n");
+        Print("Round ", i, " of ", num, "; lowest wgt = ", DistBound, " count=", VecCount, "\n");
         if debug[4]=1 then
             Print("Average number of times vectors with the lowest weight were found = ", QDR_AverageCalc(mult), "\n");
             Print("Number of different vectors = ",Length(mult), "\n");
@@ -866,21 +862,16 @@ InstallGlobalFunction(DistRandStab,
     if ValueOption("maxav")<>fail then
         if QDR_AverageCalc(mult)>maxav then break; fi;
     fi;
-  od;
+    od;
 
 
-  if (debug[1] = 1) then # print additional information
-      Print(i," rounds of ", num," were made.", "\n");
-      if cols <= 100 then
-          if debug[4] = 1 then
-              Print("First vector found with lowest weight:\n");
-              Display([CodeWords[1]]);
-          else
-              Print("First vector found with lowest weight:\n");
-              Display([FirstVecBound]);
-          fi;
-      fi;
-      Print("The overall number of times vectors with the lowest weight were found: ", VecCount, "\n");
+    if (debug[1] = 1) then # print additional information
+        Print(i," rounds of ", num," were made.", "\n");
+        if cols <= 100 then
+            Print("First vector found with lowest weight:\n");
+            Display([FirstVecFound]);
+        fi;        
+        Print("Miimum weight vector found ", VecCount, " times\n");
       Print("[[", cols/2, ",",cols/2 - RankMat(G), ",", DistBound, "]];", "  Field: ", F, "\n");
   fi;
 
