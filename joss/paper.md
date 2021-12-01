@@ -11,7 +11,7 @@ tags:
 authors:
   - name: Leonid P. Pryadko
     orcid: 0000-0002-4990-0259
-    affiliation: 1
+    affiliation: "1, 2"
   - name: Vadim A. Shabashov
     affiliation: 2
   - name: Valerii K. Kozin
