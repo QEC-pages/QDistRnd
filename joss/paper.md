@@ -23,7 +23,7 @@ affiliations:
    index: 2
  - name: Department of Physics, University of Basel, Klingelbergstrasse 82, CH-4056 Basel, Switzerland
    index: 3
-date: 04 October 2021
+date: 01 December 2021
 bibliography: QDistRnd.bib
 ---
 
@@ -144,9 +144,9 @@ although some additional processing of matrix elements may be required.
 #  Acknowledgements
 
 We are grateful to Ilya Dumer for multiple helpful discussions on the
-subject. LPP was financially supported in part by the NSF Division of
+subject. L.P.P. was financially supported in part by the NSF Division of
 Physics via grants 1820939 and 2112848, and by the Government of the Russian
-Federation through the ITMO Fellowship and Professorship Program. V. K. K. 
+Federation through the ITMO Fellowship and Professorship Program. V.K.K. 
 acknowledges the support from the Georg H. Endress foundation.
 
 # References
