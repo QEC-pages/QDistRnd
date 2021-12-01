@@ -81,36 +81,40 @@
   url =           {http://link.aps.org/doi/10.1103/PhysRevA.88.012311},
 }
 
-@unpublished{Bravyi-Hastings-2013,
-  author =        {Sergey Bravyi and Matthew B. Hastings},
-  note =          {Proc. of the 46th {ACM} Symposium on Theory of Computing ({STOC} 2014), pp. 273-282 (2014)},
-  url={https://arxiv.org/abs/1311.0885},
-  title =         {Homological Product Codes},
-  year =          {2013},
-  annote =        {Quantum codes with low-weight stabilizers known as
-                   LDPC codes have been actively studied recently due to
-                   their simple syndrome readout circuits and potential
-                   applications in fault-tolerant quantum computing.
-                   However, all families of quantum LDPC codes known to
-                   this date suffer from a poor distance scaling limited
-                   by the square-root of the code length. This is in a
-                   sharp contrast with the classical case where good
-                   families of LDPC codes are known that combine
-                   constant encoding rate and linear distance. Here we
-                   propose the first family of good quantum codes with
-                   low-weight stabilizers. The new codes have a constant
-                   encoding rate, linear distance, and stabilizers
-                   acting on at most $\sqrt{n}$ qubits, where $n$ is the
-                   code length. For comparison, all previously known
-                   families of good quantum codes have stabilizers of
-                   linear weight. Our proof combines two techniques:
-                   randomized constructions of good quantum codes and
-                   the homological product operation from algebraic
-                   topology. We conjecture that similar methods can
-                   produce good stabilizer codes with stabilizer weight
-                   $n^a$ for any $a>0$. Finally, we apply the
-                   homological product to construct new small codes with
-                   low-weight stabilizers.},
+@InProceedings{Bravyi-Hastings-2013,
+  author =	 {Sergey Bravyi and Matthew B. Hastings},
+  title =	 {Homological Product Codes},
+  booktitle =	 {Proc. of the 46th {ACM} Symposium on Theory of
+                  Computing ({STOC} 2014)},
+  year =	 2014,
+  pages =	 {273-282},
+  url =		 {https://arxiv.org/abs/1311.0885},
+  eprint =	 {arXiv:1311.0885},
+  annote =	 {Quantum codes with low-weight stabilizers known as
+                  LDPC codes have been actively studied recently due
+                  to their simple syndrome readout circuits and
+                  potential applications in fault-tolerant quantum
+                  computing. However, all families of quantum LDPC
+                  codes known to this date suffer from a poor distance
+                  scaling limited by the square-root of the code
+                  length. This is in a sharp contrast with the
+                  classical case where good families of LDPC codes are
+                  known that combine constant encoding rate and linear
+                  distance. Here we propose the first family of good
+                  quantum codes with low-weight stabilizers. The new
+                  codes have a constant encoding rate, linear
+                  distance, and stabilizers acting on at most
+                  $\sqrt{n}$ qubits, where $n$ is the code length. For
+                  comparison, all previously known families of good
+                  quantum codes have stabilizers of linear weight. Our
+                  proof combines two techniques: randomized
+                  constructions of good quantum codes and the
+                  homological product operation from algebraic
+                  topology. We conjecture that similar methods can
+                  produce good stabilizer codes with stabilizer weight
+                  $n^a$ for any $a>0$. Finally, we apply the
+                  homological product to construct new small codes
+                  with low-weight stabilizers.}
 }
 
 @article{Guth-Lubotzky-2014,
@@ -141,40 +145,46 @@
                   10.1063/1.4891487},
 }
 
-@unpublished{Panteleev-Kalachev-2019,
-  author =        {Pavel Panteleev and Gleb Kalachev},
-  note =          {Quantum {\bf 5}, 585 (2021)}, doi={10.22331/q-2021-11-22-585},
-  title =         {Degenerate Quantum {LDPC} Codes With Good Finite
-                   Length Performance},
-  year =          {2019},
-  annote =        {We study the performance of small and medium length
-                   quantum LDPC (QLDPC) codes in the depolarizing
-                   channel. Only degenerate codes with the maximal
-                   stabilizer weight much smaller than their minimum
-                   distance are considered. It is shown that with the
-                   help of an OSD-like post-processing the performance
-                   of the standard belief propagation (BP) decoder on
-                   many QLDPC codes can be improved by several orders of
-                   magnitude. Using this new BP-OSD decoder we study the
-                   performance of several known classes of degenerate
-                   QLDPC codes including the hypergraph product codes,
-                   the hyperbicycle codes, the homological product
-                   codes, and the Haah's cubic codes. We also construct
-                   several interesting examples of short generalized
-                   bicycle codes. Some of them have an additional
-                   property that their syndromes are protected by small
-                   BCH codes, which may be useful for the fault-tolerant
-                   syndrome measurement. We also propose a new large
-                   family of QLDPC codes that contains the class of
-                   hypergraph product codes, where one of the used
-                   parity-check matrices is square. It is shown that in
-                   some cases such codes have better performance than
-                   the hypergraph product codes. Finally, we demonstrate
-                   that the performance of the proposed BP-OSD decoder
-                   for some of the constructed codes is better than for
-                   a relatively large surface code decoded by a
-                   near-optimal decoder.},
+  @article{Panteleev-Kalachev-2019,
+  author =	 {Pavel Panteleev and Gleb Kalachev},
+  title =	 {Degenerate Quantum {LDPC} Codes With Good Finite
+                  Length Performance},
+  eprint =	 {1904.02703},
+  year =	 2021,
+  journal =	 {Quantum},
+  volume =	 5,
+  pages =	 585,
+  doi =		 {10.22331/q-2021-11-22-585},
+  annote =	 {We study the performance of small and medium length
+                  quantum LDPC (QLDPC) codes in the depolarizing
+                  channel. Only degenerate codes with the maximal
+                  stabilizer weight much smaller than their minimum
+                  distance are considered. It is shown that with the
+                  help of an OSD-like post-processing the performance
+                  of the standard belief propagation (BP) decoder on
+                  many QLDPC codes can be improved by several orders
+                  of magnitude. Using this new BP-OSD decoder we study
+                  the performance of several known classes of
+                  degenerate QLDPC codes including the hypergraph
+                  product codes, the hyperbicycle codes, the
+                  homological product codes, and the Haah's cubic
+                  codes. We also construct several interesting
+                  examples of short generalized bicycle codes. Some of
+                  them have an additional property that their
+                  syndromes are protected by small BCH codes, which
+                  may be useful for the fault-tolerant syndrome
+                  measurement. We also propose a new large family of
+                  QLDPC codes that contains the class of hypergraph
+                  product codes, where one of the used parity-check
+                  matrices is square. It is shown that in some cases
+                  such codes have better performance than the
+                  hypergraph product codes. Finally, we demonstrate
+                  that the performance of the proposed BP-OSD decoder
+                  for some of the constructed codes is better than for
+                  a relatively large surface code decoded by a
+                  near-optimal decoder. }
 }
+
 
 @article{Evseev-1983,
   author =        {G. S. Evseev},
@@ -505,6 +515,7 @@
                    representation for computing the distance of linear
                    codes},
   year =          {2020},
+  url=  {http://arXiv.org/abs/2002.12330},
   annote =        {Finding the minimum distance of linear codes is an
                    NP-hard problem. Traditionally, this computation has
                    been addressed by means of the design of algorithms
@@ -549,6 +560,7 @@
   title =         {Fiber Bundle Codes: Breaking the {$N^{1/2}\mathop{\rm
                    polylog}(N)$} barrier for quantum {LDPC} Codes},
   year =          {2020},
+  url={http://arXiv.org/abs/2009.03921},
   annote =        {We present a quantum LDPC code family that has
                    distance $O(N^{3/5}/polylog(N))$ and
                    $\Theta(N^{3/5})$ logical qubits. This is the first
@@ -599,6 +611,7 @@
   note =          {unpublished},
   title =         {Balanced Product Quantum Codes},
   year =          {2020},
+  url={http://arXiv.org/abs/2012.09271},
   annote =        {This work provides the first explicit and non-random
                    family of [[N,K,D]] LDPC quantum codes which encode
                    K∈Θ(N45) logical qubits with distance D∈Ω(N35).
