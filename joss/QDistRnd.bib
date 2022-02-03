@@ -507,42 +507,46 @@
   issn =          {0018-9448},
 }
 
-@unpublished{Cuellar-etal-2020,
-  author =        {M. P. Cu{\'e}llar and G{\'o}mez-Torrecillas, J. and
-                   F. J. Lobillo and G. Navarro},
-  note =          {unpublished},
-  title =         {Genetic algorithms with permutation-based
-                   representation for computing the distance of linear
-                   codes},
-  year =          {2020},
-  url=  {http://arXiv.org/abs/2002.12330},
-  annote =        {Finding the minimum distance of linear codes is an
-                   NP-hard problem. Traditionally, this computation has
-                   been addressed by means of the design of algorithms
-                   that find, by a clever exhaustive search, a linear
-                   combination of some generating matrix rows that
-                   provides a codeword with minimum weight. Therefore,
-                   as the dimension of the code or the size of the
-                   underlying finite field increase, so it does
-                   exponentially the run time. In this work, we prove
-                   that, given a generating matrix, there exists a
-                   column permutation which leads to a reduced row
-                   echelon form containing a row whose weight is the
-                   code distance. This result enables the use of
-                   permutations as representation scheme, in contrast to
-                   the usual discrete representation, which makes the
-                   search of the optimum polynomial time dependent from
-                   the base field. In particular, we have implemented
-                   genetic and CHC algorithms using this representation
-                   as a proof of concept. Experimental results have been
-                   carried out employing codes over fields with two and
-                   eight elements, which suggests that evolutionary
-                   algorithms with our proposed permutation encoding are
-                   competitive with regard to existing methods in the
-                   literature. As a by-product, we have found and
-                   amended some inaccuracies in the MAGMA Computational
-                   Algebra System concerning the stored distances of
-                   some linear codes.},
+
+@Article{Cuellar-etal-2020,
+  author =	 {M. P. Cu{\'e}llar and G{\'o}mez-Torrecillas, J.  and
+                  F. J. Lobillo and G. Navarro},
+  title =	 {Genetic algorithms with permutation-based
+                  representation for computing the distance of linear
+                  codes},
+  year =	 2021,
+  journal =	 {Swarm and Evolutionary Computation},
+  volume =	 60,
+  pages =	 100797,
+  eprint =	 {arXiv:2002.12330},
+  doi =		 {10.1016/j.swevo.2020.100797},
+  annote =	 {Finding the minimum distance of linear codes is an
+                  NP-hard problem. Traditionally, this computation has
+                  been addressed by means of the design of algorithms
+                  that find, by a clever exhaustive search, a linear
+                  combination of some generating matrix rows that
+                  provides a codeword with minimum weight. Therefore,
+                  as the dimension of the code or the size of the
+                  underlying finite field increase, so it does
+                  exponentially the run time. In this work, we prove
+                  that, given a generating matrix, there exists a
+                  column permutation which leads to a reduced row
+                  echelon form containing a row whose weight is the
+                  code distance. This result enables the use of
+                  permutations as representation scheme, in contrast
+                  to the usual discrete representation, which makes
+                  the search of the optimum polynomial time dependent
+                  from the base field. In particular, we have
+                  implemented genetic and CHC algorithms using this
+                  representation as a proof of concept. Experimental
+                  results have been carried out employing codes over
+                  fields with two and eight elements, which suggests
+                  that evolutionary algorithms with our proposed
+                  permutation encoding are competitive with regard to
+                  existing methods in the literature. As a by-product,
+                  we have found and amended some inaccuracies in the
+                  MAGMA Computational Algebra System concerning the
+                  stored distances of some linear codes.}
 }
 
 @misc{nist-mm-format,
@@ -553,38 +557,51 @@
   url =           {https://math.nist.gov/MatrixMarket/formats.html},
 }
 
-@unpublished{Hastings-Haah-ODonnell-2020,
-  author =        {Matthew B. Hastings and Jeongwan Haah and
-                   {O'Donnell}, Ryan},
-  note =          {unpublished},
-  title =         {Fiber Bundle Codes: Breaking the {$N^{1/2}\mathop{\rm
-                   polylog}(N)$} barrier for quantum {LDPC} Codes},
-  year =          {2020},
-  url={http://arXiv.org/abs/2009.03921},
-  annote =        {We present a quantum LDPC code family that has
-                   distance $O(N^{3/5}/polylog(N))$ and
-                   $\Theta(N^{3/5})$ logical qubits. This is the first
-                   quantum LDPC code construction which achieves
-                   distance greater than $N^{1/2}polylog(N)$. The
-                   construction is based on generalizing the homological
-                   product of codes to a fiber bundle.},
+@InProceedings{Hastings-Haah-ODonnell-2020,
+  author =	 {Matthew B. Hastings and Jeongwan Haah and
+                  {O'Donnell}, Ryan},
+  title =	 {Fiber Bundle Codes: Breaking the
+                  {$N^{1/2}\mathop{\rm polylog}(N)$} barrier for
+                  quantum {LDPC} Codes},
+  booktitle = {STOC 2021: Proceedings of the 53rd Annual {ACM
+                  SIGACT} Symposium on Theory of Computing},
+  year =	 2021,
+  pages =	 {1276–1288},
+  month =	 {June},
+  doi =		 {10.1145/3406325.3451005},
+  eprint =	 {2009.03921},
+  isbn =	 9781450380539,
+  publisher =	 {Association for Computing Machinery},
+  address =	 {New York, NY, USA},
+  annote =	 { We present a quantum LDPC code family that has
+                  distance $O(N^{3/5}/polylog(N))$ and
+                  $\Theta(N^{3/5})$ logical qubits. This is the first
+                  quantum LDPC code construction which achieves
+                  distance greater than $N^{1/2}polylog(N)$. The
+                  construction is based on generalizing the
+                  homological product of codes to a fiber bundle.}
 }
 
-@unpublished{Panteleev-Kalachev-2020,
-  author =        {Pavel Panteleev and Gleb Kalachev},
-  note =          {unpublished}, url={https://arxiv.org/abs/2012.04068},
-  title =         {Quantum {LDPC} Codes with Almost Linear Minimum
-                   Distance},
-  year =          {2020},
-  annote =        {We give a construction of quantum LDPC codes of
-                   dimension Θ(logN) and distance Θ(N/logN) as the
-                   code length N→∞. Using a product of chain
-                   complexes this construction also provides a family of
-                   quantum LDPC codes of distance Ω(N1−α/2/logN) and
-                   dimension Ω(NαlogN), where 0≤α<1. We also
-                   introduce and study a new operation called lifted
-                   product, which naturally generalizes the product
-                   operations for quantum codes and chain complexes.},
+@article{Panteleev-Kalachev-2020,
+  author =	 {Panteleev, Pavel and Kalachev, Gleb},
+  journal =	 {IEEE Transactions on Information Theory},
+  title =	 {Quantum {LDPC} codes with almost linear minimum
+                  distance},
+  year =	 2022,
+  volume =	 68,
+  number =	 1,
+  pages =	 {213-229},
+  doi =		 {10.1109/TIT.2021.3119384},
+  eprint =	 {arXiv:2012.04068},
+  annote =	 {We give a construction of quantum LDPC codes of
+                  dimension Θ(logN) and distance Θ(N/logN) as the code
+                  length N→∞. Using a product of chain complexes this
+                  construction also provides a family of quantum LDPC
+                  codes of distance Ω(N1−α/2/logN) and dimension
+                  Ω(NαlogN), where 0≤α<1. We also introduce and study
+                  a new operation called lifted product, which
+                  naturally generalizes the product operations for
+                  quantum codes and chain complexes.},
 }
 
 @Unpublished{Panteleev-Kalachev-2021,
@@ -606,28 +623,31 @@
                   conjecture in the field of locally testable codes.}
 }
 
-@unpublished{Breuckmann-Eberhardt-2020,
-  author =        {Nikolas P. Breuckmann and Jens N. Eberhardt},
-  note =          {unpublished},
-  title =         {Balanced Product Quantum Codes},
-  year =          {2020},
-  url={http://arXiv.org/abs/2012.09271},
-  annote =        {This work provides the first explicit and non-random
-                   family of [[N,K,D]] LDPC quantum codes which encode
-                   K∈Θ(N45) logical qubits with distance D∈Ω(N35).
-                   The family is constructed by amalgamating classical
-                   codes and Ramanujan graphs via an operation called
-                   balanced product. Recently, Hastings-Haah-O'Donnell
-                   and Panteleev-Kalachev were the first to show that
-                   there exist families of LDPC quantum codes which
-                   break the polylog(N)N−−√ distance barrier.
-                   However, their constructions are based on
-                   probabilistic arguments which only guarantee the code
-                   parameters with high probability whereas our bounds
-                   hold unconditionally. Further, balanced products
-                   allow for non-abelian twisting of the check matrices,
-                   leading to a construction of LDPC quantum codes that
-                   can be shown to have K∈Θ(N) and that we conjecture
-                   to have linear distance D∈Θ(N).},
+@ARTICLE{Breuckmann-Eberhardt-2020,
+  author =	 {Breuckmann, Nikolas P. and Eberhardt, Jens N.},
+  journal =	 {IEEE Transactions on Information Theory},
+  title =	 {Balanced Product Quantum Codes},
+  year =	 {2021},
+  volume =	 {67},
+  number =	 {10},
+  pages =	 {6653-6674},
+  doi =		 {10.1109/TIT.2021.3097347},
+  eprint =	 {arXiv:2012.09271},
+  annote =	 {This work provides the first explicit and non-random
+                  family of [[N,K,D]] LDPC quantum codes which encode
+                  K∈Θ(N45) logical qubits with distance D∈Ω(N35). The
+                  family is constructed by amalgamating classical
+                  codes and Ramanujan graphs via an operation called
+                  balanced product.  Recently, Hastings-Haah-O'Donnell
+                  and Panteleev-Kalachev were the first to show that
+                  there exist families of LDPC quantum codes which
+                  break the polylog(N)N−−√ distance barrier. However,
+                  their constructions are based on probabilistic
+                  arguments which only guarantee the code parameters
+                  with high probability whereas our bounds hold
+                  unconditionally.  Further, balanced products allow
+                  for non-abelian twisting of the check matrices,
+                  leading to a construction of LDPC quantum codes that
+                  can be shown to have K∈Θ(N) and that we conjecture
+                  to have linear distance D∈Θ(N). }
 }
-
