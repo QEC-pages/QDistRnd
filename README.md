@@ -25,22 +25,34 @@ included with `GAP` version 4.11; this or later version of `GAP` is
 strongly recommended.
 
 ## Installation
-As of January 2022, the `QDistRnd` package is not distributed with a
-standard installation of `GAP`. To install, first download the latest released version from 
+As of February 2022, the `QDistRnd` package is not distributed with a
+standard installation of `GAP`. 
+
+To install the package permanently, download the latest released version from 
 [releases](https://github.com/QEC-pages/QDistRnd/releases/) 
-and then unpack it in the `pkg` directory of one of your `GAP` root
-directories. After installation, the package can be loaded at the
+and unpack it in the `pkg` directory of one of your `GAP` root
+directories.  After installation, the package can be loaded at the
 `GAP` prompt by typing
 
 gap> `LoadPackage("QDistRnd");`
 
+Alternatively, if you just want to try it, you can unpack the package
+anywhere and type at the `GAP` prompt 
+
+gap> `SetPackagePath("QDistRnd","absolute_path_to_the_package_QDistRnd" );`
+
+After that you can load the package as you would do normally.
+
 ## Testing
+
 After installation, basic tests of the package (most of the examples
 listed in the package manual) can by performed by running
 
 gap> `TestPackage("qdistrnd");`
 
-at the GAP command prompt.  Note that the package name must be in lowercase.
+at the GAP command prompt.  Note that the package name must be in
+lowercase. 
+
 
 The same tests are run as a part of documentation processing script
 which is also executed as a GitHub Action every time changes are
@@ -55,4 +67,4 @@ standard `GAP` help system. Documentation can be recompiled by running
 
 `gap makedoc.g`
 
-in the `doc` directory.
+in the package directory.
