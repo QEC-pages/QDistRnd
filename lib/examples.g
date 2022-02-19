@@ -20,7 +20,7 @@ Display(mat);
 d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 #! 3
 AUTODOC_CreateDirIfMissing("tmp");;
-WriteMTXE("tmp/n5_q3_complex.mtx"),3,mat,
+WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
         "% The 5-qubit code [[5,1,3]]_3",
         "% Generated from h(x)=1+x^3-x^5-x^6",
         "% Example from the QDistRnd GAP package"   : field:=F);
