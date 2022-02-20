@@ -389,17 +389,26 @@ $q$ is a power of a prime, $q=p^m$.
   directly as integers from Z$(p)$, ranging from $0$
   to $p-1$.
 
-* When $q=p^m$ with $m &gt; 1$, $F$ is an extension field.  Elements
-  of such a field could in principle be represented as polynomials
-  modulo an irreducible polynomial with coefficients in the prime
-  field $GF(p)$.  In the actual file format, we chose to represent
-  non-zero elements as integers, specifying the powers of a primitive
-  element, while the zero field element is represented as $-1$.  Notice that,
-  depending on the choice of the primitive element, the elements of
-  the field may be permuted.  However, any such permutation is a field
-  isomorphism preserving the multiplication table.  In particular,
-  orthogonality between the rows of the matrices is necessarily
-  preserved.
+* When $q=p^m$ with $m &gt; 1$, $F$ is an extension field.  Non-zero
+  elements of such a field can be represented as integer powers of a
+  primitive element $\alpha$, a primitive root of unity in the field.
+  Primitive element is a root of a primitive polynomial $f(x)$, that
+  is, an irreducible polynomial with coefficients in the corresponding
+  prime field $GF(p)$, with the property that the smallest integer $n$
+  such that $f(x)$ divides $x^n-1$ is $n=p^m-1$.  Alternatively, field
+  elements can be represented as polynomials modulo the chosen
+  primitive polynomial $f(x)$.
+  
+  Either definition requires that the primitive polynomial be
+  specified.  GAP uses Conway polynomials to represent field elements.
+  Conway polynomials were named after John H. Conway by Richard
+  A. Parker, who was the first to define them and compute examples.
+  For details, as well as a large collection of Conway polynomials,
+  please see the web page maintained by Frank Luebeck <Cite Key="ConwayPol-2022"/>.
+
+  In the actual file format, non-zero matrix elements are represented
+  as integers, specifying the powers of a primitive element, while the
+  zero field element is represented as $-1$.
 
 * On input, other integer values are allowed; they are taken modulo
   $p$ for a prime field, and as the powers of the primitive element
@@ -446,12 +455,47 @@ The first line must have the following form:
 with `type` either `integer` or `complex`.
 
 The second line is optional and specifies
-the field.  The field may be left undefined; by default, it is $GF(2)$,
-or it can be specified by hand when reading the matrices.  
+the field and the primitive polynomial used (in the case of an
+extension field).  The primitive polynomial is written explicitly as
+$x^m+a_{m-1}*x^{m-1}+\ldots+a_1*x+a_0$, where the integer coefficients $a_i$
+will be interpreted modulo `p`; only non-zero coefficients must be specified.
 @BeginCode MMXFormatLine2
-% Field: GF(q) 
+% Field: GF(`q`) PrimitiveP(x)=`polynomial`
 @EndCode
 @InsertCode MMXFormatLine2
+For example, with $q=5^2$, the Conway polynomial $f_{5,2}(x)=x^2-x+2$,
+and the second line can read 
+@BeginCode MMXFormatLine2A
+% Field: GF(25) PrimitiveP(x)=x^2-x+2
+@EndCode
+@InsertCode MMXFormatLine2A
+The following is an equivalent form of the same polynomial and can also be used
+@BeginCode MMXFormatLine2B
+% Field: GF(25) PrimitiveP(x)=x^2+4*x+2
+@EndCode
+@InsertCode MMXFormatLine2B
+The field may be left undefined; by default, it is $GF(2)$,
+or it can be specified by hand when reading the matrices. 
+If the primitive polynomial is undefined, it will be assumed 
+that the Conway polynomial used internally by `GAP` should be used.
+
+Currently, the function `WriteMTXE` can only use the Conway polynomial
+used internally by `GAP`.  Given the field $GF(p^m)$ and the primitive
+polynomial $p(x)$ specified in the file, the function `ReadMTXE` first
+checks that the degree of $p(x)$ is indeed $m$ and that it is a
+primitive polynomial in $GF(p)$.  If either of these tests fail,
+`ReadMTXE` signals an error.  Otherwise, it will attempt to find the
+conversion coefficient $c$ such that $\alpha^c$ is a root of $p(x)$,
+starting with $c=1$.  When found, the multiplicative inverse $s$ such
+that $sc\equiv 1\bmod (q-1)$ will be used to convert the elements
+being read, i.e., for any matrix element $y$ read, $y^s$ will be used
+instead. 
+
+Notice that, unless the Conway polynomial was used (in which case
+$c=s=1$, and the conversion is trivial), this search can be slow for
+large fields, as all integer values in $[1,2,\ldots,q-2]$ will be
+tested sequentially.  To help ensure that the correct polynomial is
+used, it is recommended that orthogonality of matrices be checked.
 
 Next the comment section is specified, with each line starting with
 the `%` symbol:
@@ -462,7 +506,7 @@ the `%` symbol:
 
 After the comment section there is the line with properties of the matrix:
 @BeginCode MMXFormatLineA
-rows     columns     (number of non-zero elements)
+rows     columns     `(number of non-zero elements)`
 @EndCode
 @InsertCode MMXFormatLineA
 
@@ -525,7 +569,8 @@ prime field.
 This same matrix is stored in the file `matrices/n5k1A.mtx`.  This is
 how the matrix can be read and distance calculated:
 @BeginExample
-    lis:=ReadMTXE("matrices/n5k1A.mtx" );;
+    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
+		"n5k1A.mtx" );;
     Print("field ",lis[1],"\n");
 #! field GF(7)
     dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);
@@ -567,13 +612,15 @@ calculate the distance, we need to specify the field [unless we want
 to use the default binary field].
 
 @BeginExample
-    lis:=ReadMTXE("matrices/n5k1.mtx" );;
+    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
+		"n5k1.mtx" );;
     Print("field ",lis[1],"\n");
 #! field GF(2)
     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
 #! 3
     q:=17;;
-    lis:=ReadMTXE("matrices/n5k1.mtx" : field:= GF(q));;
+    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
+		"n5k1.mtx" : field:= GF(q));;
     Print("field ",lis[1],"\n");
 #! field GF(17)
     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);

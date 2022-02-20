@@ -41,10 +41,12 @@ gap> Display(lis[3]);
  2 . . . 1 . . 1 . 2
  . 2 2 . . . 1 . . 1
 
-# doc/_Chapter_Examples.xml:113-120
-gap> lisX:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),"QX80.mtx"),0);;
+# doc/_Chapter_Examples.xml:113-122
+gap> lisX:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
+>                         "QX80.mtx"),0);;
 gap> GX:=lisX[3];;
-gap> lisZ:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),"QZ80.mtx"),0);;
+gap> lisZ:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
+>                         "QZ80.mtx"),0);;
 gap> GZ:=lisZ[3];;
 gap> DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 5
