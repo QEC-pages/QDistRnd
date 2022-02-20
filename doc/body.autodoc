@@ -569,8 +569,8 @@ prime field.
 This same matrix is stored in the file `matrices/n5k1A.mtx`.  This is
 how the matrix can be read and distance calculated:
 @BeginExample
-    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-		"n5k1A.mtx" );;
+	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+    lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;
     Print("field ",lis[1],"\n");
 #! field GF(7)
     dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);
@@ -612,15 +612,13 @@ calculate the distance, we need to specify the field [unless we want
 to use the default binary field].
 
 @BeginExample
-    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-		"n5k1.mtx" );;
+    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx" ));;
     Print("field ",lis[1],"\n");
 #! field GF(2)
     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
 #! 3
     q:=17;;
-    lis:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-		"n5k1.mtx" : field:= GF(q));;
+    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx") : field:= GF(q));;
     Print("field ",lis[1],"\n");
 #! field GF(17)
     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);

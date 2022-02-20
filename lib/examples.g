@@ -92,11 +92,10 @@ Display(lis[3]);
 #! and the asymptotic rate $1/5$.  Notice that `pair=0` is used for
 #! both files (regular matrices).
 #! @BeginExample
-lisX:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-                        "QX80.mtx"),0);;
+filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+lisX:=ReadMTXE(Filename(filedir,"QX80.mtx"),0);;
 GX:=lisX[3];;
-lisZ:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-                        "QZ80.mtx"),0);;
+lisZ:=ReadMTXE(Filename(filedir,"QZ80.mtx"),0);;
 GZ:=lisZ[3];;
 DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! 5
@@ -107,11 +106,10 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! scales only logarithmically with the code length (this code takes
 #! about 15 seconds on a typical notebook and will not actually be executed).   
 #! @BeginLog
-#! gap> lisX:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-#!          "QX900.mtx"),0);;
+
+#! gap> lisX:=ReadMTXE(Filename(filedir,"QX900.mtx"),0);;
 #! gap> GX:=lisX[3];;
-#! gap> lisZ:=ReadMTXE(Filename(DirectoriesPackageLibrary("QDistRnd","matrices"),
-#!          "QZ900.mtx"),0);;
+#! gap> lisZ:=ReadMTXE(Filename(filedir,"QZ900.mtx"),0);;
 #! gap> GZ:=lisZ[3];;
 #! gap> DistRandCSS(GX,GZ,1000,1,0:field:=GF(2));
 #! 8
