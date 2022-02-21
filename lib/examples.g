@@ -120,7 +120,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! As a final and hopefully somewhat useful example, the file 
 #! "lib/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
-#! $n=15$ over the field $GF(5)$, and generator weight `wei=4`.  
+#! $n:=15$ over the field $GF(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
 #! speed up the calculation.
 

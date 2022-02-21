@@ -1,8 +1,9 @@
-#! This code searches for one-generator cyclic
-#! codes of length 15 over $GF(5)$, by going over 10000 random
-#! polynomials of each degree from 4 to 15.  It takes just a few seconds on a
+#! This code searches for one-generator quantum cyclic
+#! codes of length 15 over $GF(8)$, with stabilizer generators of weight 6, 
+#! by going over 10000 random
+#! polynomials of each degree from 4 to 15.  It takes just a couple minutes on a
 #! typical notebook. 
-q:=5;; F:=GF(q);; wei:=4;; x:=Indeterminate(F,"x");; n:=15;;
+q:=8;; F:=GF(q);; wei:=6;; x:=Indeterminate(F,"x");; n:=15;;
 dmax:=0*[1..n];  # record the max degrees for the reference 
 for deg in [wei-1..n-1] do # polynomial degree
     for l in [1..10000] do    # number of attempts at this degree
@@ -19,6 +20,7 @@ for deg in [wei-1..n-1] do # polynomial degree
         H:=QDR_MakeH(G,F);;
         
         if QDR_WeightMat(G*TransposedMat(H))=0 then
+       
             k:=n-RankMat(G);
             if  k>0 then
                 if dmax[k]>1 then dmin:=dmax[k]; else dmin:=2; fi;                
