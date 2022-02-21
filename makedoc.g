@@ -1,7 +1,7 @@
 LoadPackage( "AutoDoc" );
 AutoDoc( rec( scaffold := true, 
               autodoc := rec(
-                             scan_dirs := [".", "doc", "lib"] 
+                              scan_dirs := [".", "doc", "lib"] 
                              ),
               gapdoc := 
               rec(
@@ -11,13 +11,11 @@ AutoDoc( rec( scaffold := true,
                         """ 
                         \newcommand{\rank}{\mathop{\rm rank}}
                         \newcommand{\wgt}{\mathop{\rm wgt}} 
-                        %\parindent=0pt                
-                        %\parskip\bigskipamount
+                        \newcommand{\gf}{\mathop{\rm GF}} 
                         """
                        )
                       ),
               extract_examples := true
-##    ,          gap_root_relative_path := true
             ) );
 QUIT;
 

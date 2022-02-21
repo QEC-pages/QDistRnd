@@ -19,6 +19,7 @@ Display(mat);
 #!  . 2 2 . . . 1 . . 1
 d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 #! 3
+AUTODOC_CreateDirIfMissing("tmp");;
 WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
         "% The 5-qubit code [[5,1,3]]_3",
         "% Generated from h(x)=1+x^3-x^5-x^6",
@@ -91,9 +92,10 @@ Display(lis[3]);
 #! and the asymptotic rate $1/5$.  Notice that `pair=0` is used for
 #! both files (regular matrices).
 #! @BeginExample
-lisX:=ReadMTXE("matrices/QX80.mtx",0);;
+filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+lisX:=ReadMTXE(Filename(filedir,"QX80.mtx"),0);;
 GX:=lisX[3];;
-lisZ:=ReadMTXE("matrices/QZ80.mtx",0);;
+lisZ:=ReadMTXE(Filename(filedir,"QZ80.mtx"),0);;
 GZ:=lisZ[3];;
 DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! 5
@@ -104,9 +106,10 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! scales only logarithmically with the code length (this code takes
 #! about 15 seconds on a typical notebook and will not actually be executed).   
 #! @BeginLog
-#! gap> lisX:=ReadMTXE("matrices/QX900.mtx",0);;
+
+#! gap> lisX:=ReadMTXE(Filename(filedir,"QX900.mtx"),0);;
 #! gap> GX:=lisX[3];;
-#! gap> lisZ:=ReadMTXE("matrices/QZ900.mtx",0);;
+#! gap> lisZ:=ReadMTXE(Filename(filedir,"QZ900.mtx"),0);;
 #! gap> GZ:=lisZ[3];;
 #! gap> DistRandCSS(GX,GZ,1000,1,0:field:=GF(2));
 #! 8
@@ -117,7 +120,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! As a final and hopefully somewhat useful example, the file 
 #! "lib/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
-#! $n=15$ over the field $GF(5)$, and generator weight `wei=4`.  
+#! $n:=15$ over the field $GF(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
 #! speed up the calculation.
 

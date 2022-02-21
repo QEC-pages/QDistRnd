@@ -97,6 +97,251 @@ InstallGlobalFunction(QDR_DoProbOut,
                      end
                      );
 
+#! @Description Create a header string describing the field `F`
+#! for use in the function `WriteMTXE`.
+#! If `F` is a prime Galois field, just specify it: 
+#! `% Field: GF(p)`
+#! For an extension field $\gf(p^m)$ with $p$ prime and $m>1$, also give 
+#! the primitive polynomial **which should not contain any spaces**.  For example,  
+#! `% Field: GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3`
+#! See Chapter <Ref Chap="Chapter_FileFormat"/> for details.
+#! @Returns the created header string 
+#! @Arguments F
+DeclareGlobalFunction("QDR_FieldHeaderStr");
+InstallGlobalFunction(QDR_FieldHeaderStr, 
+                     function(F) # field F
+                         local p,m, poly,lis,i,j, b, str, out;
+                         if not IsField(F) then 
+                             Error("\n Argument must be a Galois Field! F=",F,"\n");
+                         fi;                         
+                         p:=Characteristic(F);    
+                         # for some reason DegreeOverPrimeField does
+                         # not work
+                         m:=DegreeFFE(PrimitiveElement(F));  # field GF(p^m);          
+                         str:="";
+                         out:=OutputTextString(str,false);; 
+                         PrintTo(out,"% Field: ", F);  # this is it for a prime field
+                         if not IsPrimeField(F) then   
+                             poly:=DefiningPolynomial(F);                         
+                             lis:=CoefficientsOfUnivariatePolynomial(poly);
+                             PrintTo(out," PrimitiveP(x): ");                             
+                             for i in [0..m] do 
+                                 j:=m-i;    # degree     
+                                 b:=IntFFESymm(lis[j+1]);
+                                 if b<>0 then 
+                                     if AbsInt(b)<>1 then 
+                                         if b>0 then PrintTo(out,"+",b); else PrintTo(out,b); fi;
+                                         if j>1 then PrintTo(out,"*x^",j); 
+                                         elif j=1 then PrintTo(out,"*x");
+                                         fi;
+                                     else 
+                                         if b>0 then 
+                                             if j<m then PrintTo(out,"+"); fi;
+                                         else PrintTo(out,"-"); fi;            
+                                         if j>1 then PrintTo(out,"x^",j); 
+                                         elif j=1 then PrintTo(out,"x");
+                                         else PrintTo(out,"1"); # j=0 abd abs(b)=1
+                                         fi;
+                                     fi;
+                                 fi;    
+                             od;
+                             
+                             CloseStream(out);
+                         fi;
+                         
+                         return str;
+                     end                     
+                     );
+
+#! @Description Process the field header (second line in the MTXE file
+#! format), including the field, PrimitiveP record, and anything else.
+#! Supported format options:
+#! @BeginCode FieldHeaderA
+#! Field: `field` PrimitiveP(x): `polynomial` Format: `format`
+#! @EndCode
+#! @InsertCode FieldHeaderA
+#! 
+#! Here the records should be separated by one or more spaces;
+#! while `field`, `polynomial`, and `format` **should not contain any spaces.**
+#! Any additional records in this line will be silently ignored.
+#! 
+#! The `field` option should specify a valid field, $\gf(q)$ or
+#! $\gf(p^m)$, where $q>1$ should be a power of the prime $p$. 
+#! 
+#! The `polynomial` should be a valid expanded monic
+#! polynomial with integer coefficients, with a single independent
+#! variable `x`; it should contain no spaces.  An error will be
+#! signaled if `polynomial` is not a valid primitive polynomial of the `field`.
+#! This argument is optional;  by default, Conway polynomial will be used.
+#!
+#! The optional `format` string (**not implemented**) should be "AdditiveInt" (the default
+#! for prime fields), "PowerInt" (the default for extension fields
+#! with $m>1$) or "VectorInt".  
+#! 
+#! `AdditiveInt` indicates that values listed
+#! are expected to be in the corresponding prime field and should be
+#! interpreted as integers mod $p$.  
+#! `PowerInt` indicates that field elements are
+#! represented as integers powers of the primitive element, root of
+#! the primitive polynomial, or $-1$ for the zero field element.  
+#! `VectorInt` corresponds to encoding coefficients of a degree-$(m-1)$ $p$-ary
+#! polynomial representing field elements into a $p$-ary integer.  In
+#! this notation, any negative value will be taken mod $p$, thus $-1$
+#! will be interpreted as $p-1$, the additive inverse of the field $1$.
+#! 
+#! On input, `recs` should contain a list of tokens obtained by
+#! splitting the field record line;
+#! `optF` should be assigned to `ValueOption("field")` or `fail`.
+#! 
+#! @Arguments recs, optF
+#! @Returns the list [Field, ConversionDegree, FormatIndex] (plus anything else we
+#! may need in the future); the list is to be used as the second
+#! parameter in `QDR_ProcEntry()`  
+DeclareGlobalFunction("QDR_ProcessFieldHeader");
+InstallGlobalFunction(QDR_ProcessFieldHeader, 
+                     function(recs,optF)
+                         local m,F,Fp,poly,x,ic,is,a,x_global_val,
+                               x_bound,x_readonly;
+    
+                         if (recs[1][1]='%' and recs[2]="Field:") then
+                             F:=EvalString(recs[3]);
+                             if not IsField(F) then
+                                 Error("invalid input file field '",recs[3],"' given\n");
+                             fi;
+                         fi;
+                         
+                         # compare with the field option
+                         if optF <> fail then
+                             if not IsField(optF) then
+                                 Error("invalid option 'field'=",optF,"\n");
+                             else # default field is specified
+                                 if IsBound(F) then
+                                     if F<>optF then
+                                         Error("field mismatch: file='",F,
+                                               "' given='",optF,"'\n");
+                                     fi;
+                                 else
+                                     F:=optF;
+                                 fi;
+                             fi;
+                         elif not IsBound(F) then
+                             F:=GF(2);
+                             # TODO: make sure the line is not just eaten up in this case
+                         fi;
+                         
+                         # check if a PrimitiveP is specified (only if the field is prime).
+                         if IsPrimeField(F) then
+                             return [F,1,0]; # field, degree=1, format="AdditiveInt"
+                         fi;    
+                         ic:=1; is:=1; # set default conversion degree        
+                         if Length(recs)>3 then # analyze primitive polynomial
+                             if StartsWith(recs[4],"PrimitiveP") then 
+                                 # process primitive polynomial here 
+                                 if Length(recs)=4 then 
+                                     Error("Polynomial must be separated by space(s) ",recs[4],"\n");
+                                 fi;
+                                 
+                                 x_readonly:=false;                                 
+                                 if IsReadOnlyGlobal("x") then 
+                                     x_readonly:=true;
+                                     MakeReadWriteGlobal("x");
+                                 fi;
+                                 
+                                 x_bound:=false;                                     
+                                 if IsBoundGlobal("x") then 
+                                     x_global_val:=ValueGlobal("x");
+                                     x_bound:=true;
+                                     UnbindGlobal("x");                                  
+                                 fi;
+                                                 
+                                 BindGlobal("x",Indeterminate(F,"x"));                                
+                                 poly:=EvalString(recs[5]);
+                                 
+                                 Print("'",recs[5],"'=",poly,"\n");                                 
+                                 if not IsUnivariatePolynomial(poly) then
+                                     Error("Univariate polynomial expected ",recs[5],"\n");
+                                 fi;
+                                 Fp:=PrimeField(F);                
+                                 poly:=poly*One(Fp);
+                                 if not IsPrimitivePolynomial(Fp,poly) then 
+                                     Error("Polynomial ",recs[5], " must be primitive in ",Fp,"\n");
+                                 fi;
+                                 m:=DegreeFFE(PrimitiveElement(F));            
+                                 if not DegreeOfLaurentPolynomial(poly)=m then 
+                                     Error("Polynomial degree ",recs[5], " should be ",m,"\n");
+                                 fi;
+                                 a:=PrimitiveRoot(F); 
+                                 for ic in [1..Size(F)-2] do
+                                     if Value(poly,a^ic) = Zero(Fp) then 
+                                         break; # will terminate here for sure
+                                     fi;        # since `poly` is primitive.
+                                 od; 
+                                 is:= 1/ic mod (Size(F)-1);
+                                 Unbind(poly);
+                                 
+                                 MakeReadWriteGlobal("x");
+                                 UnbindGlobal("x");                                     
+                                 if x_bound then 
+                                     BindGlobal("x",x_global_val);
+                                     MakeReadWriteGlobal("x");                                     
+                                     x_bound:=false;
+                                 fi;
+                                 if x_readonly then 
+                                     MakeReadOnlyGlobal("x");                                     
+                                 fi;                                 
+
+                             fi;
+                         fi;
+    
+                         # todo: process `format` here 
+                         
+                         return [F,is,2]; # field, degree, format="PowerInt"
+                     end
+                     );
+
+#! @Description Convert a string entry which should represent an integer
+#! to the Galois Field element as specified in the `fmt`.
+#! * `str` is the string representing an integer.
+#! * `fmt` is a list  [Field, ConversionDegree, FormatIndex]
+#!   - `Field` is the Galois field $\gf(p^m)$ of the code
+#!   - `ConversionDegree` $c$ : every element $x$ read is replaces with
+#!     $x^c$.  This may be needed if a non-standard primitive
+#!     polynomial is used to define the field. 
+#!   - `FormatIndex` in {0,1,2}. `0` indicates no conversion (just a
+#!     modular integer).  `1` indicates that the integer represents
+#!     a power of the primitive element, or $-1$ for 0.  `2`
+#!     indicates that the integer encodes coordinates of a length $m$
+#!     vector as the digits of a $p$-ary integer (**not yet implemented**).
+#! * `FileName`, `LineNo` are the line number and the name of the
+#!   input file; these are used to signal an error.
+#!
+#! @Returns the converted field element 
+#! @Arguments str, fmt, FileName, LineNo
+DeclareGlobalFunction("QDR_ProcEntry");
+InstallGlobalFunction(QDR_ProcEntry,
+                     function(str,fmt,FileName,LineNo)
+                         local ival, fval;
+                         ival:=Int(str);
+                         if ival=fail then 
+                             Error("\n",FileName,":",LineNo,"Invalid entry '",str,
+                                   "', expected an integer\n");
+                         fi;
+                         if fmt[3]=0 then 
+                             fval:=ival*One(fmt[1]);
+                         elif fmt[3]=1 then 
+                             if ival=-1 then 
+                                 fval:=Zero(fmt[1]);
+                             else
+                                 fval:=PrimitiveElement(fmt[1])^ival;
+                             fi;
+                         else
+                             Error("FormatIndex=",fmt[3]," value not supported\n");
+                         fi;
+                         return fval^fmt[2];    
+                     end
+                     );
+
+
 #! @Subsection Examples
 
 #! @Section IOFunctions 
@@ -123,9 +368,11 @@ InstallGlobalFunction(QDR_DoProbOut,
 #!            $ (a_1, b_1, a_2, b_2,\ldots) $ 
 #!      * `pair=2` grouped columns with `type=integer`
 #!            $ (a_1, a_2, \ldots, a_n\;    b_1, b_2,\ldots, b_n) $ 
-#!      * `pair=3` this is the only option for `type=complex` with elements specified as "complex" pairs 
-#! * `field` (Options stack):  Galois field, default: $GF(2)$.   **Must** match that given in the file (if any).
-#! __Notice__: with `pair`=1 and `pair`=2, the number of columns
+#!      * `pair=3` this is the only option for `type=complex` with elements 
+#!            specified as "complex" pairs 
+#! * `field` (Options stack):  Galois field, default: $\gf(2)$.
+#! **Must** match that given in the file (if any).
+#! __Notice__: with `pair`=1 and `pair`=2, the number of matrix columns
 #! specified in the file must be even, twice the block length of the
 #! code 
 #!
@@ -138,16 +385,23 @@ InstallGlobalFunction(QDR_DoProbOut,
 #!
 #! 2nd line (optional) may contain:
 #!
-#! @BeginCode LineTwo
+#! @BeginCode LineTwoA
 #! % Field: `valid_field_name_in_Gap` 
 #! @EndCode
-#! @InsertCode LineTwo
+#! @InsertCode LineTwoA
+#! or
+#! @BeginCode LineTwoB
+#! % Field: `valid_field_name_in_Gap` PrimitiveP(x): `polynomial` 
+#! @EndCode
+#! @InsertCode LineTwoB
+#! 
 #! Any additional entries in the second line are silently ignored.  By
-#! default, $GF(2)$ is assumed;
+#! default, $\gf(2)$ is assumed;
 #! the default can be overriden
 #! by the optional `field` argument.   If the field is specified both
 #! in the file and by the optional argument, the corresponding values
-#! must match. 
+#! must match.  Primitive polynomial (if any) is only checked in the case of 
+#! an extension field; it is silently ignored for a prime field.
 #!
 #! See Chapter <Ref Chap="Chapter_FileFormat"/> for the details of how the elements
 #! of the group are represented depending on whether the field is a prime
@@ -156,10 +410,11 @@ InstallGlobalFunction(QDR_DoProbOut,
 DeclareGlobalFunction("ReadMTXE");#function(StrPath, [pair]... ) # supported option: "field"
 InstallGlobalFunction(ReadMTXE,
                      function(StrPath, opt... ) # supported option: "field"
-                         local input, data, line, pair, F, rowsG, colsG, G, G1, i, iComment;
+                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, iComment;
                          # local variables:
                          # input - file converted to a string
                          # data - input separated into records (list of lists)
+                         # fmt  - array returned by QDR_ProcessFieldHeader
                          # pair - 0,1,2 (integer) or 3 (complex), see input variables
                          #        indicates if we store matrix in the compressed form,
                          #		using complex representation a+i*b
@@ -203,32 +458,10 @@ InstallGlobalFunction(ReadMTXE,
                              if line[4]="complex" then pair:=3; else pair:=0; fi;
                          fi;
                          
-                         # check if the field argument is in the second line
-                         line := SplitString(data[2], " ");;         # separate into records
-                         if (line[1][1]='%' and line[2]="Field:") then
-                             F:=EvalString(line[3]);
-                             if not IsField(F) then
-                                 Error("invalid input file field '",line[3],"' given\n");
-                             fi;
-                         fi;
-                         
-                         # compare with the field option
-                         if ValueOption("field")<>fail then
-                             if not IsField(ValueOption("field")) then
-                                 Error("invalid option 'field'=",ValueOption("field"),"\n");
-                             else # default field is specified
-                                 if IsBound(F) then
-                                     if F<>ValueOption("field") then
-                                         Error("field mismatch: file='",F,
-                                               "' given='",ValueOption("field"),"'\n");
-                                     fi;
-                                 else
-                                     F:=ValueOption("field");
-                                 fi;
-                             fi;
-                         elif not IsBound(F) then
-                             F:=GF(2);
-                         fi;
+                         # process the field argument in the second line, if any 
+                         line := SplitString(data[2], " ");; # separate into records
+                         fmt:=QDR_ProcessFieldHeader(line,ValueOption("field"));
+                         F:=fmt[1];
 
                          # search for the end of top comment section (including any empty lines):
                          iComment := 1;
@@ -251,42 +484,18 @@ InstallGlobalFunction(ReadMTXE,
                          G := NullMat(rowsG, colsG, F);;    # empty matrix
     
                          # Then we fill G with the elements from data (no more empty / comment lines allowed)
-                         if (pair <>3 ) then
-	                     if IsPrime(Size(F)) then
-	                         for i in [(iComment + 2)..Length(data)] do
-		                     G[Int(data[i,1]), Int(data[i,2])] := Int(data[i,3])*One(F);;
-	                         od;
-	                     else # Extension field
-	                         for i in [(iComment + 2)..Length(data)] do
-                                     if (Int(data[i, 3]) = -1) then
-                                         G[Int(data[i, 1]), Int(data[i, 2])] := Zero(F);;
-                                     else
-		                         G[Int(data[i, 1]), Int(data[i, 2])] :=
-                                         PrimitiveElement(F) ^ Int(data[i, 3]);;
-                                     fi;
-                                 od;
-                             fi;
-                         elif (pair = 3) then
-	                     if IsPrime(Size(F)) then
-                                 for i in [(iComment + 2)..Length(data)] do
-		                     G[Int(data[i,1]),2*Int(data[i,2])-1]:=Int(data[i,3])*One(F);
-                                     G[Int(data[i,1]),2*Int(data[i,2])]:=Int(data[i,4])*One(F);;
-                                 od;
-                             else
-                                 for i in [(iComment + 2)..Length(data)] do
-                                     if (Int(data[i, 3]) = -1) then
-                                         G[Int(data[i, 1]), 2 * Int(data[i, 2]) - 1] := Zero(F);;
-                                     else
-                                         G[Int(data[i, 1]), 2 * Int(data[i, 2]) - 1] := PrimitiveElement(F) ^ Int(data[i, 3]);;
-                                     fi;
-
-		                     if (Int(data[i, 4]) = -1) then
-                                         G[Int(data[i, 1]), 2 * Int(data[i, 2])] := Zero(F);;
-                                     else
-                                         G[Int(data[i, 1]), 2 * Int(data[i, 2])] := PrimitiveElement(F) ^ Int(data[i, 4]);;
-                                     fi;
-                                 od;
-                             fi;
+                         if (pair <>3 ) then	                  
+	                     for i in [(iComment + 2)..Length(data)] do
+		                 G[Int(data[i,1]), Int(data[i,2])] := 
+                                     QDR_ProcEntry(data[i,3],fmt,StrPath,i);                                 
+	                     od;
+	                 else # pair=3 
+                             for i in [(iComment + 2)..Length(data)] do
+		                 G[Int(data[i,1]),2*Int(data[i,2])-1]:=
+                                     QDR_ProcEntry(data[i,3],fmt,StrPath,i);                                 
+                                 G[Int(data[i,1]),2*Int(data[i,2])]:=
+                                     QDR_ProcEntry(data[i,4],fmt,StrPath,i);                                 
+                             od;
                          fi;
                          
                          if pair=2 then # reorder the columns
@@ -304,7 +513,6 @@ InstallGlobalFunction(ReadMTXE,
                          return [F,pair,G,data{[2..iComment]}];
                      end
                      );
-
 
 #! @Arguments StrPath, pair, matrix [,comment[,comment]] : field:=GF(2)
 #! @Returns no output
@@ -373,7 +581,7 @@ InstallGlobalFunction(WriteMTXE,
 
                          # Header of the MatrixMarket
                          PrintTo(filename, "%%MatrixMarket matrix coordinate ", row, " general", "\n");
-                         if ValueOption("field")<>fail then AppendTo(filename,"% Field: ", F, "\n"); fi;
+                         if ValueOption("field")<>fail then AppendTo(filename,QDR_FieldHeaderStr(F), "\n"); fi;
 
                          for i in [1..Length(comment)] do
                              if comment[i,1]<>'%' then
@@ -542,7 +750,7 @@ InstallGlobalFunction(QDR_MakeH,
 #!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
 #!   * 4 (2nd bit set) : show occasional progress update
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $GF(2)$.   
+#! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
 DeclareGlobalFunction("DistRandCSS");#  (GX,GZ,num,mindist,opt...) ;supported options: field, maxav
@@ -698,7 +906,7 @@ InstallGlobalFunction(DistRandCSS,
 #!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
 #!   * 4 (2nd bit set) : show occasional progress update
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $GF(2)$.   
+#! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
 DeclareGlobalFunction("DistRandStab");# function(G,num,mindist,opt...) # options: field, maxav                      
@@ -879,23 +1087,10 @@ InstallGlobalFunction(DistRandStab,
       QDR_DoProbOut(mult,cols,i);
   fi;
   
-  #    return upper bound on the distance DistBound
   return DistBound;
 
                      end
                      );
-
-
-
-##lisX:=ReadMTXE("../code/QX40.mtx",0);
-##lisZ:=ReadMTXE("../code/QZ40.mtx",0);
-#lisX:=ReadMTXE("../code/QX900.mtx",0);
-#GX:=lisX[3];
-#lisZ:=ReadMTXE("../code/QZ900.mtx",0);
-#GZ:=lisZ[3];
-#Display(WeightMat(GX*TransposedMat(GZ)));
-#DistRandCSS(GX,GZ,10000,1,31:field:=GF(2),maxav:=25.);
-#Print(lisZ[4]);
 
 
 #! @Chapter AllFunctions

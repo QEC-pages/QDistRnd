@@ -10,7 +10,7 @@
 #
 gap> START_TEST( "qdistrnd01.tst");
 
-# doc/_Chapter_Examples.xml:20-37
+# doc/_Chapter_Examples.xml:20-38
 gap> q:=3;; F:=GF(q);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1+x^3-x^5-x^6);;
 gap> n:=5;;
@@ -22,13 +22,14 @@ gap> Display(mat);
  . 2 2 . . . 1 . . 1
 gap> d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 3
+gap> AUTODOC_CreateDirIfMissing("tmp");;
 gap> WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 >         "% The 5-qubit code [[5,1,3]]_3",
 >         "% Generated from h(x)=1+x^3-x^5-x^6",
 >         "% Example from the QDistRnd GAP package"   : field:=F);
 File tmp/n5_q3_complex.mtx was created
 
-# doc/_Chapter_Examples.xml:78-89
+# doc/_Chapter_Examples.xml:79-90
 gap> lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
 gap> lis[1]; # the field 
 GF(3)
@@ -40,10 +41,11 @@ gap> Display(lis[3]);
  2 . . . 1 . . 1 . 2
  . 2 2 . . . 1 . . 1
 
-# doc/_Chapter_Examples.xml:112-119
-gap> lisX:=ReadMTXE("matrices/QX80.mtx",0);;
+# doc/_Chapter_Examples.xml:113-121
+gap> filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+gap> lisX:=ReadMTXE(Filename(filedir,"QX80.mtx"),0);;
 gap> GX:=lisX[3];;
-gap> lisZ:=ReadMTXE("matrices/QZ80.mtx",0);;
+gap> lisZ:=ReadMTXE(Filename(filedir,"QZ80.mtx"),0);;
 gap> GZ:=lisZ[3];;
 gap> DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 5

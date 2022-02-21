@@ -10,21 +10,22 @@
 #
 gap> START_TEST( "qdistrnd03.tst");
 
-# doc/_Chapter_FileFormat.xml:181-187
-gap>     lis:=ReadMTXE("matrices/n5k1A.mtx" );;
+# doc/_Chapter_FileFormat.xml:312-319
+gap> 	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+gap>     lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;
 gap>     Print("field ",lis[1],"\n");
 field GF(7)
 gap>     dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);
 3
 
-# doc/_Chapter_FileFormat.xml:202-214
-gap>     lis:=ReadMTXE("matrices/n5k1.mtx" );;
+# doc/_Chapter_FileFormat.xml:334-346
+gap>     lis:=ReadMTXE(Filename(filedir,"n5k1.mtx" ));;
 gap>     Print("field ",lis[1],"\n");
 field GF(2)
 gap>     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
 3
 gap>     q:=17;;
-gap>     lis:=ReadMTXE("matrices/n5k1.mtx" : field:= GF(q));;
+gap>     lis:=ReadMTXE(Filename(filedir,"n5k1.mtx") : field:= GF(q));;
 gap>     Print("field ",lis[1],"\n");
 field GF(17)
 gap>     dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);
