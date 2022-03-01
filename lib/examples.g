@@ -77,7 +77,7 @@ Display(lis[3]);
 #!  . 2 2 . . . 1 . . 1
 #! @EndExample
 #! The remaining portion is the list of comments.  Notice that the 1st
-#! and the last coment lines have been added automatically.
+#! and the last comment lines have been added automatically.
 #! @BeginLog
 #! gap> lis[4];
 #! [ "% Field: GF(3)", "% The 5-qubit code [[5,1,3]]_3",
