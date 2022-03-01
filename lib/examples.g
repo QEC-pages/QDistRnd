@@ -59,10 +59,10 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! 4 5 0 1
 #! @EndLog
 
-#! And now let us read the matrix back the file.   In the simplest
-#! case, all optional parameters are read from the file. 
+#! And now let us read the matrix back from the file using the function `ReadMTXE`.   In the simplest
+#! case, only the file name is needed.
 #! Output is a list: `[field,pair,matrix,(list of comments)]`, where the `pair` parameter describes 
-#! the ordering of columns.  
+#! the ordering of columns in the matrix, see  <Ref Chap="Chapter_FileFormat"/>.  
 #! Notice that a `pair=2` or `pair=3` matrix is always converted to `pair=1`, i.e., with $2n$
 #! intercalated columns $(a_1,b_1,a_2,b_2,\ldots)$. 
 #! @BeginExample
@@ -121,7 +121,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! As a final and hopefully somewhat useful example, the file 
 #! "lib/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
-#! $n:=15$ over the field $GF(8)$, and generator weight `wei:=6`.  
+#! $n:=15$ over the field $\gf(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
 #! speed up the calculation.
 

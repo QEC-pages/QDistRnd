@@ -71,12 +71,12 @@ InstallGlobalFunction(QDR_WeightMat,
                      );
                       
 
-#! @Description aux function to print out the relevant probabilities given
+#! @Description Aux function to print out the relevant probabilities given
 #! the list `vector` of multiplicities of the codewords found.  Additional
 #! parameters are `n`, the code length, and `num`, the number of
 #! repetitions; these are ignored in the present version of the
 #! program.  See <Ref Sect="Section_Empirical"/> for 
-#! the importance of these parameters.
+#! related discussion.
 #! @Arguments vector, n, num
 DeclareGlobalFunction("QDR_DoProbOut");
 InstallGlobalFunction(QDR_DoProbOut,
@@ -373,7 +373,7 @@ InstallGlobalFunction(QDR_ProcEntry,
 #! **Must** match that given in the file (if any).
 #! __Notice__: with `pair`=1 and `pair`=2, the number of matrix columns
 #! specified in the file must be even, twice the block length of the
-#! code 
+#! code.  **This version of the format is deprecated and should be avoided.**
 #!
 #! 1st line of file must read:
 #! @BeginCode LineOne
@@ -528,19 +528,19 @@ InstallGlobalFunction(ReadMTXE,
 #! specified by the `pair` argument.  
 #!
 #! * `StrPath` - name of the file to be created;
-#! * `pair`: parameter to control the format details, must match the
+#! * `pair`: parameter to control the file format details, must match the storage
 #!    `type` of the matrix. 
-#!   - `pair=0` for regular matrices (e.g., CSS) with `type=integer`
+#!   - `pair=0` for regular matrices (e.g., CSS) with `type=integer` 
 #!   - `pair=1` for intercalated columns $ (a_1, b_1, a_2, b_2, \ldots) $
-#!              with `type=integer`
+#!              with `type=integer` (**deprecated**)
 #!   - `pair=2` for grouped columns with `type=integer` **(this is not supported!)**
-#!   - `pair=3` for columns specified in pairs with `type=complex`
+#!   - `pair=3` for columns specified in pairs with `type=complex`.
 #! * Columns of the input `matrix` must be intercalated unless `pair=0`
 #! * optional `comment`: one or more strings (or a single list of
 #!   strings) to be output after the MTX header line.  
 #!
 #! The second line specifying the field will be generated
-#! automatically only if the GAP Option `field` is present.
+#! automatically **only** if the GAP Option `field` is present.
 #! As an option, the line can also be  entered explicitly
 #! as the first line of the comments, e.g., `"% Field: GF(256)"`
 #!
@@ -759,7 +759,7 @@ InstallGlobalFunction(QDR_MakeH,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Subsect="Subsection_Empirical"/>.  Not set by default.
+#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 DeclareGlobalFunction("DistRandCSS");#  (GX,GZ,num,mindist,opt...) ;supported options: field, maxav
 InstallGlobalFunction(DistRandCSS,
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
@@ -915,7 +915,7 @@ InstallGlobalFunction(DistRandCSS,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
+#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 DeclareGlobalFunction("DistRandStab");
 InstallGlobalFunction(DistRandStab,
                      function(G,num,mindist,opt...) # supported options: field, maxav
