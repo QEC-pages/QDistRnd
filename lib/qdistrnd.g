@@ -71,12 +71,12 @@ InstallGlobalFunction(QDR_WeightMat,
                      );
                       
 
-#! @Description aux function to print out the relevant probabilities given
+#! @Description Aux function to print out the relevant probabilities given
 #! the list `vector` of multiplicities of the codewords found.  Additional
 #! parameters are `n`, the code length, and `num`, the number of
 #! repetitions; these are ignored in the present version of the
 #! program.  See <Ref Sect="Section_Empirical"/> for 
-#! the importance of these parameters.
+#! related discussion.
 #! @Arguments vector, n, num
 DeclareGlobalFunction("QDR_DoProbOut");
 InstallGlobalFunction(QDR_DoProbOut,
@@ -203,7 +203,7 @@ InstallGlobalFunction(QDR_ProcessFieldHeader,
                          local m,F,Fp,poly,x,ic,is,a,x_global_val,
                                x_bound,x_readonly;
     
-                         if (recs[1][1]='%' and recs[2]="Field:") then
+                         if (Length(recs)>2 and recs[1][1]='%' and recs[2]="Field:") then
                              F:=EvalString(recs[3]);
                              if not IsField(F) then
                                  Error("invalid input file field '",recs[3],"' given\n");
@@ -225,8 +225,7 @@ InstallGlobalFunction(QDR_ProcessFieldHeader,
                                  fi;
                              fi;
                          elif not IsBound(F) then
-                             F:=GF(2);
-                             # TODO: make sure the line is not just eaten up in this case
+                             F:=GF(2);                            
                          fi;
                          
                          # check if a PrimitiveP is specified (only if the field is prime).
@@ -257,7 +256,7 @@ InstallGlobalFunction(QDR_ProcessFieldHeader,
                                  BindGlobal("x",Indeterminate(F,"x"));                                
                                  poly:=EvalString(recs[5]);
                                  
-                                 Print("'",recs[5],"'=",poly,"\n");                                 
+                                 # Print("'",recs[5],"'=",poly,"\n"); 
                                  if not IsUnivariatePolynomial(poly) then
                                      Error("Univariate polynomial expected ",recs[5],"\n");
                                  fi;
@@ -374,7 +373,7 @@ InstallGlobalFunction(QDR_ProcEntry,
 #! **Must** match that given in the file (if any).
 #! __Notice__: with `pair`=1 and `pair`=2, the number of matrix columns
 #! specified in the file must be even, twice the block length of the
-#! code 
+#! code.  **This version of the format is deprecated and should be avoided.**
 #!
 #! 1st line of file must read:
 #! @BeginCode LineOne
@@ -410,7 +409,8 @@ InstallGlobalFunction(QDR_ProcEntry,
 DeclareGlobalFunction("ReadMTXE");#function(StrPath, [pair]... ) # supported option: "field"
 InstallGlobalFunction(ReadMTXE,
                      function(StrPath, opt... ) # supported option: "field"
-                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, iComment;
+                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
+                               iCommentStart,iComment;
                          # local variables:
                          # input - file converted to a string
                          # data - input separated into records (list of lists)
@@ -425,19 +425,20 @@ InstallGlobalFunction(ReadMTXE,
                          # G - matrix read
                          # G1 - aux matrix with permuted columns
                          # i - dummy for "for" loop
-                         # iComment - line number where comment section ends
+                         # iCommentStart, iComment - range of line numbers for comment section
                          
                          input := ReadAll(InputTextFile(StrPath));; # read the file in
                          data := SplitString(input, "\n");;         # separate into lines
                          line := SplitString(data[1], " ");;         # separate into records
                          
                          # check the header line
-                         if line[1]<>"%%MatrixMarket" or line[2]<>"matrix" or
-                            line[3]<>"coordinate" or
+                         if Length(line)<5 or line[1]<>"%%MatrixMarket" or 
+                            line[2]<>"matrix" or line[3]<>"coordinate" or
                             (line[4]<>"integer" and line[4]<>"complex") or line[5]<>"general"
                          then
                              Display(data[1]);
-                             Error("Invalid header! MTX file must contain a general matrix\n",
+                             Error("Invalid header! This software supports MTX files containing", 
+                                   "a general matrix\n",
                                    "\twith integer or complex values in coordinate format.\n");
                          fi;
                          
@@ -460,11 +461,17 @@ InstallGlobalFunction(ReadMTXE,
                          
                          # process the field argument in the second line, if any 
                          line := SplitString(data[2], " ");; # separate into records
+                         if (Length(line)>2 and line[1][1]='%' and line[2]="Field:") then
+                             iCommentStart:=3; # second line is a format line, not needed
+                         else
+                             iCommentStart:=2; # this was a regular comment 
+                         fi;
+                         
                          fmt:=QDR_ProcessFieldHeader(line,ValueOption("field"));
                          F:=fmt[1];
 
                          # search for the end of top comment section (including any empty lines):
-                         iComment := 1;
+                         iComment := iCommentStart;
                          while Length(data[iComment + 1]) = 0 or data[iComment + 1, 1] = '%' do
 	                     iComment := iComment + 1;
                              if Length(data[iComment]) = 0 then
@@ -510,7 +517,7 @@ InstallGlobalFunction(ReadMTXE,
                          elif pair=3 then
                              pair:=1;
                          fi;
-                         return [F,pair,G,data{[2..iComment]}];
+                         return [F,pair,G,data{[iCommentStart..iComment]}];
                      end
                      );
 
@@ -521,19 +528,19 @@ InstallGlobalFunction(ReadMTXE,
 #! specified by the `pair` argument.  
 #!
 #! * `StrPath` - name of the file to be created;
-#! * `pair`: parameter to control the format details, must match the
+#! * `pair`: parameter to control the file format details, must match the storage
 #!    `type` of the matrix. 
-#!   - `pair=0` for regular matrices (e.g., CSS) with `type=integer`
+#!   - `pair=0` for regular matrices (e.g., CSS) with `type=integer` 
 #!   - `pair=1` for intercalated columns $ (a_1, b_1, a_2, b_2, \ldots) $
-#!              with `type=integer`
+#!              with `type=integer` (**deprecated**)
 #!   - `pair=2` for grouped columns with `type=integer` **(this is not supported!)**
-#!   - `pair=3` for columns specified in pairs with `type=complex`
+#!   - `pair=3` for columns specified in pairs with `type=complex`.
 #! * Columns of the input `matrix` must be intercalated unless `pair=0`
 #! * optional `comment`: one or more strings (or a single list of
 #!   strings) to be output after the MTX header line.  
 #!
 #! The second line specifying the field will be generated
-#! automatically only if the GAP Option `field` is present.
+#! automatically **only** if the GAP Option `field` is present.
 #! As an option, the line can also be  entered explicitly
 #! as the first line of the comments, e.g., `"% Field: GF(256)"`
 #!
@@ -752,7 +759,7 @@ InstallGlobalFunction(QDR_MakeH,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
+#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 DeclareGlobalFunction("DistRandCSS");#  (GX,GZ,num,mindist,opt...) ;supported options: field, maxav
 InstallGlobalFunction(DistRandCSS,
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
@@ -870,7 +877,7 @@ InstallGlobalFunction(DistRandCSS,
                                  Print("First vector found with lowest weight:\n");
                                  Display([FirstVecFound]);
                              fi;
-                             Print("Miimum weight vector found ", VecCount, " times\n");
+                             Print("Minimum weight vector found ", VecCount, " times\n");
                              Print("[[", colsWZ, ",",colsWZ-RankMat(GX)-RankMat(GZ),",",
                                    DistBound, "]];", "  Field: ", F, "\n");
                          fi;
@@ -886,15 +893,15 @@ InstallGlobalFunction(DistRandCSS,
                      );
 
 
-#! @Arguments H, num, mindist[, debug] :field:=GF(2), maxav:=fail
+#! @Arguments G, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the code distance $d$
 #! @Description Computes an upper bound on the distance $d$ of the
-#! $F$-linear stabilizer code with generator matrix $H$ whose rows
+#! $F$-linear stabilizer code with generator matrix $G$ whose rows
 #! are assumed to be symplectic-orthogonal, see Section <Ref
 #! Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
 #!
 #! Details of the input parameters:
-#! * `H`: the input matrix with elements in the Galois `field` $F$
+#! * `G`: the input matrix with elements in the Galois `field` $F$
 #!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
 #! The remaining options are identical to those in the function
 #! `DistRandCSS` <Ref Func="DistRandCSS"/>.
@@ -908,8 +915,8 @@ InstallGlobalFunction(DistRandCSS,
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
-DeclareGlobalFunction("DistRandStab");# function(G,num,mindist,opt...) # options: field, maxav                      
+#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
+DeclareGlobalFunction("DistRandStab");
 InstallGlobalFunction(DistRandStab,
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,

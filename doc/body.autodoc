@@ -41,7 +41,7 @@ package.  For more information see Chapter <Ref Chap="Chapter_AllFunctions"/>
 
 @Chapter Introduction
 
-The &GAP; package &QDistRnd; gives a reference implementation of a
+The &GAP; package &QDistRnd; implements a
 probabilistic algorithm for finding the distance of a $q$-ary quantum
 low-density parity-check code linear over a finite field $F=\gf(q)$.
 While there is no guarantee of the performance of the algorithm (the
@@ -90,9 +90,9 @@ important block lengths $n\lesssim 10^3$.
 In the simplest possible terms, we are given a pair of matrices $P$
 and $Q$ with orthogonal rows, $PQ^T=0$.  The matrices have entries in
 a finite field $F=\gf(q)$, where $q$ is a power of a prime.  The goal
-is to find the smallest weight of a vector $c$ over the same field
-$F$, such that $c$ be orthogonal with the rows of $P$, $Pc^T=0$, and
-linearly independent from the rows of $Q$.
+is to find the smallest weight of a non-zero vector $c$ over the same
+field $F$, such that $c$ be orthogonal with the rows of $P$, $Pc^T=0$,
+and linearly independent from the rows of $Q$.
 
 @Subsection The algorithm
 @SubsectionLabel TheProcedure
@@ -113,15 +113,28 @@ an upper bound on the distance which is improving with increasing $N$.
 
 
 The intuition is that each row of $G_S$ is guaranteed to contain at
-least `rank`$(G_S)-1$ zeros.  Thus, we are sampling mostly 
+least `rank`$(G_S)-1$ zeros.  Thus, we are sampling mostly
 lower-weight vectors from the linear space orthogonal to the rows of
-$P$.  
+$P$.  Further, it is easy to see that any vector obtained this way is
+**irreducible** <Cite Key="Dumer-Kovalev-Pryadko-bnd-2015"/>, i.e., it
+cannot be decomposed into a pair of zero-syndrome vectors with
+non-overlapping supports.
+
+Furthermore, the eventual convergence is guaranteed.  Indeed, if $c$
+is a minimum-weight codeword of weight $d$, consider a permutation $S$
+which places one position from its support into the 1st column, and
+the remaining positions into the last $d-1$ columns.  Vector $c$ being
+the lowest-weight non-trivial vector, no pivot column may be in the
+block of last $d-1$ columns. This guarantees that vector $c$ is
+obtained as the first row of $G_S$.
+(This argument is adapted to degenerate quantum codes from
+<Cite Key="Cuellar-etal-2020"/>).
 
 @Subsection CSS version of the algorithm
 @SubsectionLabel DistRandCSS
 
 The described version of the algorithm is implemented in the function
-`DistRandCSS` <Ref Func="DistRandCSS"/>.  It applies to the case of
+<Ref Func="DistRandCSS"/>.  It applies to the case of
 Calderbank-Shor-Steane (CSS) codes, where the matrices $P=H_X$ and
 $Q=H_Z$ are called the CSS generator matrices, and the computed
 minimum weight is the distance $d_Z$ of the code.  The number of
@@ -158,7 +171,7 @@ generators $H_X$ and $H_Z$, the stabilizer generator matrix has a
 block-diagonal form, $H=$`diag`$(H_X,H_Z)$.
 
 A version of the algorithm for general $F$-linear stabilizer codes is
-implemented in the function `DistRandStab` <Ref Func="DistRandStab"/>.
+implemented in the function <Ref Func="DistRandStab"/>.
 
 **Important Notice**: In general, here one could use most general
 permutations of $2n$ columns, or restricted permutations of $n$
@@ -251,11 +264,11 @@ of the family of the codes under consideration.  Since $\theta\ge R$
 the complexity would grow (assuming the distance $d$ remains the same,
 which is usually **not** the case for LDPC codes).
 
-Note however that rows of $G_P$ other than the last are not expected
+Note however that rows of $G_S$ other than the last are not expected
 to contain as many zeros (e.g., the first row is only guaranteed to
-have $k-1$ zeros), so it is **possible** that the performance of the IS
-algorithm on LDPC codes is actually closer to that on random codes as
-estimated by Leon <Cite Key="Leon-1988"/>.
+have $k-1$ zeros), so it is **possible** that the performance of the
+IS algorithm on classical LDPC codes is actually closer to that on
+random codes as estimated by Leon <Cite Key="Leon-1988"/>.
 
 @LatexOnly \medskip\noindent\underline{%
 Case of **quantum CSS codes**
@@ -307,10 +320,10 @@ by a suitably chosen column permutation.  However, there is no
 guarantee that the resulting information sets have equal
 probabilities.  In fact, it is easy to construct small matrices where
 different information sets are obtained from different numbers of
-column permutations (and thus have different probabilities).  It is
+column permutations (and thus have **different** probabilities).  It is
 not clear whether some of the ISs may have vanishingly small
 probabilities in the limit of large codes; in such a case the
-algorithm would fail.
+algorithm may take an excessively long time to converge.
 
 @Section Empirical estimate of the success probability
 @SectionLabel Empirical
@@ -328,14 +341,12 @@ $$ \lambda_w =\frac{1}{N m}\sum_{i=1}^m n_i. $$
 
 Then, the probability that a codeword $c_0$ of the true minimal weight
 $ d &lt; w $ be **not** discovered after $N$ steps can be upper
-bounded as (the inequalities here become equalities in the limit of
-small $\lambda_w$)  $$ P_{\rm fail} &lt; (1-\lambda_w)^N &lt;
-e^{-N\lambda_w}=\exp\left(-m^{-1}\sum_{i=1}^m n_i\right)\equiv
-\exp(-\langle n\rangle).
-$$
-Thus, the probability to fail is decreasing as an exponent of the
-parameter $\langle n\rangle$, the **average number of times a minimum-weight
-codeword has been found.**
+bounded as (the inequalities tend to saturate and become equalities in
+the limit of small $\lambda_w$) $$ P_{\rm fail} &lt; (1-\lambda_w)^N
+&lt; e^{-N\lambda_w}=\exp\left(-m^{-1}\sum_{i=1}^m n_i\right)\equiv
+\exp(-\langle n\rangle).  $$ Thus, the probability to fail is
+decreasing as an exponent of the parameter $\langle n\rangle$, the
+**average number of times a minimum-weight codeword has been found.**
 
 The hypothesis about all $P(c_i)$ being equal to $\lambda_w$ is
 testable, e.g., if one considers the distribution of the ratios
@@ -428,30 +439,62 @@ storage options for elements of an extension field can in be used.
 	
 @Subsection Matrix storage format
 
-The generator matrix storage format depends on 2 parameters: `pair` and `type`.
+There are two recommended storage formats.
 
-* With `pair=0` the matrix elements are stored in the usual order.
-  This is the defailt storage format for stabilizer generator matrices
-  of CSS codes.  In this case `type=integer`, since matrix elements
-  are stored as integers.
+1. For CSS matrices stored in
+   separate files, the MTX header should use the `integer` type, with matrix
+   elements stored in the usual order.
+
+2. For general stabilizer codes, or to store both CSS matrices in a
+   single file, the MTX header should use the `complex` type.  In this
+   case the block matrix $(A,B)$ is stored as a complex matrix $A+iB$.
+
+In both format versions, the number of columns specified in the file
+coincides with the code length.
+
+Two additional matrix format versions supported by `ReadMTXE` and
+`WriteMTXE` are provided for compatibility.  Here, the columns $a_i$
+and $b_i$ in the blocks $A$ and $B$ are listed individually, and are
+either intercalated [the ordering $(a_1, b_1,
+a_2,b_2,\ldots,a_n,b_n)$] or are separated into column blocks
+$(a_1,\ldots,a_n,b_1,\ldots,b_n)$.  In both cases the number of
+columns in the matrix stored is twice the code length.
+
+The ordering of the columns is governed by a parameter
+`pair`, optional in the function `ReadMTXE` and required in `WriteMTXE`.
+
+* With `pair=0` the matrix elements are stored in the usual order.  In
+  this case the MTX header should use the `integer` type.  This is the
+  defailt storage format for stabilizer generator matrices of CSS
+  codes, and also the internal matrix format for single-block matrices
+  accepted by the function `DistRandCSS`, see <Ref
+  Sect="Section_DistanceFunctions"/>.
 
 * With `pair=1` the block matrix $(A,B)$ is stored with intercalated
-  columns $(a_1,b_1,\ldots,a_n,b_n)$.  In this case `type=integer`.
+  columns $(a_1,b_1,\ldots,a_n,b_n)$; the MTX header should use the
+  `integer` type.  This is the internal matrix format for two-block
+  matrices accepted by the functions `DistRandStab` (<Ref
+  Sect="Section_DistanceFunctions"/>) and `WriteMTXE` (<Ref
+  Sect="Section_IOFunctions"/>), and returned by `ReadMTXE` (<Ref
+  Sect="Section_IOFunctions"/>).
 
-* With `pair=2` the block matrix $(A,B)$ is stored with
-  separated columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$. In this case
-  `type=integer`.
+* With `pair=2` the block matrix $(A,B)$ is stored with separated
+  columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$; the MTX header should also
+  use the `integer` type.
 
 * With `pair=3` the block matrix $(A,B)$ is stored as a complex matrix
-   $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i b_n)$. In this
-   case `type=complex`, since matrix elements are represented as
-   complex integers.
+  $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i b_n)$. In this
+  case `type=complex`, since matrix elements are represented as
+  complex integers.
 
-By default, `pair=0` corresponds to `type=integer` and `pair=3` corresponds to `type=complex`.
+By default, `pair=0` corresponds to `type=integer` and `pair=3`
+corresponds to `type=complex`.  **It is strongly recommended** that
+matrices intended for use by others should only use these two variants of
+the MTXE format.
 
 For efficiency reasons, the function `DistRandStab` <Ref
-Sect="Section_DistanceFunctions"/> assumes the generator
-matrix with intercalated columns. 
+Sect="Section_DistanceFunctions"/> assumes the generator matrix with
+intercalated columns.
 
 @Subsection Explicit format of each line
 
@@ -696,7 +739,7 @@ Finally, the following is an example of a five-qudit code over
 $\gf(2^3)$ constructed by the script `lib/cyclic.g`.
 @BeginCode SampleFileC
 %%MatrixMarket matrix coordinate complex general
-% Field: GF(2^3) PrimitiveP(x)=x^3+x+1
+% Field: GF(2^3) PrimitiveP(x): x^3+x+1
 % code [[5,1,3]]_8
 % cyclic w=4 x^6+Z(2^3)^4*x^5+Z(2^3)^4*x^3+Z(2)^0
 % Powers of GF(8) primitive element and -1 for Zero are given

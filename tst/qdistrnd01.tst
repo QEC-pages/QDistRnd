@@ -29,11 +29,11 @@ gap> WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 >         "% Example from the QDistRnd GAP package"   : field:=F);
 File tmp/n5_q3_complex.mtx was created
 
-# doc/_Chapter_Examples.xml:79-90
+# doc/_Chapter_Examples.xml:80-91
 gap> lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
 gap> lis[1]; # the field 
 GF(3)
-gap> lis[2]; # converted to `mode=1`
+gap> lis[2]; # converted to `pair=1`
 1
 gap> Display(lis[3]);
  1 . . 1 . 2 2 . . .
@@ -41,7 +41,7 @@ gap> Display(lis[3]);
  2 . . . 1 . . 1 . 2
  . 2 2 . . . 1 . . 1
 
-# doc/_Chapter_Examples.xml:113-121
+# doc/_Chapter_Examples.xml:114-122
 gap> filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
 gap> lisX:=ReadMTXE(Filename(filedir,"QX80.mtx"),0);;
 gap> GX:=lisX[3];;

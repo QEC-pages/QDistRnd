@@ -28,11 +28,11 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! @EndExample
 
 #! Here is the contents of the resulting file which also illustrates
-#! the `complex` data format.  Here a pair $(a_{i,j},b_{i,j})$
-#! in row $i$ and column $j$ is written as 4 integers, "$i$ $j$ $a_{i,j}$
+#! the `coordinate complex` data format.  Here a pair $(a_{i,j},b_{i,j})$
+#! in row $i$ and column $j$ is written as a row of 4 integers, "$i$ $j$ $a_{i,j}$
 #! $b_{i,j}$", e.g., "1 2 0 1" 
 #! for the second entry in the 1st row, so that the matrix in the file
-#! has $n$ columns.
+#! has $n$ columns, each containing a pair of integers.
 #! @BeginLog
 #! %%MatrixMarket matrix coordinate complex general
 #! % Field: GF(3)
@@ -59,16 +59,17 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! 4 5 0 1
 #! @EndLog
 
-#! And now let us read the matrix back the file.   In the simplest
-#! case, all optional parameters are read from the file. 
-#! Output is a list: `[field,mode,matrix,(list of comments)]`.  
-#! Notice that a `mode=2` or `mode=3` matrix is always converted to `mode=1`, i.e., with $2n$
+#! And now let us read the matrix back from the file using the function `ReadMTXE`.   In the simplest
+#! case, only the file name is needed.
+#! Output is a list: `[field,pair,matrix,(list of comments)]`, where the `pair` parameter describes 
+#! the ordering of columns in the matrix, see  <Ref Chap="Chapter_FileFormat"/>.  
+#! Notice that a `pair=2` or `pair=3` matrix is always converted to `pair=1`, i.e., with $2n$
 #! intercalated columns $(a_1,b_1,a_2,b_2,\ldots)$. 
 #! @BeginExample
 lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
 lis[1]; # the field 
 #! GF(3)
-lis[2]; # converted to `mode=1`
+lis[2]; # converted to `pair=1`
 #! 1
 Display(lis[3]);
 #!  1 . . 1 . 2 2 . . .
@@ -77,7 +78,7 @@ Display(lis[3]);
 #!  . 2 2 . . . 1 . . 1
 #! @EndExample
 #! The remaining portion is the list of comments.  Notice that the 1st
-#! and the last coment lines have been added automatically.
+#! and the last comment lines have been added automatically.
 #! @BeginLog
 #! gap> lis[4];
 #! [ "% Field: GF(3)", "% The 5-qubit code [[5,1,3]]_3",
@@ -87,7 +88,7 @@ Display(lis[3]);
 
 #! @Section Hyperbolic codes from a file
 
-#! Here we read a pair of matrices from two different files which
+#! Here we read two CSS matrices from two different files which
 #! correspond to a hyperbolic code $[[80,18,5]]$ with row weight $w=5$
 #! and the asymptotic rate $1/5$.  Notice that `pair=0` is used for
 #! both files (regular matrices).
@@ -120,7 +121,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! As a final and hopefully somewhat useful example, the file 
 #! "lib/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
-#! $n:=15$ over the field $GF(8)$, and generator weight `wei:=6`.  
+#! $n:=15$ over the field $\gf(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
 #! speed up the calculation.
 
