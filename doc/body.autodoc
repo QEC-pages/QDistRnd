@@ -116,7 +116,7 @@ The intuition is that each row of $G_S$ is guaranteed to contain at
 least `rank`$(G_S)-1$ zeros.  Thus, we are sampling mostly
 lower-weight vectors from the linear space orthogonal to the rows of
 $P$.  Further, it is easy to see that any vector obtained this way is
-*irreducible* <Cite Key="Dumer-Kovalev-Pryadko-bnd-2015"/>, i.e., it
+**irreducible** <Cite Key="Dumer-Kovalev-Pryadko-bnd-2015"/>, i.e., it
 cannot be decomposed into a pair of zero-syndrome vectors with
 non-overlapping supports.
 
@@ -171,7 +171,7 @@ generators $H_X$ and $H_Z$, the stabilizer generator matrix has a
 block-diagonal form, $H=$`diag`$(H_X,H_Z)$.
 
 A version of the algorithm for general $F$-linear stabilizer codes is
-implemented in the function `DistRandStab` <Ref Func="DistRandStab"/>.
+implemented in the function <Ref Func="DistRandStab"/>.
 
 **Important Notice**: In general, here one could use most general
 permutations of $2n$ columns, or restricted permutations of $n$
@@ -320,7 +320,7 @@ by a suitably chosen column permutation.  However, there is no
 guarantee that the resulting information sets have equal
 probabilities.  In fact, it is easy to construct small matrices where
 different information sets are obtained from different numbers of
-column permutations (and thus have *different* probabilities).  It is
+column permutations (and thus have **different** probabilities).  It is
 not clear whether some of the ISs may have vanishingly small
 probabilities in the limit of large codes; in such a case the
 algorithm may take an excessively long time to converge.
