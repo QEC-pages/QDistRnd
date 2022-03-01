@@ -893,15 +893,15 @@ InstallGlobalFunction(DistRandCSS,
                      );
 
 
-#! @Arguments H, num, mindist[, debug] :field:=GF(2), maxav:=fail
+#! @Arguments G, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the code distance $d$
 #! @Description Computes an upper bound on the distance $d$ of the
-#! $F$-linear stabilizer code with generator matrix $H$ whose rows
+#! $F$-linear stabilizer code with generator matrix $G$ whose rows
 #! are assumed to be symplectic-orthogonal, see Section <Ref
 #! Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
 #!
 #! Details of the input parameters:
-#! * `H`: the input matrix with elements in the Galois `field` $F$
+#! * `G`: the input matrix with elements in the Galois `field` $F$
 #!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
 #! The remaining options are identical to those in the function
 #! `DistRandCSS` <Ref Func="DistRandCSS"/>.
@@ -916,7 +916,7 @@ InstallGlobalFunction(DistRandCSS,
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Subsect="Subsection_DistRandCSS"/>.  Not set by default.
-DeclareGlobalFunction("DistRandStab");# function(G,num,mindist,opt...) # options: field, maxav                      
+DeclareGlobalFunction("DistRandStab");
 InstallGlobalFunction(DistRandStab,
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,

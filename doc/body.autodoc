@@ -41,7 +41,7 @@ package.  For more information see Chapter <Ref Chap="Chapter_AllFunctions"/>
 
 @Chapter Introduction
 
-The &GAP; package &QDistRnd; gives a reference implementation of a
+The &GAP; package &QDistRnd; implements a
 probabilistic algorithm for finding the distance of a $q$-ary quantum
 low-density parity-check code linear over a finite field $F=\gf(q)$.
 While there is no guarantee of the performance of the algorithm (the
@@ -428,30 +428,61 @@ storage options for elements of an extension field can in be used.
 	
 @Subsection Matrix storage format
 
-The generator matrix storage format depends on 2 parameters: `pair` and `type`.
+There are two recommended storage formats.
 
-* With `pair=0` the matrix elements are stored in the usual order.
-  This is the defailt storage format for stabilizer generator matrices
-  of CSS codes.  In this case `type=integer`, since matrix elements
-  are stored as integers.
+1. For CSS matrices stored in
+   separate files, the MTX header should use the `integer` type, with matrix
+   elements stored in the usual order.
+
+2. For general stabilizer codes, or to store both CSS matrices in a
+   single file, the MTX header should use the `complex` type.  In this
+   case the block matrix $(A,B)$ is stored as a complex matrix $A+iB$.
+
+In both format versions, the number of columns specified in the file
+coincides with the code length.
+
+Two additional matrix format versions supported by `ReadMTXE` and
+`WriteMTXE` are provided for compatibility.  Here, the columns $a_i$
+and $b_i$ in the blocks $A$ and $B$ are listed individually, and are
+either intercalated [the ordering $(a_1, b_1,
+a_2,b_2,\ldots,a_n,b_n)$] or are separated into column blocks
+$(a_1,\ldots,a_n,b_1,\ldots,b_n)$.  In both cases the number of
+columns in the matrix stored is twice the code length.
+
+The ordering of the columns is governed by a parameter
+`pair`, optional in the function `ReadMTXE` and required in `WriteMTXE`.
+
+* With `pair=0` the matrix elements are stored in the usual order.  In
+  this case the MTX header should use the `integer` type.  This is the
+  defailt storage format for stabilizer generator matrices of CSS
+  codes, and also the internal matrix format accepted by the function
+  `DistRandCSS`, see <Ref
+Sect="Section_DistanceFunctions"/>.
 
 * With `pair=1` the block matrix $(A,B)$ is stored with intercalated
-  columns $(a_1,b_1,\ldots,a_n,b_n)$.  In this case `type=integer`.
+  columns $(a_1,b_1,\ldots,a_n,b_n)$; the MTX header should use the
+  `integer` type.  This is the internal matrix format accepted by the
+  function `DistRandStab`, see <Ref
+Sect="Section_DistanceFunctions"/>
 
-* With `pair=2` the block matrix $(A,B)$ is stored with
-  separated columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$. In this case
-  `type=integer`.
+* With `pair=2` the block matrix $(A,B)$ is stored with separated
+  columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$; the MTX header should also
+  use the `integer` type.
 
 * With `pair=3` the block matrix $(A,B)$ is stored as a complex matrix
-   $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i b_n)$. In this
-   case `type=complex`, since matrix elements are represented as
-   complex integers.
+  $A+iB$, with columns $(a_1 + i b_1,\ldots,a_n + i b_n)$. In this
+  case `type=complex`, since matrix elements are represented as
+  complex integers.
 
-By default, `pair=0` corresponds to `type=integer` and `pair=3` corresponds to `type=complex`.
+
+By default, `pair=0` corresponds to `type=integer` and `pair=3`
+corresponds to `type=complex`.  **It is strongly recommended** that
+matrices intended for use by others should only use these versions of
+the MTXE format.
 
 For efficiency reasons, the function `DistRandStab` <Ref
-Sect="Section_DistanceFunctions"/> assumes the generator
-matrix with intercalated columns. 
+Sect="Section_DistanceFunctions"/> assumes the generator matrix with
+intercalated columns.
 
 @Subsection Explicit format of each line
 

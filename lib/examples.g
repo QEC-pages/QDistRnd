@@ -28,11 +28,11 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! @EndExample
 
 #! Here is the contents of the resulting file which also illustrates
-#! the `complex` data format.  Here a pair $(a_{i,j},b_{i,j})$
-#! in row $i$ and column $j$ is written as 4 integers, "$i$ $j$ $a_{i,j}$
+#! the `coordinate complex` data format.  Here a pair $(a_{i,j},b_{i,j})$
+#! in row $i$ and column $j$ is written as a row of 4 integers, "$i$ $j$ $a_{i,j}$
 #! $b_{i,j}$", e.g., "1 2 0 1" 
 #! for the second entry in the 1st row, so that the matrix in the file
-#! has $n$ columns.
+#! has $n$ columns, each containing a pair of integers.
 #! @BeginLog
 #! %%MatrixMarket matrix coordinate complex general
 #! % Field: GF(3)
@@ -61,14 +61,15 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 
 #! And now let us read the matrix back the file.   In the simplest
 #! case, all optional parameters are read from the file. 
-#! Output is a list: `[field,mode,matrix,(list of comments)]`.  
-#! Notice that a `mode=2` or `mode=3` matrix is always converted to `mode=1`, i.e., with $2n$
+#! Output is a list: `[field,pair,matrix,(list of comments)]`, where the `pair` parameter describes 
+#! the ordering of columns.  
+#! Notice that a `pair=2` or `pair=3` matrix is always converted to `pair=1`, i.e., with $2n$
 #! intercalated columns $(a_1,b_1,a_2,b_2,\ldots)$. 
 #! @BeginExample
 lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
 lis[1]; # the field 
 #! GF(3)
-lis[2]; # converted to `mode=1`
+lis[2]; # converted to `pair=1`
 #! 1
 Display(lis[3]);
 #!  1 . . 1 . 2 2 . . .
@@ -87,7 +88,7 @@ Display(lis[3]);
 
 #! @Section Hyperbolic codes from a file
 
-#! Here we read a pair of matrices from two different files which
+#! Here we read two CSS matrices from two different files which
 #! correspond to a hyperbolic code $[[80,18,5]]$ with row weight $w=5$
 #! and the asymptotic rate $1/5$.  Notice that `pair=0` is used for
 #! both files (regular matrices).
