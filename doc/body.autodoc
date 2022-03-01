@@ -456,14 +456,12 @@ The ordering of the columns is governed by a parameter
   this case the MTX header should use the `integer` type.  This is the
   defailt storage format for stabilizer generator matrices of CSS
   codes, and also the internal matrix format accepted by the function
-  `DistRandCSS`, see <Ref
-Sect="Section_DistanceFunctions"/>.
+  `DistRandCSS`, see <Ref Sect="Section_DistanceFunctions"/>.
 
 * With `pair=1` the block matrix $(A,B)$ is stored with intercalated
   columns $(a_1,b_1,\ldots,a_n,b_n)$; the MTX header should use the
   `integer` type.  This is the internal matrix format accepted by the
-  function `DistRandStab`, see <Ref
-Sect="Section_DistanceFunctions"/>
+  function `DistRandStab`, see <Ref Sect="Section_DistanceFunctions"/>
 
 * With `pair=2` the block matrix $(A,B)$ is stored with separated
   columns $(a_1,\ldots,a_n, b_1,\ldots,b_n)$; the MTX header should also
