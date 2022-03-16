@@ -127,7 +127,7 @@ applies for the IS algorithm.
 The GAP computer algebra system was chosen because of its excellent
 support for linear algebra over finite fields. The package <span>` 
 QDistRnd `</span> gives a reference implementation of the algorithm,
-with a focus on generality and matrix formats, as opposed to
+with a focus on generality and matrix formats, but not necessarily
 performance. Nevertheless, the routines are sufficiently fast when
 dealing with codes of practically important block lengths
 $n\lesssim 10^3$.
