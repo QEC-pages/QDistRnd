@@ -67,7 +67,7 @@ optimal maximum-likelihood decoding for quantum codes requires
 degeneracy to be taken into account and is a \#P-complete problem [@Iyer-Poulin-2013]).
 
 To our knowledge, there is no freely available software for computing
-the distance of a $q$-ary quantum stabilizer code. A version of
+the distance of a $q$-ary quantum stabilizer code. A version of the
 Zimmermann algorithm for finding the distance of linear codes is
 implemented in Magma [@magma-system], and has been adapted in application to quantum
 codes, see
@@ -77,17 +77,17 @@ highly-degenerate quantum codes, also known as quantum LDPC codes, has
 not been tested by the authors. Several <span>`C`</span> and
 <span>`C++`</span> programs for computing the minimum distance of qubit
 (binary) Calderbank-Shor-Steane (CSS) codes in various stages of
-development can also be found at the github respository
-[QEC-pages](https://github.com/QEC-pages) owned by one of the authors.
+development can also be found at the GitHub respository
+[QEC-pages](https://github.com/QEC-pages), owned by one of the authors.
 
-The lack of available software caused researchers in the field of QECC
+The lack of available software has caused researchers in the field of QECC
 to either skip the minimum distance calculations altogether [@Panteleev-Kalachev-2019], or develop
 their own suboptimal algorithms. In particular, Bravyi and Hastings [@Bravyi-Hastings-2013] used
 an exhaustive search over all non-trivial codewords for calculating the
 minimum distances.
 
 Note that for some families of QECCs, the distance can be calculated
-efficiently. In particular, N. P. Breuckmann [@Breuckmann-thesis-2017] described an algorithm
+efficiently. In particular, @Breuckmann-thesis-2017 described an algorithm
 attributed to S. Bravyi for computing the distance of a surface code
 based on a locally planar graph; for such a code of length $n$ with
 $k$ logical qubits, the distance can be computed in
@@ -97,7 +97,7 @@ designed for linear LDPC codes can in principle be used for quantum LDPC
 codes. We are not aware of any applications of such a technique to
 QECCs.
 
-We should mention recent theoretical constructions which prove the
+We should mention recent theoretical constructions that prove the
 existence of families of quantum LDPC codes with stabilizer generators
 of bounded weight and linear (or almost linear) minimum distances 
 [@Hastings-Haah-ODonnell-2020; @Panteleev-Kalachev-2020; @Breuckmann-Eberhardt-2020; @Panteleev-Kalachev-2021]. Hardly any of the
@@ -134,11 +134,11 @@ $n\lesssim 10^3$.
 
 The package also contains functions for importing/exporting matrices
 with elements in a given (finite) Galois field, and a description of a
-text-based format <span>`MTXE`</span> based on the well established
+text-based format <span>`MTXE`</span> based on the well-established
 MaTrix market eXchange (MTX) Coordinate format developed at NIST [@nist-mm-format]. The
 extension is implemented via structured comments, which guarantees full
 backward compatibility with the original MTX format. Thus, MTXE files
-can be read directly by any software package which supports MTX,
+can be read directly by any software package that supports MTX,
 although some additional processing of matrix elements may be required.
 
 #  Acknowledgements
