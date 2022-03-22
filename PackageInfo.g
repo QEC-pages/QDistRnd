@@ -16,7 +16,7 @@ SetPackageInfo(
         rec(
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.8.4",
+             Version := "0.8.5",
              Date := "21/03/2022",  
              License := "GPL-2.0-or-later",
              PackageWWWHome :=
