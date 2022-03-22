@@ -1,76 +1,80 @@
-name: GitHubPagesForGAP
-version: "0.2"
-license: "0BSD"
-date: 2017-02-04
+name: QDistRnd
+version: "0.8.2"
+license: "GPL-2.0-or-later"
+date: 2022-03-21
 description: |
-    A GitHub Pages generator for GAP packages
+    Calculate the distance of a q-ary quantum stabilizer code
 
 authors:
-    - name: Max Horn
-      url: http://www.quendi.de/math
-    - name: A. U. Thor
+    - name: Leonid P. Pryadko
+      url: http://faculty.ucr.edu/~leonid
+    - name: Vadim A. Shabashov
+      url: https://sites.google.com/view/vadim-shabashov/
 
 maintainers:
-    - name: Max Horn
-      url: http://www.quendi.de/math
-    - name: Jan Itor
+    - name: Leonid P. Pryadko
+      url: http://faculty.ucr.edu/~leonid
+    - name: Vadim A. Shabashov
+      url: https://sites.google.com/view/vadim-shabashov/
+    - name: Valerii K. Kozin
+      url: mailto:kozin.valera@gmail.com
 
-GAP: ">=4.8.1"
+GAP: "4.11"
 
 needed-pkgs:
     - name: "GAPDoc"
-      version: ">= 1.2"
+      version: "1.5"
       url: "http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc"
-    - name: "IO"
-      version: ">= 4.1"
-      url: "https://gap-packages.github.io/io"
+    - name: "AutoDoc"
+      version: "1.5"
+      url: "https://gap-packages.github.io/AutoDoc"
+    - name: "Guava"
+      version: "3.14"
+      url: "https://gap-packages.github.io/guava"
 
-suggested-pkgs:
-    - name: "orb"
-      version: ">= 4.2"
-      url: "https://gap-packages.github.io/orb"
-
-www: https://gap-system.github.io/GitHubPagesForGAP/
+www: https://QEC-pages.github.io/qdistrnd
 readme: README.md
-packageinfo: https://gap-system.github.io/GitHubPagesForGAP/PackageInfo.g
-github: https://github.com/gap-system/GitHubPagesForGAP
+packageinfo: https://QEC-pages.github.io/qdistrnd/PackageInfo.g
 
 downloads:
-    - name: .tar.gz
-      url: https://github.com/gap-system/GitHubPagesForGAP/releases/download/v0.2/GitHubPagesForGAP-0.2.tar.gz
-    - name: .tar.bz2
-      url: https://github.com/gap-system/GitHubPagesForGAP/releases/download/v0.2/GitHubPagesForGAP-0.2.tar.bz2
+    - name: tar.gz
+      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.8.2/qdistrnd-0.8.2tar.gz
 
 abstract: |
-    This is a pseudo package that contains no actual  <span class="pkgname">GAP</span> code. Instead, it is a template for other  GAP packages that allows to quickly setup GitHub Pages.
+    The GAP package <code>QDistRnd</code> 
+    implements a probabilistic algorithm for finding the 
+    minimum distance of a quantum code linear over a finite
+    field GF(<var>q</var>).
 
 status: other
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
 keywords: |
-    GitHub Pages, GAP.
+    QECC, quantum code, stabilizer code, quantum error correcting code, distance.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>HTI17</span>]   <b class='BibAuthor'>Horn, M., Thor, A. U. and Itor, J.</b>,
-     <i class='BibTitle'>GitHubPagesForGAP, A GitHub Pages generator for GAP packages,
-             Version 0.2</i>
-     (<span class='BibYear'>2017</span>)<br />
+    [<span class='BibKey'>PSK22</span>]   <b class='BibAuthor'>Pryadko, L. P., Shabashov, V. A. and Kozin, V. K.</b>,
+     <i class='BibTitle'>QDistRnd, Calculate the distance of a q-ary quantum stabilizer code,
+             Version 0.8.2</i>
+     (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://gap-system.github.io/GitHubPagesForGAP/">https://gap-system.github.io/GitHubPagesForGAP/</a></span>.
+    <span class='BibHowpublished'><a href="https://QEC-pages.github.io/qdistrnd">https://QEC-pages.github.io/qdistrnd</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ GitHubPagesForGAP0.2,
-      author =           {Horn, M. and Thor, A. U. and Itor, J.},
-      title =            {{GitHubPagesForGAP}, A GitHub Pages generator for GAP packages, {V}ersion 0.2},
-      month =            {Feb},
-      year =             {2017},
+    @misc{ QDistRnd0.8.2,
+      author =           {Pryadko, L. P. and Shabashov, V. A. and Kozin, V. K.},
+      title =            {{QDistRnd},  Calculate the distance of a q-ary quantum
+                          stabilizer code, {V}ersion 0.8.2},
+      month =            {Mar},
+      year =             {2022},
       note =             {GAP package},
-      howpublished =     {\href                              {https://gap-system.github.io/GitHubPagesForGAP/}
-                          {\texttt{https://gap-system.github.io/}\discretionary
-                          {}{}{}\texttt{GitHubPagesForGAP/}}},
-      keywords =         {GitHub Pages; GAP},
-      printedkey =       {HTI17}
+      howpublished =     {\href           {https://QEC-pages.github.io/qdistrnd}
+                          {\texttt{https://QEC-pages.github.io/}\discretionary
+                          {}{}{}\texttt{qdistrnd}}},
+      keywords =         {QECC;  quantum  code;  stabilizer  code; quantum error
+                          correcting code; distance},
+      printedkey =       {PSK22}
     }
 
