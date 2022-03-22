@@ -6,7 +6,7 @@
           [1X Calculate the distance of a q-ary quantum stabilizer code [101X
   
   
-                                     0.8.4
+                                     0.8.5
   
   
                                  21 March 2022
