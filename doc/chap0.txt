@@ -1,0 +1,109 @@
+  
+  
+                                   [1X QDistRnd [101X
+  
+  
+          [1X Calculate the distance of a q-ary quantum stabilizer code [101X
+  
+  
+                                     0.8.3
+  
+  
+                                 21 March 2022
+  
+  
+                               Leonid P. Pryadko
+  
+                               Vadim A. Shabashov
+  
+  
+  
+  Leonid P. Pryadko
+      Email:    [7Xmailto:leonid.pryadko@gmail.com[107X
+      Homepage: [7Xhttp://faculty.ucr.edu/~leonid[107X
+      Address:  [33X[0;14YLeonid Pryadko[133X
+                [33X[0;14YDepartment of Physics & Astronomy[133X
+                [33X[0;14YUniversity of California[133X
+                [33X[0;14YRiverside, CA 92521[133X
+                [33X[0;14YUSA[133X
+  
+  
+  Vadim A. Shabashov
+      Email:    [7Xmailto:vadim.art.shabashov@gmail.com[107X
+      Homepage: [7Xhttps://sites.google.com/view/vadim-shabashov/[107X
+      Address:  [33X[0;14YVadim Shabashov[133X
+                [33X[0;14YThe Department of Physics & Engineering[133X
+                [33X[0;14YITMO University[133X
+                [33X[0;14YSt. Petersburg, 197101[133X
+                [33X[0;14YRussia[133X
+  
+  
+  
+  -------------------------------------------------------
+  [1XCopyright[101X
+  [33X[0;0Y© 2021 by Leonid P. Pryadko and Vadim A. Shabashov[133X
+  
+  [33X[0;0Y[5XQDistRnd[105X  package is free software; you can redistribute it and/or modify it
+  under     the     terms     of    the    GNU    General    Public    License
+  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  Foundation;  either  version 2 of the License, or (at your option) any later
+  version.[133X
+  
+  
+  -------------------------------------------------------
+  [1XAcknowledgements[101X
+  [33X[0;0YWe  appreciate  very  much  all  past  and  future comments, suggestions and
+  contributions  to  this  package and its documentation provided by [5XGAP[105X users
+  and developers.[133X
+  
+  
+  -------------------------------------------------------
+  
+  
+  [1XContents (QDistRnd)[101X
+  
+  1 [33X[0;0YIntroduction[133X
+  2 [33X[0;0YExamples[133X
+    2.1 [33X[0;0YThe 5-qubit code[133X
+    2.2 [33X[0;0YHyperbolic codes from a file[133X
+    2.3 [33X[0;0YRandomly generated cyclic codes[133X
+  3 [33X[0;0YDescription of the algorithm[133X
+    3.1 [33X[0;0YElementary version[133X
+      3.1-1 [33X[0;0YWhat it does?[133X
+      3.1-2 [33X[0;0YThe algorithm[133X
+      3.1-3 [33X[0;0YIntuition[133X
+      3.1-4 [33X[0;0YCSS version of the algorithm[133X
+      3.1-5 [33X[0;0YGeneric version of the algorithm[133X
+    3.2 [33X[0;0YSome more details[133X
+      3.2-1 [33X[0;0YQuantum stabilizer codes[133X
+      3.2-2 [33X[0;0YThe algorithm[133X
+    3.3 [33X[0;0YEmpirical estimate of the success probability[133X
+  4 [33X[0;0YAll Functions[133X
+    4.1 [33X[0;0YFunctions for computing the distance[133X
+      4.1-1 [33X[0;0YExamples[133X
+      4.1-2 DistRandCSS
+      4.1-3 DistRandStab
+    4.2 [33X[0;0YInput/Output Functions[133X
+      4.2-1 ReadMTXE
+      4.2-2 WriteMTXE
+    4.3 [33X[0;0YHelper Functions[133X
+      4.3-1 [33X[0;0YExamples[133X
+      4.3-2 QDR_AverageCalc
+      4.3-3 QDR_SymplVecWeight
+      4.3-4 QDR_WeightMat
+      4.3-5 QDR_DoProbOut
+      4.3-6 QDR_FieldHeaderStr
+      4.3-7 QDR_ProcessFieldHeader
+      4.3-8 QDR_ProcEntry
+      4.3-9 QDR_MakeH
+      4.3-10 QDR_DoCirc
+  5 [33X[0;0YExtended MTX (MTXE) File Format[133X
+    5.1 [33X[0;0YGeneral information[133X
+      5.1-1 [33X[0;0YRepresentation of field elements via integers[133X
+      5.1-2 [33X[0;0YMatrix storage format[133X
+      5.1-3 [33X[0;0YExplicit format of each line[133X
+      5.1-4 [33X[0;0YMatrix Storage Implementation Details[133X
+    5.2 [33X[0;0YExample MTXE files[133X
+  
+  
+  [32X

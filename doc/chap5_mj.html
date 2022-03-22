@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<title>GAP (QDistRnd) - Chapter 5: Extended MTX (MTXE) File Format</title>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta name="generator" content="GAPDoc2HTML" />
+<link rel="stylesheet" type="text/css" href="manual.css" />
+<script src="manual.js" type="text/javascript"></script>
+<script type="text/javascript">overwriteStyle();</script>
+</head>
+<body class="chap5"  onload="jscontent()">
+
+
+<div class="chlinktop"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<div class="chlinkprevnexttop">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+<p id="mathjaxlink" class="pcenter"><a href="chap5.html">[MathJax off]</a></p>
+<p><a id="X7D0187B5831B764D" name="X7D0187B5831B764D"></a></p>
+<div class="ChapSects"><a href="chap5_mj.html#X7D0187B5831B764D">5 <span class="Heading">Extended MTX (MTXE) File Format</span></a>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7E294E8678035D23">5.1 <span class="Heading">General information</span></a>
+</span>
+<div class="ContSSBlock">
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X8269F2367856BB1E">5.1-1 <span class="Heading">Representation of field elements via integers</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X86FBB72C7BC3B8D2">5.1-2 <span class="Heading">Matrix storage format</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X80B886F0796AF0D5">5.1-3 <span class="Heading">Explicit format of each line</span></a>
+</span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap5_mj.html#X80F0F8AB7FD73B0E">5.1-4 <span class="Heading">Matrix Storage Implementation Details</span></a>
+</span>
+</div></div>
+<div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap5_mj.html#X7F2C657F869D90AD">5.2 <span class="Heading">Example MTXE files</span></a>
+</span>
+</div>
+</div>
+
+<h3>5 <span class="Heading">Extended MTX (MTXE) File Format</span></h3>
+
+<p><a id="X7E294E8678035D23" name="X7E294E8678035D23"></a></p>
+
+<h4>5.1 <span class="Heading">General information</span></h4>
+
+<p>The code supports reading matrices from an MTX file using <code class="code">ReadMTXE</code> and writing new MTX file using <code class="code">WriteMTXE</code> functions. Below a description of the format is given.</p>
+
+<p><a id="X8269F2367856BB1E" name="X8269F2367856BB1E"></a></p>
+
+<h5>5.1-1 <span class="Heading">Representation of field elements via integers</span></h5>
+
+<p>Every finite field is isomorphic to a Galois field <span class="SimpleMath">\(F=\gf(q)\)</span>, where <span class="SimpleMath">\(q\)</span> is a power of a prime, <span class="SimpleMath">\(q=p^m\)</span>.</p>
+
+
+<ul>
+<li><p>For a prime field, with <span class="SimpleMath">\(q=p\)</span> a prime, <span class="SimpleMath">\(F\)</span> is a prime field, isomorphic to the ring Z<span class="SimpleMath">\((q)\)</span> of integers modulo <span class="SimpleMath">\(q\)</span>. In such a case, elements of the field are stored directly as integers. After reading, these are taken modulo <span class="SimpleMath">\(p\)</span>, thus, e.g., with <span class="SimpleMath">\(p=7\)</span>, values <span class="SimpleMath">\(-1\)</span>, <span class="SimpleMath">\(6\)</span>, or <span class="SimpleMath">\(13\)</span> are all equivalent.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>When <span class="SimpleMath">\(q=p^m\)</span> with <span class="SimpleMath">\(m &gt; 1\)</span>, <span class="SimpleMath">\(F\)</span> is an extension field. Non-zero elements of such a field can be represented as integer powers of a primitive element <span class="SimpleMath">\(\alpha\)</span>, a primitive root of unity in the field. Primitive element is a root of a primitive polynomial <span class="SimpleMath">\(f(x)\)</span>, that is, an irreducible polynomial with coefficients in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>, with the property that the smallest integer <span class="SimpleMath">\(n\)</span> such that <span class="SimpleMath">\(f(x)\)</span> divides <span class="SimpleMath">\(x^n-1\)</span> is <span class="SimpleMath">\(n=p^m-1\)</span>. Alternatively, field elements can be represented as <span class="SimpleMath">\(p\)</span>-ary polynomials modulo the chosen primitive polynomial <span class="SimpleMath">\(f(x)\)</span>.</p>
+
+</li>
+</ul>
+<p>Either definition requires that the primitive polynomial be specified. By default, GAP uses Conway polynomials to represent field elements. For details, as well as a large collection of Conway polynomials, please see the web page maintained by Frank Luebeck <a href="chapBib_mj.html#biBConwayPol-2022">[L\t21]</a>.</p>
+
+<p>In the actual file format, three different and mutually exclusive storage options for elements of an extension field can in be used.</p>
+
+
+<ul>
+<li><p>First, assuming all elements needed are actually in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>, the integer values (mod <span class="SimpleMath">\(p\)</span>) directly correspond to the values of field elements. This is the case, e.g., with <span class="SimpleMath">\(0,\pm1\)</span> matrices which obey the orthogonality condition already over integers, and retain orthogonality over Z<span class="SimpleMath">\((q)\)</span> with any <span class="SimpleMath">\(q\)</span> (what is more relevant here, the same matrix would work with any prime field). (<em>this is currently not implemented</em>)</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>Second option, and the only option currently implemented for extension fields, is to store the powers of the primitive element for each non-zero element in the field, and <span class="SimpleMath">\(-1\)</span> for zero.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>Third option, is to take the coefficients of <span class="SimpleMath">\(p\)</span>-ary polynomial <span class="SimpleMath">\(a_0+a_1x+a_2x^2+\ldots +a_{m-1}x^{m-1}\)</span> as digits of a <span class="SimpleMath">\(p\)</span>-ary integer <span class="SimpleMath">\((a_{m-1}a_{m-2}\ldots a_2a_1)_p\)</span>. (<em>this is currently not implemented</em>)</p>
+
+</li>
+</ul>
+<p><a id="X86FBB72C7BC3B8D2" name="X86FBB72C7BC3B8D2"></a></p>
+
+<h5>5.1-2 <span class="Heading">Matrix storage format</span></h5>
+
+<p>There are two recommended storage formats.</p>
+
+<p>1. For CSS matrices stored in separate files, the MTX header should use the <code class="code">integer</code> type, with matrix elements stored in the usual order.</p>
+
+<p>2. For general stabilizer codes, or to store both CSS matrices in a single file, the MTX header should use the <code class="code">complex</code> type. In this case the block matrix <span class="SimpleMath">\((A,B)\)</span> is stored as a complex matrix <span class="SimpleMath">\(A+iB\)</span>.</p>
+
+<p>In both format versions, the number of columns specified in the file coincides with the code length.</p>
+
+<p>Two additional matrix format versions supported by <code class="code">ReadMTXE</code> and <code class="code">WriteMTXE</code> are provided for compatibility. Here, the columns <span class="SimpleMath">\(a_i\)</span> and <span class="SimpleMath">\(b_i\)</span> in the blocks <span class="SimpleMath">\(A\)</span> and <span class="SimpleMath">\(B\)</span> are listed individually, and are either intercalated [the ordering <span class="SimpleMath">\((a_1, b_1, a_2,b_2,\ldots,a_n,b_n)\)</span>] or are separated into column blocks <span class="SimpleMath">\((a_1,\ldots,a_n,b_1,\ldots,b_n)\)</span>. In both cases the number of columns in the matrix stored is twice the code length.</p>
+
+<p>The ordering of the columns is governed by a parameter <code class="code">pair</code>, optional in the function <code class="code">ReadMTXE</code> and required in <code class="code">WriteMTXE</code>.</p>
+
+
+<ul>
+<li><p>With <code class="code">pair=0</code> the matrix elements are stored in the usual order. In this case the MTX header should use the <code class="code">integer</code> type. This is the defailt storage format for stabilizer generator matrices of CSS codes, and also the internal matrix format for single-block matrices accepted by the function <code class="code">DistRandCSS</code>, see <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=1</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is stored with intercalated columns <span class="SimpleMath">\((a_1,b_1,\ldots,a_n,b_n)\)</span>; the MTX header should use the <code class="code">integer</code> type. This is the internal matrix format for two-block matrices accepted by the functions <code class="code">DistRandStab</code> (<a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>) and <code class="code">WriteMTXE</code> (<a href="chap4_mj.html#X7E4EA2B38128F66B"><span class="RefLink">4.2</span></a>), and returned by <code class="code">ReadMTXE</code> (<a href="chap4_mj.html#X7E4EA2B38128F66B"><span class="RefLink">4.2</span></a>).</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=2</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is stored with separated columns <span class="SimpleMath">\((a_1,\ldots,a_n, b_1,\ldots,b_n)\)</span>; the MTX header should also use the <code class="code">integer</code> type.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p>With <code class="code">pair=3</code> the block matrix <span class="SimpleMath">\((A,B)\)</span> is stored as a complex matrix <span class="SimpleMath">\(A+iB\)</span>, with columns <span class="SimpleMath">\((a_1 + i b_1,\ldots,a_n + i b_n)\)</span>. In this case <code class="code">type=complex</code>, since matrix elements are represented as complex integers.</p>
+
+</li>
+</ul>
+<p>By default, <code class="code">pair=0</code> corresponds to <code class="code">type=integer</code> and <code class="code">pair=3</code> corresponds to <code class="code">type=complex</code>. <em>It is strongly recommended</em> that matrices intended for use by others should only use these two variants of the MTXE format.</p>
+
+<p>For efficiency reasons, the function <code class="code">DistRandStab</code> <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a> assumes the generator matrix with intercalated columns.</p>
+
+<p><a id="X80B886F0796AF0D5" name="X80B886F0796AF0D5"></a></p>
+
+<h5>5.1-3 <span class="Heading">Explicit format of each line</span></h5>
+
+<p>The first line must have the following form:</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate `type` general
+</pre></div>
+
+<p>with <code class="code">type</code> either <code class="code">integer</code> or <code class="code">complex</code>.</p>
+
+<p>The second line is optional and specifies the field, the primitive polynomial used (in the case of an extension field), and the storage format of field elements.</p>
+
+
+<div class="example"><pre>
+ Field: `field` PrimitiveP(x): `polynomial` Format: `format`
+</pre></div>
+
+<p>Here the records should be separated by one or more spaces; while <code class="code">field</code>, <code class="code">polynomial</code>, and <code class="code">format</code> <em>should not contain any spaces.</em> Any additional records in this line will be silently ignored.</p>
+
+<p>The <code class="code">field</code> option should specify a valid field, <code class="code">GF(q)</code> or <code class="code">GF(p^m)</code>, where <span class="SimpleMath">\(q&gt;1\)</span> should be a power of the prime <span class="SimpleMath">\(p\)</span>.</p>
+
+<p>The <code class="code">polynomial</code> should be a valid expanded monic polynomial with integer coefficients, with a single independent variable <code class="code">x</code>; it should contain no spaces. An error will be signaled if <code class="code">polynomial</code> is not a valid primitive polynomial of the <code class="code">field</code>. This argument is optional; if not specified, one may assume that the Conway polynomial should be used.</p>
+
+<p>The optional <code class="code">format</code> string should be "AdditiveInt" (the default for prime fields), "PowerInt" (<em>currently</em> the default for extension fields with <span class="SimpleMath">\(m&gt;1\)</span>) or "VectorInt".</p>
+
+
+<ul>
+<li><p><code class="code">AdditiveInt</code> indicates that values listed are expected to be in the corresponding prime field and should be interpreted as integers mod <span class="SimpleMath">\(p\)</span>.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p><code class="code">PowerInt</code> indicates that field elements are represented as integers powers of the primitive element, root of the primitive polynomial, or <span class="SimpleMath">\(-1\)</span> for the zero field element.</p>
+
+</li>
+</ul>
+
+<ul>
+<li><p><code class="code">VectorInt</code> corresponds to encoding coefficients of a degree-<span class="SimpleMath">\((m-1)\)</span> <span class="SimpleMath">\(p\)</span>-ary polynomial representing field elements into a <span class="SimpleMath">\(p\)</span>-ary integer. In this notation, any negative value will be taken mod <span class="SimpleMath">\(p\)</span>, thus <span class="SimpleMath">\(-1\)</span> will be interpreted as <span class="SimpleMath">\(p-1\)</span>, the additive inverse of the field <span class="SimpleMath">\(1\)</span>.</p>
+
+</li>
+</ul>
+<p>The primitive polynomial must be written explicitly as <span class="SimpleMath">\(x^m+a_{m-1}*x^{m-1}+\ldots+a_1*x+a_0\)</span>, where the integer coefficients <span class="SimpleMath">\(a_i\)</span> will be interpreted modulo <code class="code">p</code>. <em>The primitive polynomial should not contain any spaces.</em></p>
+
+
+<div class="example"><pre>
+% Field: GF(`q`) PrimitiveP(x): `polynomial` 
+</pre></div>
+
+<p>For example, with <span class="SimpleMath">\(q=5^2\)</span>, the Conway polynomial <span class="SimpleMath">\(f_{5,2}(x)=x^2-x+2\)</span>, and the second line can read</p>
+
+
+<div class="example"><pre>
+% Field: GF(25) PrimitiveP(x): x^2-x+2 Format: PowerInt
+</pre></div>
+
+<p>The following is an equivalent form of the same polynomial and can also be used</p>
+
+
+<div class="example"><pre>
+% Field: GF(25) PrimitiveP(x): x^2+4*x+2 
+</pre></div>
+
+<p>The field may be left undefined; by default, it is <span class="SimpleMath">\(\gf(2)\)</span>, or it can be specified by hand when reading the matrices. If the primitive polynomial is undefined, it will be assumed that the Conway polynomial used internally by <code class="code">GAP</code> should be used.</p>
+
+<p>Next follows the comment section, with each line either empty or starting with the <code class="code">%</code> symbol:</p>
+
+
+<div class="example"><pre>
+% Example of the comment line
+</pre></div>
+
+<p>After the comment section, in agreement with MTX format, goes the line giving the dimensions of the matrix and the number of non-zero elements:</p>
+
+
+<div class="example"><pre>
+rows     columns     `(number of non-zero elements)`
+</pre></div>
+
+<p>Then all non-zero elements are listed as three or four integers according to the <code class="code">type</code>:</p>
+
+
+<ul>
+<li><p><code class="code">type=integer</code>:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+i     j     element[i,j]
+</pre></div>
+
+
+<ul>
+<li><p><code class="code">type=complex</code>:</p>
+
+</li>
+</ul>
+
+<div class="example"><pre>
+i     j     a[i,j]     b[i,j]
+</pre></div>
+
+<p>Notice that column and row numbers must start with 1, as prescribed in the original MTX format.</p>
+
+<p><a id="X80F0F8AB7FD73B0E" name="X80F0F8AB7FD73B0E"></a></p>
+
+<h5>5.1-4 <span class="Heading">Matrix Storage Implementation Details</span></h5>
+
+<p>Neither the <code class="code">WriteMTXE</code> nor <code class="code">ReadMTXE</code> currently support the <code class="code">Format:</code> parameter. Prime field elements are only stored "as is", i.e., as integers to be taken modulo <code class="code">p</code>, while extension field elements are only stored in the <code class="code">PowerInt</code> format, i.e., with the power of the primitive element specified, or "-1" for zero.</p>
+
+<p>The function <code class="code">WriteMTXE</code> can only save field elements with the primitive polynomial used internally by <code class="code">GAP</code>, i.e., the Conway polynomial.</p>
+
+<p>The function <code class="code">ReadMTXE</code> can read matrix elements specified (in the case of an extension field) with any primitive polynomial as specified in the file.</p>
+
+<p>Given the field <span class="SimpleMath">\(\gf(p^m)\)</span> and the primitive polynomial <span class="SimpleMath">\(p(x)\)</span> specified in the file, the function <code class="code">ReadMTXE</code> first checks that the degree of <span class="SimpleMath">\(p(x)\)</span> is indeed <span class="SimpleMath">\(m\)</span> and that it is a primitive polynomial in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>. If either of these tests fail, <code class="code">ReadMTXE</code> produces an error. Otherwise, it will attempt to find the conversion coefficient <span class="SimpleMath">\(c\)</span> such that <span class="SimpleMath">\(\alpha^c\)</span> is a root of <span class="SimpleMath">\(p(x)\)</span>, starting with <span class="SimpleMath">\(c=1\)</span>. When found, the multiplicative inverse <span class="SimpleMath">\(s\)</span> such that <span class="SimpleMath">\(sc\equiv 1\bmod (q-1)\)</span> will be used to convert the elements being read, i.e., for any matrix element <span class="SimpleMath">\(y\)</span> read, <span class="SimpleMath">\(y^s\)</span> will be used instead.</p>
+
+<p>Notice that, unless the Conway polynomial was used (in which case <span class="SimpleMath">\(c=s=1\)</span>, and the conversion is trivial), this search can be slow for large fields, as all integer values in <span class="SimpleMath">\([1,2,\ldots,q-2]\)</span> will be tested sequentially. To help ensure that the correct polynomial is used, it is recommended that orthogonality of matrices be checked.</p>
+
+<p><a id="X7F2C657F869D90AD" name="X7F2C657F869D90AD"></a></p>
+
+<h4>5.2 <span class="Heading">Example MTXE files</span></h4>
+
+<p>In this section we give two sample MTXE files storing the stabilizer generator matrix of 5-qubit codes.</p>
+
+<p>First, matrix (with one redundant linearly-dependent row) stored with <code class="code">type=integer</code> and <code class="code">pair=1</code> (intercalated columns <span class="SimpleMath">\([a_1,b_1,a_2,b_2,\ldots]\)</span>) is presented. Notice that the number of columns is twice the actual length of the code. Even though the field is specified explicitly, this matrix would work with any prime field.</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate integer general		
+% Field: GF(7)
+% 5-qubit code generator matrix / normal storage with intercalated cols
+5 10 20
+1 1 1
+1 4 1
+1 6 -1
+1 7 -1
+2 3 1
+2 6 1
+2 8 -1
+2 9 -1
+3 1 -1
+3 5 1
+3 8 1
+3 10 -1
+4 2 -1
+4 3 -1
+4 7 1
+4 10 1
+5 2 1
+5 4 -1
+5 5 -1
+5 9 1
+</pre></div>
+
+<p>This same matrix is stored in the file <code class="code">matrices/n5k1A.mtx</code>. This is how the matrix can be read and distance calculated:</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(7)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);</span>
+3
+</pre></div>
+
+<p>The same matrix can also be stored with <code class="code">type=complex</code> and <code class="code">pair=3</code> (complex pairs <span class="SimpleMath">\([a_1+i b_1,a_2+i b_2,\ldots]\)</span>). In this format, the number of columns equals the code length.</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate complex general
+% works with any prime field
+% 5-qubit code generator matrix / normal storage with intercalated cols
+% [[5,1,3]]_p
+4 5 16
+1 1 1 0
+1 2 0 1
+1 3 0 -1
+1 4 -1 0
+2 2 1 0
+2 3 0 1
+2 4 0 -1
+2 5 -1 0
+3 1 -1 0
+3 3 1 0
+3 4 0 1
+3 5 0 -1
+4 1 0 -1
+4 2 -1 0
+4 4 1 0
+4 5 0 1
+</pre></div>
+
+<p>The matrix above is written in the file <code class="code">matrices/n5k1.mtx</code>. To calculate the distance, we need to specify the field [unless we want to use the default binary field].</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx" ));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(2)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);</span>
+3
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    q:=17;;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx") : field:= GF(q));;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    Print("field ",lis[1],"\n");</span>
+field GF(17)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);</span>
+3
+</pre></div>
+
+<p>Finally, the following is an example of a five-qudit code over <span class="SimpleMath">\(\gf(2^3)\)</span> constructed by the script <code class="code">lib/cyclic.g</code>.</p>
+
+
+<div class="example"><pre>
+%%MatrixMarket matrix coordinate complex general
+% Field: GF(2^3) PrimitiveP(x): x^3+x+1
+% code [[5,1,3]]_8
+% cyclic w=4 x^6+Z(2^3)^4*x^5+Z(2^3)^4*x^3+Z(2)^0
+% Powers of GF(8) primitive element and -1 for Zero are given
+5 5 20
+1 1 0 -1
+1 2 -1 4
+1 3 -1 4
+1 4 0 -1
+2 2 0 -1
+2 3 -1 4
+2 4 -1 4
+2 5 0 -1
+3 1 0 -1
+3 3 0 -1
+3 4 -1 4
+3 5 -1 4
+4 1 -1 4
+4 2 0 -1
+4 4 0 -1
+4 5 -1 4
+5 1 -1 4
+5 2 -1 4
+5 3 0 -1
+5 5 0 -1
+</pre></div>
+
+
+<div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap4_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chapBib_mj.html">[Next Chapter]</a>&nbsp;  </div>
+
+
+<div class="chlinkbot"><span class="chlink1">Goto Chapter: </span><a href="chap0_mj.html">Top</a>  <a href="chap1_mj.html">1</a>  <a href="chap2_mj.html">2</a>  <a href="chap3_mj.html">3</a>  <a href="chap4_mj.html">4</a>  <a href="chap5_mj.html">5</a>  <a href="chapBib_mj.html">Bib</a>  <a href="chapInd_mj.html">Ind</a>  </div>
+
+<hr />
+<p class="foot">generated by <a href="http://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc">GAPDoc2HTML</a></p>
+</body>
+</html>

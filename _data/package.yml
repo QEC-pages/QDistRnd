@@ -1,5 +1,5 @@
 name: QDistRnd
-version: "0.8.2"
+version: "0.8.3"
 license: "GPL-2.0-or-later"
 date: 2022-03-21
 description: |
@@ -38,7 +38,7 @@ packageinfo: https://QEC-pages.github.io/qdistrnd/PackageInfo.g
 
 downloads:
     - name: tar.gz
-      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.8.2/qdistrnd-0.8.2tar.gz
+      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.8.3/qdistrnd-0.8.3tar.gz
 
 abstract: |
     The GAP package <code>QDistRnd</code> 
@@ -55,7 +55,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>PSK22</span>]   <b class='BibAuthor'>Pryadko, L. P., Shabashov, V. A. and Kozin, V. K.</b>,
      <i class='BibTitle'>QDistRnd, Calculate the distance of a q-ary quantum stabilizer code,
-             Version 0.8.2</i>
+             Version 0.8.3</i>
      (<span class='BibYear'>2022</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://QEC-pages.github.io/qdistrnd">https://QEC-pages.github.io/qdistrnd</a></span>.
@@ -63,10 +63,10 @@ citeas: |
     
 
 bibtex: |
-    @misc{ QDistRnd0.8.2,
+    @misc{ QDistRnd0.8.3,
       author =           {Pryadko, L. P. and Shabashov, V. A. and Kozin, V. K.},
       title =            {{QDistRnd},  Calculate the distance of a q-ary quantum
-                          stabilizer code, {V}ersion 0.8.2},
+                          stabilizer code, {V}ersion 0.8.3},
       month =            {Mar},
       year =             {2022},
       note =             {GAP package},

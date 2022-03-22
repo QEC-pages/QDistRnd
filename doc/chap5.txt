@@ -1,0 +1,377 @@
+  
+  [1X5 [33X[0;0YExtended MTX (MTXE) File Format[133X[101X
+  
+  
+  [1X5.1 [33X[0;0YGeneral information[133X[101X
+  
+  [33X[0;0YThe  code  supports  reading  matrices  from  an MTX file using [10XReadMTXE[110X and
+  writing  new  MTX file using [10XWriteMTXE[110X functions. Below a description of the
+  format is given.[133X
+  
+  
+  [1X5.1-1 [33X[0;0YRepresentation of field elements via integers[133X[101X
+  
+  [33X[0;0YEvery  finite  field  is isomorphic to a Galois field [23XF=\gf(q)[123X, where [23Xq[123X is a
+  power of a prime, [23Xq=p^m[123X.[133X
+  
+  [30X    [33X[0;6YFor a prime field, with [23Xq=p[123X a prime, [23XF[123X is a prime field, isomorphic to
+        the  ring  Z[23X(q)[123X  of integers modulo [23Xq[123X. In such a case, elements of the
+        field  are stored directly as integers. After reading, these are taken
+        modulo  [23Xp[123X,  thus,  e.g.,  with  [23Xp=7[123X,  values  [23X-1[123X,  [23X6[123X,  or  [23X13[123X  are all
+        equivalent.[133X
+  
+  [30X    [33X[0;6YWhen  [23Xq=p^m[123X  with [23Xm > 1[123X, [23XF[123X is an extension field. Non-zero elements of
+        such  a  field  can  be  represented  as integer powers of a primitive
+        element  [23X\alpha[123X,  a  primitive  root  of unity in the field. Primitive
+        element  is  a  root  of  a  primitive  polynomial  [23Xf(x)[123X,  that is, an
+        irreducible  polynomial  with  coefficients in the corresponding prime
+        field  [23X\gf(p)[123X, with the property that the smallest integer [23Xn[123X such that
+        [23Xf(x)[123X  divides  [23Xx^n-1[123X  is [23Xn=p^m-1[123X. Alternatively, field elements can be
+        represented   as   [23Xp[123X-ary   polynomials  modulo  the  chosen  primitive
+        polynomial [23Xf(x)[123X.[133X
+  
+  [33X[0;0YEither  definition  requires  that the primitive polynomial be specified. By
+  default,  GAP  uses  Conway  polynomials  to  represent  field elements. For
+  details, as well as a large collection of Conway polynomials, please see the
+  web page maintained by Frank Luebeck [L\t21].[133X
+  
+  [33X[0;0YIn  the  actual  file format, three different and mutually exclusive storage
+  options for elements of an extension field can in be used.[133X
+  
+  [30X    [33X[0;6YFirst,  assuming all elements needed are actually in the corresponding
+        prime  field [23X\gf(p)[123X, the integer values (mod [23Xp[123X) directly correspond to
+        the  values  of  field  elements.  This is the case, e.g., with [23X0,\pm1[123X
+        matrices which obey the orthogonality condition already over integers,
+        and  retain  orthogonality over Z[23X(q)[123X with any [23Xq[123X (what is more relevant
+        here,  the  same  matrix  would  work  with any prime field). ([13Xthis is
+        currently not implemented[113X)[133X
+  
+  [30X    [33X[0;6YSecond option, and the only option currently implemented for extension
+        fields,  is  to  store  the  powers  of the primitive element for each
+        non-zero element in the field, and [23X-1[123X for zero.[133X
+  
+  [30X    [33X[0;6YThird  option,  is  to  take  the  coefficients  of  [23Xp[123X-ary  polynomial
+        [23Xa_0+a_1x+a_2x^2+\ldots  +a_{m-1}x^{m-1}[123X  as  digits of a [23Xp[123X-ary integer
+        [23X(a_{m-1}a_{m-2}\ldots a_2a_1)_p[123X. ([13Xthis is currently not implemented[113X)[133X
+  
+  
+  [1X5.1-2 [33X[0;0YMatrix storage format[133X[101X
+  
+  [33X[0;0YThere are two recommended storage formats.[133X
+  
+  [33X[0;0Y1.  For CSS matrices stored in separate files, the MTX header should use the
+  [10Xinteger[110X type, with matrix elements stored in the usual order.[133X
+  
+  [33X[0;0Y2.  For  general stabilizer codes, or to store both CSS matrices in a single
+  file,  the  MTX  header  should use the [10Xcomplex[110X type. In this case the block
+  matrix [23X(A,B)[123X is stored as a complex matrix [23XA+iB[123X.[133X
+  
+  [33X[0;0YIn  both  format  versions,  the  number  of  columns  specified in the file
+  coincides with the code length.[133X
+  
+  [33X[0;0YTwo  additional  matrix  format versions supported by [10XReadMTXE[110X and [10XWriteMTXE[110X
+  are  provided for compatibility. Here, the columns [23Xa_i[123X and [23Xb_i[123X in the blocks
+  [23XA[123X  and  [23XB[123X are listed individually, and are either intercalated [the ordering
+  [23X(a_1,  b_1,  a_2,b_2,\ldots,a_n,b_n)[123X]  or  are  separated into column blocks
+  [23X(a_1,\ldots,a_n,b_1,\ldots,b_n)[123X.  In both cases the number of columns in the
+  matrix stored is twice the code length.[133X
+  
+  [33X[0;0YThe ordering of the columns is governed by a parameter [10Xpair[110X, optional in the
+  function [10XReadMTXE[110X and required in [10XWriteMTXE[110X.[133X
+  
+  [30X    [33X[0;6YWith [10Xpair=0[110X the matrix elements are stored in the usual order. In this
+        case  the  MTX header should use the [10Xinteger[110X type. This is the defailt
+        storage  format  for  stabilizer  generator matrices of CSS codes, and
+        also  the internal matrix format for single-block matrices accepted by
+        the function [10XDistRandCSS[110X, see [14X4.1[114X.[133X
+  
+  [30X    [33X[0;6YWith [10Xpair=1[110X the block matrix [23X(A,B)[123X is stored with intercalated columns
+        [23X(a_1,b_1,\ldots,a_n,b_n)[123X;  the MTX header should use the [10Xinteger[110X type.
+        This  is the internal matrix format for two-block matrices accepted by
+        the  functions [10XDistRandStab[110X ([14X4.1[114X) and [10XWriteMTXE[110X ([14X4.2[114X), and returned by
+        [10XReadMTXE[110X ([14X4.2[114X).[133X
+  
+  [30X    [33X[0;6YWith  [10Xpair=2[110X  the  block matrix [23X(A,B)[123X is stored with separated columns
+        [23X(a_1,\ldots,a_n,  b_1,\ldots,b_n)[123X;  the MTX header should also use the
+        [10Xinteger[110X type.[133X
+  
+  [30X    [33X[0;6YWith [10Xpair=3[110X the block matrix [23X(A,B)[123X is stored as a complex matrix [23XA+iB[123X,
+        with  columns  [23X(a_1  +  i  b_1,\ldots,a_n  +  i  b_n)[123X.  In  this  case
+        [10Xtype=complex[110X,   since  matrix  elements  are  represented  as  complex
+        integers.[133X
+  
+  [33X[0;0YBy  default,  [10Xpair=0[110X  corresponds  to [10Xtype=integer[110X and [10Xpair=3[110X corresponds to
+  [10Xtype=complex[110X.  [13XIt  is strongly recommended[113X that matrices intended for use by
+  others should only use these two variants of the MTXE format.[133X
+  
+  [33X[0;0YFor  efficiency reasons, the function [10XDistRandStab[110X [14X4.1[114X assumes the generator
+  matrix with intercalated columns.[133X
+  
+  
+  [1X5.1-3 [33X[0;0YExplicit format of each line[133X[101X
+  
+  [33X[0;0YThe first line must have the following form:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate `type` general[104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywith [10Xtype[110X either [10Xinteger[110X or [10Xcomplex[110X.[133X
+  
+  [33X[0;0YThe  second  line  is  optional  and  specifies  the  field,  the  primitive
+  polynomial  used (in the case of an extension field), and the storage format
+  of field elements.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X Field: `field` PrimitiveP(x): `polynomial` Format: `format`[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  the  records  should  be separated by one or more spaces; while [10Xfield[110X,
+  [10Xpolynomial[110X, and [10Xformat[110X [13Xshould not contain any spaces.[113X Any additional records
+  in this line will be silently ignored.[133X
+  
+  [33X[0;0YThe  [10Xfield[110X  option should specify a valid field, [10XGF(q)[110X or [10XGF(p^m)[110X, where [23Xq>1[123X
+  should be a power of the prime [23Xp[123X.[133X
+  
+  [33X[0;0YThe  [10Xpolynomial[110X  should  be  a  valid expanded monic polynomial with integer
+  coefficients,  with  a  single  independent variable [10Xx[110X; it should contain no
+  spaces.  An  error  will  be signaled if [10Xpolynomial[110X is not a valid primitive
+  polynomial  of  the  [10Xfield[110X. This argument is optional; if not specified, one
+  may assume that the Conway polynomial should be used.[133X
+  
+  [33X[0;0YThe  optional  [10Xformat[110X  string should be "AdditiveInt" (the default for prime
+  fields), "PowerInt" ([13Xcurrently[113X the default for extension fields with [23Xm>1[123X) or
+  "VectorInt".[133X
+  
+  [30X    [33X[0;6Y[10XAdditiveInt[110X  indicates  that  values  listed are expected to be in the
+        corresponding prime field and should be interpreted as integers mod [23Xp[123X.[133X
+  
+  [30X    [33X[0;6Y[10XPowerInt[110X  indicates  that  field  elements are represented as integers
+        powers  of the primitive element, root of the primitive polynomial, or
+        [23X-1[123X for the zero field element.[133X
+  
+  [30X    [33X[0;6Y[10XVectorInt[110X corresponds to encoding coefficients of a degree-[23X(m-1)[123X [23Xp[123X-ary
+        polynomial  representing  field elements into a [23Xp[123X-ary integer. In this
+        notation,  any  negative  value  will  be taken mod [23Xp[123X, thus [23X-1[123X will be
+        interpreted as [23Xp-1[123X, the additive inverse of the field [23X1[123X.[133X
+  
+  [33X[0;0YThe     primitive    polynomial    must    be    written    explicitly    as
+  [23Xx^m+a_{m-1}*x^{m-1}+\ldots+a_1*x+a_0[123X,  where  the  integer  coefficients [23Xa_i[123X
+  will  be  interpreted  modulo [10Xp[110X. [13XThe primitive polynomial should not contain
+  any spaces.[113X[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Field: GF(`q`) PrimitiveP(x): `polynomial` [104X
+  [4X[32X[104X
+  
+  [33X[0;0YFor  example,  with [23Xq=5^2[123X, the Conway polynomial [23Xf_{5,2}(x)=x^2-x+2[123X, and the
+  second line can read[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Field: GF(25) PrimitiveP(x): x^2-x+2 Format: PowerInt[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  following  is an equivalent form of the same polynomial and can also be
+  used[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Field: GF(25) PrimitiveP(x): x^2+4*x+2 [104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  field  may  be  left  undefined; by default, it is [23X\gf(2)[123X, or it can be
+  specified  by hand when reading the matrices. If the primitive polynomial is
+  undefined,  it will be assumed that the Conway polynomial used internally by
+  [10XGAP[110X should be used.[133X
+  
+  [33X[0;0YNext  follows  the  comment section, with each line either empty or starting
+  with the [10X%[110X symbol:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X% Example of the comment line[104X
+  [4X[32X[104X
+  
+  [33X[0;0YAfter  the  comment  section,  in  agreement  with MTX format, goes the line
+  giving the dimensions of the matrix and the number of non-zero elements:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xrows     columns     `(number of non-zero elements)`[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThen all non-zero elements are listed as three or four integers according to
+  the [10Xtype[110X:[133X
+  
+  [30X    [33X[0;6Y[10Xtype=integer[110X:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xi     j     element[i,j][104X
+  [4X[32X[104X
+  
+  [30X    [33X[0;6Y[10Xtype=complex[110X:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4Xi     j     a[i,j]     b[i,j][104X
+  [4X[32X[104X
+  
+  [33X[0;0YNotice  that  column and row numbers must start with 1, as prescribed in the
+  original MTX format.[133X
+  
+  
+  [1X5.1-4 [33X[0;0YMatrix Storage Implementation Details[133X[101X
+  
+  [33X[0;0YNeither  the [10XWriteMTXE[110X nor [10XReadMTXE[110X currently support the [10XFormat:[110X parameter.
+  Prime  field elements are only stored "as is", i.e., as integers to be taken
+  modulo  [10Xp[110X,  while  extension  field elements are only stored in the [10XPowerInt[110X
+  format, i.e., with the power of the primitive element specified, or "-1" for
+  zero.[133X
+  
+  [33X[0;0YThe  function  [10XWriteMTXE[110X  can  only  save  field elements with the primitive
+  polynomial used internally by [10XGAP[110X, i.e., the Conway polynomial.[133X
+  
+  [33X[0;0YThe  function [10XReadMTXE[110X can read matrix elements specified (in the case of an
+  extension field) with any primitive polynomial as specified in the file.[133X
+  
+  [33X[0;0YGiven  the field [23X\gf(p^m)[123X and the primitive polynomial [23Xp(x)[123X specified in the
+  file, the function [10XReadMTXE[110X first checks that the degree of [23Xp(x)[123X is indeed [23Xm[123X
+  and  that  it  is  a  primitive  polynomial in the corresponding prime field
+  [23X\gf(p)[123X.  If  either  of  these  tests  fail,  [10XReadMTXE[110X  produces  an  error.
+  Otherwise,  it  will  attempt to find the conversion coefficient [23Xc[123X such that
+  [23X\alpha^c[123X   is   a   root  of  [23Xp(x)[123X,  starting  with  [23Xc=1[123X.  When  found,  the
+  multiplicative  inverse  [23Xs[123X  such  that [23Xsc\equiv 1\bmod (q-1)[123X will be used to
+  convert  the  elements  being read, i.e., for any matrix element [23Xy[123X read, [23Xy^s[123X
+  will be used instead.[133X
+  
+  [33X[0;0YNotice that, unless the Conway polynomial was used (in which case [23Xc=s=1[123X, and
+  the conversion is trivial), this search can be slow for large fields, as all
+  integer  values  in  [23X[1,2,\ldots,q-2][123X  will  be tested sequentially. To help
+  ensure  that  the  correct  polynomial  is  used,  it  is  recommended  that
+  orthogonality of matrices be checked.[133X
+  
+  
+  [1X5.2 [33X[0;0YExample MTXE files[133X[101X
+  
+  [33X[0;0YIn  this  section  we  give  two  sample  MTXE  files storing the stabilizer
+  generator matrix of 5-qubit codes.[133X
+  
+  [33X[0;0YFirst,  matrix  (with  one  redundant  linearly-dependent  row)  stored with
+  [10Xtype=integer[110X  and  [10Xpair=1[110X (intercalated columns [23X[a_1,b_1,a_2,b_2,\ldots][123X) is
+  presented.  Notice  that the number of columns is twice the actual length of
+  the  code.  Even though the field is specified explicitly, this matrix would
+  work with any prime field.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate integer general		[104X
+    [4X% Field: GF(7)[104X
+    [4X% 5-qubit code generator matrix / normal storage with intercalated cols[104X
+    [4X5 10 20[104X
+    [4X1 1 1[104X
+    [4X1 4 1[104X
+    [4X1 6 -1[104X
+    [4X1 7 -1[104X
+    [4X2 3 1[104X
+    [4X2 6 1[104X
+    [4X2 8 -1[104X
+    [4X2 9 -1[104X
+    [4X3 1 -1[104X
+    [4X3 5 1[104X
+    [4X3 8 1[104X
+    [4X3 10 -1[104X
+    [4X4 2 -1[104X
+    [4X4 3 -1[104X
+    [4X4 7 1[104X
+    [4X4 10 1[104X
+    [4X5 2 1[104X
+    [4X5 4 -1[104X
+    [4X5 5 -1[104X
+    [4X5 9 1[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThis  same  matrix is stored in the file [10Xmatrices/n5k1A.mtx[110X. This is how the
+  matrix can be read and distance calculated:[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;[127X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(7)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  same  matrix  can  also be stored with [10Xtype=complex[110X and [10Xpair=3[110X (complex
+  pairs  [23X[a_1+i  b_1,a_2+i b_2,\ldots][123X). In this format, the number of columns
+  equals the code length.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate complex general[104X
+    [4X% works with any prime field[104X
+    [4X% 5-qubit code generator matrix / normal storage with intercalated cols[104X
+    [4X% [[5,1,3]]_p[104X
+    [4X4 5 16[104X
+    [4X1 1 1 0[104X
+    [4X1 2 0 1[104X
+    [4X1 3 0 -1[104X
+    [4X1 4 -1 0[104X
+    [4X2 2 1 0[104X
+    [4X2 3 0 1[104X
+    [4X2 4 0 -1[104X
+    [4X2 5 -1 0[104X
+    [4X3 1 -1 0[104X
+    [4X3 3 1 0[104X
+    [4X3 4 0 1[104X
+    [4X3 5 0 -1[104X
+    [4X4 1 0 -1[104X
+    [4X4 2 -1 0[104X
+    [4X4 4 1 0[104X
+    [4X4 5 0 1[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  matrix above is written in the file [10Xmatrices/n5k1.mtx[110X. To calculate the
+  distance,  we  need  to specify the field [unless we want to use the default
+  binary field].[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx" ));;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(2)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+    [4X[25Xgap>[125X [27X    q:=17;;[127X[104X
+    [4X[25Xgap>[125X [27X    lis:=ReadMTXE(Filename(filedir,"n5k1.mtx") : field:= GF(q));;[127X[104X
+    [4X[25Xgap>[125X [27X    Print("field ",lis[1],"\n");[127X[104X
+    [4X[28Xfield GF(17)[128X[104X
+    [4X[25Xgap>[125X [27X    dist:=DistRandStab(lis[3],100,0,2 : field:=lis[1]);[127X[104X
+    [4X[28X3[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YFinally,  the  following  is  an  example of a five-qudit code over [23X\gf(2^3)[123X
+  constructed by the script [10Xlib/cyclic.g[110X.[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X%%MatrixMarket matrix coordinate complex general[104X
+    [4X% Field: GF(2^3) PrimitiveP(x): x^3+x+1[104X
+    [4X% code [[5,1,3]]_8[104X
+    [4X% cyclic w=4 x^6+Z(2^3)^4*x^5+Z(2^3)^4*x^3+Z(2)^0[104X
+    [4X% Powers of GF(8) primitive element and -1 for Zero are given[104X
+    [4X5 5 20[104X
+    [4X1 1 0 -1[104X
+    [4X1 2 -1 4[104X
+    [4X1 3 -1 4[104X
+    [4X1 4 0 -1[104X
+    [4X2 2 0 -1[104X
+    [4X2 3 -1 4[104X
+    [4X2 4 -1 4[104X
+    [4X2 5 0 -1[104X
+    [4X3 1 0 -1[104X
+    [4X3 3 0 -1[104X
+    [4X3 4 -1 4[104X
+    [4X3 5 -1 4[104X
+    [4X4 1 -1 4[104X
+    [4X4 2 0 -1[104X
+    [4X4 4 0 -1[104X
+    [4X4 5 -1 4[104X
+    [4X5 1 -1 4[104X
+    [4X5 2 -1 4[104X
+    [4X5 3 0 -1[104X
+    [4X5 5 0 -1[104X
+  [4X[32X[104X
+  

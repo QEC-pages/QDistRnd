@@ -1,0 +1,383 @@
+  
+  [1X4 [33X[0;0YAll Functions[133X[101X
+  
+  
+  [1X4.1 [33X[0;0YFunctions for computing the distance[133X[101X
+  
+  
+  [1X4.1-1 [33X[0;0YExamples[133X[101X
+  
+  [33X[0;0YHere  are  a few simple examples illustrating the use of distance functions.
+  In  all examples, we use [10XDistRandCSS[110X and [10XDistRandStab[110X with [10Xdebug=2[110X to ensure
+  that row orthogonality in the input matrices is verified.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF:=GF(5);;[127X[104X
+    [4X[25Xgap>[125X [27XHx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;[127X[104X
+    [4X[25Xgap>[125X [27XHz:=One(F)*[[1, 1,1,1]];;[127X[104X
+    [4X[25Xgap>[125X [27XDistRandCSS(Hz,Hx,100,0,2 : field:=F);[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YNow,  if  we  set  the  minimum  distance  [10Xmindist[110X  parameter too large, the
+  function  terminates  immediately  after  a  codeword  with such a weight is
+  found; in such a case the result is returned with the negative sign.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XDistRandCSS(Hz,Hx,100,2,2 : field:=F);[127X[104X
+    [4X[28X-2[128X[104X
+  [4X[32X[104X
+  
+  [33X[0;0YThe  function [10XDistRandStab[110X takes only one matrix. This example uses the same
+  CSS  code  but  written into a single matrix. Notice how the values from the
+  previous example are intercalated with zeros.[133X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF:=GF(5);;[127X[104X
+    [4X[25Xgap>[125X [27XH:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions[127X[104X
+    [4X[25X>[125X [27X           [0,0,  0,0,  1,0, -1,0 ],[127X[104X
+    [4X[25X>[125X [27X           [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions[127X[104X
+    [4X[25Xgap>[125X [27XDistRandStab(H,100,0,2 : field:=F);[127X[104X
+    [4X[28X2[128X[104X
+  [4X[32X[104X
+  
+  [1X4.1-2 DistRandCSS[101X
+  
+  [33X[1;0Y[29X[2XDistRandCSS[102X( [3XHX[103X, [3XHZ[103X, [3Xnum[103X, [3Xmindist[103X[, [3Xdebug[103X][3X:[103X [3Xfield[103X [3X:=[103X [3XGF(2)[103X, [3Xmaxav[103X [3X:=[103X [3Xfail[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YAn upper bound on the CSS distance [23Xd_Z[123X[133X
+  
+  [33X[0;0YComputes  an  upper  bound  on  the  distance  [23Xd_Z[123X  of  the  [23Xq[123X-ary code with
+  stabilizer  generator  matrices  [23XH_X[123X,  [23XH_Z[123X  whose  rows  are  assumed  to be
+  orthogonal  ([13Xorthogonality  is  not  verified[113X).  See  Section  [14X3.1[114X  for  the
+  description of the algorithm.[133X
+  
+  [33X[0;0YDetails of the input parameters[133X
+  
+  [30X    [33X[0;6Y[10XHX[110X, [10XHZ[110X: the input matrices with elements in the Galois [10Xfield[110X [23XF[123X[133X
+  
+  [30X    [33X[0;6Y[10Xnum[110X: number of information sets to construct (should be large)[133X
+  
+  [30X    [33X[0;6Y[10Xmindist[110X  - the algorithm stops when distance equal or below [10Xmindist[110X is
+        found  and  returns the result with negative sign. Set [10Xmindist[110X to 0 if
+        you want the actual distance.[133X
+  
+  [30X    [33X[0;6Y[10Xdebug[110X: optional integer argument containing debug bitmap (default: [10X0[110X)[133X
+  
+        [30X    [33X[0;12Y1 (0s bit set) : print 1st of the vectors found[133X
+  
+        [30X    [33X[0;12Y2  (1st  bit  set)  : check orthogonality of matrices and of the
+              final vector[133X
+  
+        [30X    [33X[0;12Y4 (2nd bit set) : show occasional progress update[133X
+  
+        [30X    [33X[0;12Y8  (3rd  bit  set)  : maintain cw count and estimate the success
+              probability[133X
+  
+  [30X    [33X[0;6Y[10Xfield[110X (Options stack): Galois field, default: [23X\gf(2)[123X.[133X
+  
+  [30X    [33X[0;6Y[10Xmaxav[110X  (Options stack): if set, terminate when [23X\langle n\rangle[123X>[10Xmaxav[110X,
+        see Section [14X3.3[114X. Not set by default.[133X
+  
+  [1X4.1-3 DistRandStab[101X
+  
+  [33X[1;0Y[29X[2XDistRandStab[102X( [3XG[103X, [3Xnum[103X, [3Xmindist[103X[, [3Xdebug[103X][3X:[103X [3Xfield[103X [3X:=[103X [3XGF(2)[103X, [3Xmaxav[103X [3X:=[103X [3Xfail[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10YAn upper bound on the code distance [23Xd[123X[133X
+  
+  [33X[0;0YComputes  an  upper  bound on the distance [23Xd[123X of the [23XF[123X-linear stabilizer code
+  with  generator matrix [23XG[123X whose rows are assumed to be symplectic-orthogonal,
+  see Section [14X3.1-5[114X ([13Xorthogonality is not verified[113X).[133X
+  
+  [33X[0;0YDetails of the input parameters:[133X
+  
+  [30X    [33X[0;6Y[10XG[110X:  the  input  matrix  with  elements  in  the Galois [10Xfield[110X [23XF[123X with [23X2n[123X
+        columns [23X(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)[123X.[133X
+  
+  [33X[0;0YThe  remaining  options  are  identical to those in the function [10XDistRandCSS[110X
+  [2XDistRandCSS[102X ([14X4.1-2[114X).[133X
+  
+  [30X    [33X[0;6Y[10Xnum[110X: number of information sets to construct (should be large)[133X
+  
+  [30X    [33X[0;6Y[10Xmindist[110X  -  the  algorithm  stops  when distance equal or smaller than
+        [10Xmindist[110X is found - set it to 0 if you want the actual distance[133X
+  
+  [30X    [33X[0;6Y[10Xdebug[110X: optional integer argument containing debug bitmap (default: [10X0[110X)[133X
+  
+        [30X    [33X[0;12Y1 (0s bit set) : print 1st of the vectors found[133X
+  
+        [30X    [33X[0;12Y2  (1st  bit  set)  : check orthogonality of matrices and of the
+              final vector[133X
+  
+        [30X    [33X[0;12Y4 (2nd bit set) : show occasional progress update[133X
+  
+        [30X    [33X[0;12Y8  (3rd  bit  set)  : maintain cw count and estimate the success
+              probability[133X
+  
+  [30X    [33X[0;6Y[10Xfield[110X (Options stack): Galois field, default: [23X\gf(2)[123X.[133X
+  
+  [30X    [33X[0;6Y[10Xmaxav[110X  (Options stack): if set, terminate when [23X\langle n\rangle[123X>[10Xmaxav[110X,
+        see Section [14X3.3[114X. Not set by default.[133X
+  
+  
+  [1X4.2 [33X[0;0YInput/Output Functions[133X[101X
+  
+  [1X4.2-1 ReadMTXE[101X
+  
+  [33X[1;0Y[29X[2XReadMTXE[102X( [3XFilePath[103X[, [3Xpair[103X][3X:[103X [3Xfield[103X [3X:=[103X [3XGF(2)[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ya list [[10Xfield[110X, [10Xpair[110X, [10XMatrix[110X, [10Xarray_of_comment_strings[110X][133X
+  
+  [33X[0;0YRead  matrix from an MTX file, an extended version of Matrix Market eXchange
+  coordinate  format  supporting  finite Galois fields and two-block matrices [23X
+  (A|B)  [123X  with  columns  [23XA=(a_1, a_2, \ldots , a_n)[123X and [23XB=(b_1, b_2, \ldots ,
+  b_n)[123X, see Chapter [14X5[114X.[133X
+  
+  [30X    [33X[0;6Y[10XFilePath[110X name of existing file storing the matrix[133X
+  
+  [30X    [33X[0;6Y[10Xpair[110X  (optional  argument):  specifies column ordering; must correlate
+        with the variable [10Xtype[110X in the file[133X
+  
+        [30X    [33X[0;12Y[10Xpair=0[110X   for   regular   single-block   matrices   (e.g.,   CSS)
+              [10Xtype=integer[110X  (if  [10Xpair[110X  not specified, [10Xpair[110X=0 is set by default
+              for [10Xinteger[110X)[133X
+  
+        [30X    [33X[0;12Y[10Xpair=1[110X  intercalated  columns with [10Xtype=integer[110X [23X (a_1, b_1, a_2,
+              b_2,\ldots) [123X[133X
+  
+        [30X    [33X[0;12Y[10Xpair=2[110X  grouped  columns  with  [10Xtype=integer[110X [23X (a_1, a_2, \ldots,
+              a_n\; b_1, b_2,\ldots, b_n) [123X[133X
+  
+        [30X    [33X[0;12Y[10Xpair=3[110X  this  is  the only option for [10Xtype=complex[110X with elements
+              specified as "complex" pairs[133X
+  
+  [30X    [33X[0;6Y[10Xfield[110X (Options stack): Galois field, default: [23X\gf(2)[123X.[133X
+  
+  [33X[0;0Y[13XMust[113X  match that given in the file (if any). [13XNotice[113X: with [10Xpair[110X=1 and [10Xpair[110X=2,
+  the  number  of matrix columns specified in the file must be even, twice the
+  block  length  of  the  code.  [13XThis  version of the format is deprecated and
+  should be avoided.[113X[133X
+  
+  [33X[0;0Y1st line of file must read:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X %%MatrixMarket matrix coordinate `type` general [104X
+  [4X[32X[104X
+  
+  [33X[0;0Ywith [10Xtype[110X being either [10Xinteger[110X or [10Xcomplex[110X[133X
+  
+  [33X[0;0Y2nd line (optional) may contain:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X % Field: `valid_field_name_in_Gap` [104X
+  [4X[32X[104X
+  
+  [33X[0;0Yor[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X % Field: `valid_field_name_in_Gap` PrimitiveP(x): `polynomial` [104X
+  [4X[32X[104X
+  
+  [33X[0;0YAny  additional entries in the second line are silently ignored. By default,
+  [23X\gf(2)[123X  is  assumed;  the  default  can  be  overriden by the optional [10Xfield[110X
+  argument.  If  the  field  is specified both in the file and by the optional
+  argument, the corresponding values must match. Primitive polynomial (if any)
+  is  only  checked  in the case of an extension field; it is silently ignored
+  for a prime field.[133X
+  
+  [33X[0;0YSee  Chapter  [14X5[114X  for  the  details  of  how  the  elements  of the group are
+  represented depending on whether the field is a prime field ([23X q [123X a prime) or
+  an extension field with [23X q=p^m [123X, [23Xp[123X prime, and [23Xm>1[123X.[133X
+  
+  [1X4.2-2 WriteMTXE[101X
+  
+  [33X[1;0Y[29X[2XWriteMTXE[102X( [3XStrPath[103X, [3Xpair[103X, [3Xmatrix[103X[, [3Xcomment[103X[, [3Xcomment[103X]][3X:[103X [3Xfield[103X [3X:=[103X [3XGF(2)[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Yno output[133X
+  
+  [33X[0;0YExport  a  [10Xmatrix[110X in Extended MatrixMarket format, with options specified by
+  the [10Xpair[110X argument.[133X
+  
+  [30X    [33X[0;6Y[10XStrPath[110X - name of the file to be created;[133X
+  
+  [30X    [33X[0;6Y[10Xpair[110X:  parameter  to  control  the file format details, must match the
+        storage [10Xtype[110X of the matrix.[133X
+  
+        [30X    [33X[0;12Y[10Xpair=0[110X for regular matrices (e.g., CSS) with [10Xtype=integer[110X[133X
+  
+        [30X    [33X[0;12Y[10Xpair=1[110X  for  intercalated columns [23X (a_1, b_1, a_2, b_2, \ldots) [123X
+              with [10Xtype=integer[110X ([13Xdeprecated[113X)[133X
+  
+        [30X    [33X[0;12Y[10Xpair=2[110X  for  grouped  columns  with  [10Xtype=integer[110X  [13X(this  is not
+              supported!)[113X[133X
+  
+        [30X    [33X[0;12Y[10Xpair=3[110X for columns specified in pairs with [10Xtype=complex[110X.[133X
+  
+  [30X    [33X[0;6YColumns of the input [10Xmatrix[110X must be intercalated unless [10Xpair=0[110X[133X
+  
+  [30X    [33X[0;6Yoptional [10Xcomment[110X: one or more strings (or a single list of strings) to
+        be output after the MTX header line.[133X
+  
+  [33X[0;0YThe second line specifying the field will be generated automatically [13Xonly[113X if
+  the  GAP Option [10Xfield[110X is present. As an option, the line can also be entered
+  explicitly as the first line of the comments, e.g., [10X"% Field: GF(256)"[110X[133X
+  
+  [33X[0;0YSee  Chapter  [14X5[114X  for  the  details  of  how  the  elements  of the group are
+  represented depending on whether the field is a prime field ([23X q [123X a prime) or
+  an extension field with [23X q=p^m [123X, [23X m>1 [123X.[133X
+  
+  
+  [1X4.3 [33X[0;0YHelper Functions[133X[101X
+  
+  
+  [1X4.3-1 [33X[0;0YExamples[133X[101X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XQDR_AverageCalc([2,3,4,5]);[127X[104X
+    [4X[28X3.5[128X[104X
+  [4X[32X[104X
+  
+  [4X[32X  Example  [32X[104X
+    [4X[25Xgap>[125X [27XF:=GF(3);; [127X[104X
+    [4X[25Xgap>[125X [27Xx:=Indeterminate(F,"x");; poly:=One(F)*(1-x);;[127X[104X
+    [4X[25Xgap>[125X [27Xn:=5;;[127X[104X
+    [4X[25Xgap>[125X [27Xmat:=QDR_DoCirc(poly,n,2*n,F);; # make a circulant matrix with 5 rows [127X[104X
+    [4X[25Xgap>[125X [27XDisplay(mat);[127X[104X
+    [4X[28X 1 2 . . . . . . . .[128X[104X
+    [4X[28X . . 1 2 . . . . . .[128X[104X
+    [4X[28X . . . . 1 2 . . . .[128X[104X
+    [4X[28X . . . . . . 1 2 . .[128X[104X
+    [4X[28X . . . . . . . . 1 2[128X[104X
+  [4X[32X[104X
+  
+  [1X4.3-2 QDR_AverageCalc[101X
+  
+  [33X[1;0Y[29X[2XQDR_AverageCalc[102X( [3Xvector[103X ) [32X function[133X
+  
+  [33X[0;0YCalculate the average of the components of a [10Xvector[110X containing numbers[133X
+  
+  [1X4.3-3 QDR_SymplVecWeight[101X
+  
+  [33X[1;0Y[29X[2XQDR_SymplVecWeight[102X( [3Xvector[103X, [3Xfield[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ysymplectic weight of a vector[133X
+  
+  [33X[0;0YCalculate  the  symplectic weight of a [10Xvector[110X with an even number of entries
+  from the field [10Xfield[110X. The elements of the pairs are intercalated: [23X(a_1, b_1,
+  a_2, b_2,\ldots)[123X.[133X
+  
+  [33X[0;0Y[13XNote: the parity of vector [10Xlength[110X and the format are not verified!!![113X[133X
+  
+  [1X4.3-4 QDR_WeightMat[101X
+  
+  [33X[1;0Y[29X[2XQDR_WeightMat[102X( [3Xmatrix[103X ) [32X function[133X
+  
+  [33X[0;0Ycount the total number of non-zero entries in a matrix.[133X
+  
+  [1X4.3-5 QDR_DoProbOut[101X
+  
+  [33X[1;0Y[29X[2XQDR_DoProbOut[102X( [3Xvector[103X, [3Xn[103X, [3Xnum[103X ) [32X function[133X
+  
+  [33X[0;0YAux  function  to print out the relevant probabilities given the list [10Xvector[110X
+  of  multiplicities  of the codewords found. Additional parameters are [10Xn[110X, the
+  code  length,  and  [10Xnum[110X, the number of repetitions; these are ignored in the
+  present version of the program. See [14X3.3[114X for related discussion.[133X
+  
+  [1X4.3-6 QDR_FieldHeaderStr[101X
+  
+  [33X[1;0Y[29X[2XQDR_FieldHeaderStr[102X( [3XF[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe created header string[133X
+  
+  [33X[0;0YCreate  a  header  string  describing  the  field  [10XF[110X for use in the function
+  [10XWriteMTXE[110X. If [10XF[110X is a prime Galois field, just specify it: [10X% Field: GF(p)[110X For
+  an  extension  field  [23X\gf(p^m)[123X with [23Xp[123X prime and [23Xm>1[123X, also give the primitive
+  polynomial  [13Xwhich  should  not  contain  any  spaces[113X.  For example, [10X% Field:
+  GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3[110X See Chapter [14X5[114X for details.[133X
+  
+  [1X4.3-7 QDR_ProcessFieldHeader[101X
+  
+  [33X[1;0Y[29X[2XQDR_ProcessFieldHeader[102X( [3Xrecs[103X, [3XoptF[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe  list  [Field,  ConversionDegree,  FormatIndex] (plus anything
+            else  we  may  need  in the future); the list is to be used as the
+            second parameter in [10XQDR_ProcEntry()[110X[133X
+  
+  [33X[0;0YProcess  the  field  header (second line in the MTXE file format), including
+  the field, PrimitiveP record, and anything else. Supported format options:[133X
+  
+  [4X[32X  Code  [32X[104X
+    [4X Field: `field` PrimitiveP(x): `polynomial` Format: `format`[104X
+  [4X[32X[104X
+  
+  [33X[0;0YHere  the  records  should  be separated by one or more spaces; while [10Xfield[110X,
+  [10Xpolynomial[110X, and [10Xformat[110X [13Xshould not contain any spaces.[113X Any additional records
+  in this line will be silently ignored.[133X
+  
+  [33X[0;0YThe [10Xfield[110X option should specify a valid field, [23X\gf(q)[123X or [23X\gf(p^m)[123X, where [23Xq>1[123X
+  should be a power of the prime [23Xp[123X.[133X
+  
+  [33X[0;0YThe  [10Xpolynomial[110X  should  be  a  valid expanded monic polynomial with integer
+  coefficients,  with  a  single  independent variable [10Xx[110X; it should contain no
+  spaces.  An  error  will  be signaled if [10Xpolynomial[110X is not a valid primitive
+  polynomial  of  the  [10Xfield[110X.  This  argument  is optional; by default, Conway
+  polynomial will be used.[133X
+  
+  [33X[0;0YThe  optional  [10Xformat[110X  string ([13Xnot implemented[113X) should be "AdditiveInt" (the
+  default for prime fields), "PowerInt" (the default for extension fields with
+  [23Xm>1[123X) or "VectorInt".[133X
+  
+  [33X[0;0Y[10XAdditiveInt[110X  indicates  that  values  listed  are  expected  to  be  in  the
+  corresponding  prime  field  and  should  be  interpreted as integers mod [23Xp[123X.
+  [10XPowerInt[110X indicates that field elements are represented as integers powers of
+  the  primitive element, root of the primitive polynomial, or [23X-1[123X for the zero
+  field   element.   [10XVectorInt[110X  corresponds  to  encoding  coefficients  of  a
+  degree-[23X(m-1)[123X  [23Xp[123X-ary  polynomial  representing  field  elements  into a [23Xp[123X-ary
+  integer.  In  this notation, any negative value will be taken mod [23Xp[123X, thus [23X-1[123X
+  will be interpreted as [23Xp-1[123X, the additive inverse of the field [23X1[123X.[133X
+  
+  [33X[0;0YOn  input,  [10Xrecs[110X  should  contain a list of tokens obtained by splitting the
+  field record line; [10XoptF[110X should be assigned to [10XValueOption("field")[110X or [10Xfail[110X.[133X
+  
+  [1X4.3-8 QDR_ProcEntry[101X
+  
+  [33X[1;0Y[29X[2XQDR_ProcEntry[102X( [3Xstr[103X, [3Xfmt[103X, [3XFileName[103X, [3XLineNo[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Ythe converted field element[133X
+  
+  [33X[0;0YConvert a string entry which should represent an integer to the Galois Field
+  element as specified in the [10Xfmt[110X.[133X
+  
+  [30X    [33X[0;6Y[10Xstr[110X is the string representing an integer.[133X
+  
+  [30X    [33X[0;6Y[10Xfmt[110X is a list [Field, ConversionDegree, FormatIndex][133X
+  
+        [30X    [33X[0;12Y[10XField[110X is the Galois field [23X\gf(p^m)[123X of the code[133X
+  
+        [30X    [33X[0;12Y[10XConversionDegree[110X  [23Xc[123X : every element [23Xx[123X read is replaces with [23Xx^c[123X.
+              This  may  be  needed  if a non-standard primitive polynomial is
+              used to define the field.[133X
+  
+        [30X    [33X[0;12Y[10XFormatIndex[110X  in  {0,1,2}.  [10X0[110X  indicates  no  conversion  (just a
+              modular  integer).  [10X1[110X  indicates  that  the integer represents a
+              power  of  the  primitive element, or [23X-1[123X for 0. [10X2[110X indicates that
+              the  integer  encodes  coordinates  of  a length [23Xm[123X vector as the
+              digits of a [23Xp[123X-ary integer ([13Xnot yet implemented[113X).[133X
+  
+  [30X    [33X[0;6Y[10XFileName[110X,  [10XLineNo[110X  are the line number and the name of the input file;
+        these are used to signal an error.[133X
+  
+  [1X4.3-9 QDR_MakeH[101X
+  
+  [33X[1;0Y[29X[2XQDR_MakeH[102X( [3Xmatrix[103X, [3Xfield[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[10XH[110X (the check matrix constructed)[133X
+  
+  [33X[0;0YGiven  a  two-block  [10Xmatrix[110X  with intercalated columns [23X (a_1, b_1, a_2, b_2,
+  \ldots)  [123X,  calculate  the corresponding check matrix [10XH[110X with columns [23X (-b_1,
+  a_1, -b_2, a_2, \ldots) [123X.[133X
+  
+  [33X[0;0YThe parity of the number of columns is verified.[133X
+  
+  [1X4.3-10 QDR_DoCirc[101X
+  
+  [33X[1;0Y[29X[2XQDR_DoCirc[102X( [3Xpoly[103X, [3Xm[103X, [3Xn[103X, [3Xfield[103X ) [32X function[133X
+  [6XReturns:[106X  [33X[0;10Y[10Xm[110X   by  [10X2*n[110X  circulant  matrix  constructed  from  the  polynomial
+            coefficients[133X
+  
+  [33X[0;0YGiven  the polynomial [10Xpoly[110X [23Xa_0+b_0 x+a_1x^2+b_1x^3 +\ldots[123X with coefficients
+  from  the  field  [10XF[110X,  constructs  the corresponding [10Xm[110X by 2[10Xn[110X double circulant
+  matrix  obtained  by [10Xm[110X repeated cyclic shifts of the coefficients' vector by
+  [23Xs=2[123X positions at a time.[133X
+  
