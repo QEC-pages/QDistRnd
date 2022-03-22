@@ -2,7 +2,7 @@
     "license": "GPL-2.0+", 
     "description": "<p>Release for QDistRnd, a GAP package for calculating distance of a q-ary quantum stabilizer code</p>", 
     "language": "eng", 
-    "title": "QEC-pages/QDistRnd: QDistRnd 0.8.2", 
+    "title": "QEC-pages/QDistRnd: QDistRnd 0.8.5", 
     "notes": "GAP package", 
     "grants": [
         {
@@ -10,7 +10,7 @@
         }
     ], 
     "upload_type": "software", 
-    "version": "v0.8.2", 
+    "version": "v0.8.5", 
     "keywords": [
         "QECC", 
         "quantum code", 
@@ -35,18 +35,5 @@
             "name": "Vadim A. Shabashov"
         }
     ], 
-    "access_right": "open", 
-    "related_identifiers": [
-        {
-            "scheme": "url", 
-            "identifier": "https://github.com/QEC-pages/QDistRnd/tree/v0.8.2", 
-            "relation": "isSupplementTo", 
-            "resource_type": "software"
-        }, 
-        {
-            "scheme": "doi", 
-            "identifier": "10.5281/zenodo.6374558", 
-            "relation": "isVersionOf"
-        }
-    ]
+    "access_right": "open"
 }
