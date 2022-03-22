@@ -9,7 +9,7 @@ authors:
   - family-names: Kozin
     given-names: "Valerii K."
 title: "QDistRnd: Calculate the distance of a q-ary quantum stabilizer code"
-version: v0.8.2
+version: v0.8.4
 date-released: 2022-03-21
 repository-code: "https://github.com/QEC-pages/QDistRnd"
 url: "https://QEC-pages.github.io/QDistRnd/"
@@ -21,6 +21,5 @@ keywords:
   - "minimal distance"
   - "GAP package"
 license:
-  - GPL-2.0
   - GPL-2.0-or-later
  
