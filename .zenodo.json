@@ -1,9 +1,8 @@
 {
     "license": "GPL-2.0+", 
-    "description": "<p>Release for QDistRnd, a GAP package for calculating distance of a q-ary quantum stabilizer code</p>", 
+    "description": "<p>Release for QDistRnd, a GAP package for computing the distance of a quantum error correcting code linear in a Galois field GF(q), where q must be a power of a prime.</p>", 
     "language": "eng", 
-    "title": "QEC-pages/QDistRnd: QDistRnd 0.8.5", 
-    "notes": "GAP package", 
+    "title": "QDistRnd: A GAP package for computing the distance of quantum error-correcting codes", 
     "grants": [
         {
             "id": "10.13039/100000001::1820939"
