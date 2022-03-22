@@ -1,0 +1,33 @@
+{
+    "description": "<p>Release for QDistRnd</p>", 
+    "license": "other-open", 
+    "title": "QDistRnd: Calculate the distance of a q-ary quantum stabilizer code", 
+    "version": "v0.8.2", 
+    "upload_type": "software", 
+    "publication_date": "2022-03-22", 
+    "creators": [
+        {
+            "affiliation": "UC, Riverside", 
+            "name": "Leonid P. Pryadko"
+        }, 
+        {   "affiliation": "ITMO University",
+            "name": "Vadim A. Shabashov"
+        }, 
+        {   "affiliation": "ITMO University",
+            "name": "Valerii K. Kozin"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://github.com/QEC-pages/QDistRnd/tree/v0.8.2", 
+            "relation": "isSupplementTo"
+        }, 
+        {
+            "scheme": "doi", 
+            "identifier": "10.5281/zenodo.6374558", 
+            "relation": "isVersionOf"
+        }
+    ]
+}

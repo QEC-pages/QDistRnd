@@ -1,0 +1,26 @@
+cff-version: 1.1.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Pryadko
+    given-names: "Leonid P."
+    orcid: https://orcid.org/0000-0002-4990-0259
+  - family-names: Shabashov
+    given-names: "Vadim A."
+  - family-names: Kozin
+    given-names: "Valerii K."
+title: "QDistRnd: Calculate the distance of a q-ary quantum stabilizer code"
+version: v0.8.2
+date-released: 2022-03-21
+repository-code: "https://github.com/QEC-pages/QDistRnd"
+url: "https://QEC-pages.github.io/QDistRnd/"
+keywords:
+  - QECC
+  - "quantum code"
+  - "stabilizer code"
+  - "quantum error correcting code"
+  - "minimal distance"
+  - "GAP package"
+license:
+  - GPL-2.0
+  - GPL-2.0-or-later
+ 
