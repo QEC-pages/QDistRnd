@@ -14,8 +14,7 @@
 #! @Description Calculate the average of the components of a `vector`
 #! containing numbers 
 #! @Arguments vector
-DeclareGlobalFunction("QDR_AverageCalc");
-InstallGlobalFunction(QDR_AverageCalc,  
+BindGlobal("QDR_AverageCalc",
                      function(mult)
                          return 1.0*Sum(mult)/Length(mult);
                      end
@@ -33,9 +32,7 @@ InstallGlobalFunction(QDR_AverageCalc,
 #! **Note: the parity of vector `length` and the format are not verified!!!**
 #! @Returns symplectic weight of a vector 
 #! @Arguments vector, field
-DeclareGlobalFunction("QDR_SymplVecWeight");
-
-InstallGlobalFunction(QDR_SymplVecWeight,
+BindGlobal("QDR_SymplVecWeight",
                      function(vec, F)
                          local wgt, i, len; # local variables: wgt - the weight, i - for "for" loop, len - length of vec
                          
@@ -57,8 +54,7 @@ InstallGlobalFunction(QDR_SymplVecWeight,
 
 #! @Description count the total number of non-zero entries in a matrix.
 #! @Arguments matrix
-DeclareGlobalFunction("QDR_WeightMat");
-InstallGlobalFunction(QDR_WeightMat,
+BindGlobal("QDR_WeightMat",
                      function(mat)
                          local NonZeroElem,i,rows;
                          rows:=DimensionsMat(mat)[1];
@@ -78,8 +74,7 @@ InstallGlobalFunction(QDR_WeightMat,
 #! program.  See <Ref Sect="Section_Empirical"/> for 
 #! related discussion.
 #! @Arguments vector, n, num
-DeclareGlobalFunction("QDR_DoProbOut");
-InstallGlobalFunction(QDR_DoProbOut,
+BindGlobal("QDR_DoProbOut",
                      function(mult,n,num)
                          local s0,s1,s2;
                          Print("<n>=", QDR_AverageCalc(mult));
@@ -107,8 +102,7 @@ InstallGlobalFunction(QDR_DoProbOut,
 #! See Chapter <Ref Chap="Chapter_FileFormat"/> for details.
 #! @Returns the created header string 
 #! @Arguments F
-DeclareGlobalFunction("QDR_FieldHeaderStr");
-InstallGlobalFunction(QDR_FieldHeaderStr, 
+BindGlobal("QDR_FieldHeaderStr",
                      function(F) # field F
                          local p,m, poly,lis,i,j, b, str, out;
                          if not IsField(F) then 
@@ -197,8 +191,7 @@ InstallGlobalFunction(QDR_FieldHeaderStr,
 #! @Returns the list [Field, ConversionDegree, FormatIndex] (plus anything else we
 #! may need in the future); the list is to be used as the second
 #! parameter in `QDR_ProcEntry()`  
-DeclareGlobalFunction("QDR_ProcessFieldHeader");
-InstallGlobalFunction(QDR_ProcessFieldHeader, 
+BindGlobal("QDR_ProcessFieldHeader",
                      function(recs,optF)
                          local m,F,Fp,poly,x,ic,is,a,x_global_val,
                                x_bound,x_readonly;
@@ -316,8 +309,7 @@ InstallGlobalFunction(QDR_ProcessFieldHeader,
 #!
 #! @Returns the converted field element 
 #! @Arguments str, fmt, FileName, LineNo
-DeclareGlobalFunction("QDR_ProcEntry");
-InstallGlobalFunction(QDR_ProcEntry,
+BindGlobal("QDR_ProcEntry",
                      function(str,fmt,FileName,LineNo)
                          local ival, fval;
                          ival:=Int(str);
@@ -406,8 +398,7 @@ InstallGlobalFunction(QDR_ProcEntry,
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $p$ prime, and $m>1$.
 #! 
-DeclareGlobalFunction("ReadMTXE");#function(StrPath, [pair]... ) # supported option: "field"
-InstallGlobalFunction(ReadMTXE,
+BindGlobal("ReadMTXE",
                      function(StrPath, opt... ) # supported option: "field"
                          local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
                                iCommentStart,iComment;
@@ -549,8 +540,7 @@ InstallGlobalFunction(ReadMTXE,
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $ m>1 $.
 #! 
-DeclareGlobalFunction("WriteMTXE"); # function (StrPath,pair,G,comment...)
-InstallGlobalFunction(WriteMTXE, 
+BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
                      function (StrPath,pair,G,comment...) # supported option: field [default: GF(2)]
                          local F, dims, rows, cols, nonzero, i, row, pos, filename;
                          # F - field to be used (default: no field specified)
@@ -709,8 +699,7 @@ InstallGlobalFunction(WriteMTXE,
 #! The parity of the number of columns is verified. 
 #! @Returns `H` (the check matrix constructed)
 #!
-DeclareGlobalFunction("QDR_MakeH"); # QDR_MakeH := function(G, F)
-InstallGlobalFunction(QDR_MakeH,
+BindGlobal("QDR_MakeH",
                      function(G, F)
                           
                          local dims, i, H;
@@ -760,8 +749,7 @@ InstallGlobalFunction(QDR_MakeH,
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
-DeclareGlobalFunction("DistRandCSS");#  (GX,GZ,num,mindist,opt...) ;supported options: field, maxav
-InstallGlobalFunction(DistRandCSS,
+BindGlobal("DistRandCSS",
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
                          
                          local DistBound, i, j, dimsWZ, rowsWZ, colsWZ, F, debug, pos, CodeWords, mult,
@@ -916,8 +904,7 @@ InstallGlobalFunction(DistRandCSS,
 #! * `field` (Options stack): Galois field, default: $\gf(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
-DeclareGlobalFunction("DistRandStab");
-InstallGlobalFunction(DistRandStab,
+BindGlobal("DistRandStab",
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,
           rows, cols, DistBound, FirstVecFound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,
@@ -1114,8 +1101,7 @@ InstallGlobalFunction(DistRandStab,
 #! constructs the corresponding `m` by 2`n` double circulant matrix
 #! obtained by `m` repeated cyclic shifts of the coefficients' vector
 #! by $s=2$ positions at a time. 
-DeclareGlobalFunction("QDR_DoCirc");# function(poly,m,n,F) 
-InstallGlobalFunction(QDR_DoCirc,
+BindGlobal("QDR_DoCirc",
                      function(poly,m,n,F)
                          local v,perm,j,deg,mat;
                          v:=CoefficientsOfUnivariatePolynomial(poly);
