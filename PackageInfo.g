@@ -141,7 +141,7 @@ SetPackageInfo(
       &copyright; 2021 by Leonid P. Pryadko and Vadim A. Shabashov<P/>    
       &QDistRnd; package is free software;  
       you can redistribute it and/or modify it under the terms of the
-      <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+      <URL Text="GNU General Public License">https://www.fsf.org/licenses/gpl.html</URL>
       as published by the Free Software Foundation; either version 2 of the License,
       or (at your option) any later version.
       """,
