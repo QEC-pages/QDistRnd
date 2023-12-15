@@ -43,7 +43,7 @@ package.  For more information see Chapter <Ref Chap="Chapter_AllFunctions"/>
 
 The &GAP; package &QDistRnd; implements a
 probabilistic algorithm for finding the distance of a $q$-ary quantum
-low-density parity-check code linear over a finite field $F=\gf(q)$.
+low-density parity-check code linear over a finite field $F=\mathop{\rm GF}(q)$.
 While there is no guarantee of the performance of the algorithm (the
 existing bounds in the case of quantum LDPC codes are weak, see <Ref
 Subsect="Subsection_TheAlgorithmDetails"/>), an empirical convergence
@@ -89,7 +89,7 @@ important block lengths $n\lesssim 10^3$.
 
 In the simplest possible terms, we are given a pair of matrices $P$
 and $Q$ with orthogonal rows, $PQ^T=0$.  The matrices have entries in
-a finite field $F=\gf(q)$, where $q$ is a power of a prime.  The goal
+a finite field $F=\mathop{\rm GF}(q)$, where $q$ is a power of a prime.  The goal
 is to find the smallest weight of a non-zero vector $c$ over the same
 field $F$, such that $c$ be orthogonal with the rows of $P$, $Pc^T=0$,
 and linearly independent from the rows of $Q$.
@@ -200,9 +200,9 @@ with $q$ a non-trivial power of a prime).
 
 In the binary case (more generally, when $q$ is a prime), $F$-linear
 codes coincide with **additive** codes.  The **linear** codes [e.g.,
-over $\gf(4)$ in the binary case <Cite Key="Calderbank-1997"/>] is a
+over $\mathop{\rm GF}(4)$ in the binary case <Cite Key="Calderbank-1997"/>] is a
 different construction which assumes an additional symmetry.  A brief
-summary of $F$-linear quantum codes [where $F=\gf(q)$ with $q=p^m$,
+summary of $F$-linear quantum codes [where $F=\mathop{\rm GF}(q)$ with $q=p^m$,
 $m>1$ a non-trivial power of a prime] can be found in the introduction
 of Ref. <Cite Key="Zeng-Pryadko-hprod-2020"/>.  The construction is
 equivalent to a more physical approach in terms of a lifted Pauli
@@ -391,7 +391,7 @@ Below a description of the format is given.
 
 @Subsection Representation of field elements via integers
 
-Every finite field is isomorphic to a Galois field $F=\gf(q)$, where
+Every finite field is isomorphic to a Galois field $F=\mathop{\rm GF}(q)$, where
 $q$ is a power of a prime, $q=p^m$.
 
 * For a prime field, with $q=p$ a prime, $F$ is a prime field, isomorphic to the
@@ -406,7 +406,7 @@ $q$ is a power of a prime, $q=p^m$.
   primitive element $\alpha$, a primitive root of unity in the field.
   Primitive element is a root of a primitive polynomial $f(x)$, that
   is, an irreducible polynomial with coefficients in the corresponding
-  prime field $\gf(p)$, with the property that the smallest integer $n$
+  prime field $\mathop{\rm GF}(p)$, with the property that the smallest integer $n$
   such that $f(x)$ divides $x^n-1$ is $n=p^m-1$.  Alternatively, field
   elements can be represented as $p$-ary polynomials modulo the chosen
   primitive polynomial $f(x)$.
@@ -421,7 +421,7 @@ In the actual file format, three different and mutually exclusive
 storage options for elements of an extension field can in be used.
     
 * First, assuming all elements needed are actually in the
-  corresponding prime field $\gf(p)$, the integer values (mod $p$)
+  corresponding prime field $\mathop{\rm GF}(p)$, the integer values (mod $p$)
   directly correspond to the values of field elements.  This is the
   case, e.g., with $0,\pm1$ matrices which obey the orthogonality
   condition already over integers, and retain orthogonality over
@@ -566,7 +566,7 @@ same polynomial and can also be used
 % Field: GF(25) PrimitiveP(x): x^2+4*x+2 
 @EndCode 
 @InsertCode MMXFormatLine2B 
-The field may be left undefined; by default, it is $\gf(2)$, or it can
+The field may be left undefined; by default, it is $\mathop{\rm GF}(2)$, or it can
 be specified by hand when reading the matrices. 
 If the primitive polynomial is undefined, it will be assumed that the
 Conway polynomial used internally by `GAP` should be used.
@@ -618,10 +618,10 @@ The function `ReadMTXE` can read matrix elements specified (in the
 case of an extension field) with any primitive polynomial as specified
 in the file.
 
-Given the field $\gf(p^m)$ and the primitive polynomial $p(x)$
+Given the field $\mathop{\rm GF}(p^m)$ and the primitive polynomial $p(x)$
 specified in the file, the function `ReadMTXE` first checks that the
 degree of $p(x)$ is indeed $m$ and that it is a primitive polynomial
-in the corresponding prime field $\gf(p)$.  If either of these tests
+in the corresponding prime field $\mathop{\rm GF}(p)$.  If either of these tests
 fail, `ReadMTXE` produces an error.  Otherwise, it will attempt to
 find the conversion coefficient $c$ such that $\alpha^c$ is a root of
 $p(x)$, starting with $c=1$.  When found, the multiplicative inverse
@@ -736,7 +736,7 @@ to use the default binary field].
 @EndExample
 
 Finally, the following is an example of a five-qudit code over
-$\gf(2^3)$ constructed by the script `lib/cyclic.g`.
+$\mathop{\rm GF}(2^3)$ constructed by the script `lib/cyclic.g`.
 @BeginCode SampleFileC
 %%MatrixMarket matrix coordinate complex general
 % Field: GF(2^3) PrimitiveP(x): x^3+x+1
