@@ -36,12 +36,12 @@ and unpack it in the `pkg` directory of one of your `GAP` root
 directories.  After installation, the package can be loaded at the
 `GAP` prompt by typing
 
-gap> `LoadPackage("QDistRnd");`
+    gap> LoadPackage("QDistRnd");
 
 Alternatively, if you just want to try it, you can unpack the package
 anywhere and type at the `GAP` prompt 
 
-gap> `SetPackagePath("QDistRnd","absolute_path_to_the_package_QDistRnd" );`
+    gap> SetPackagePath("QDistRnd","absolute_path_to_the_package_QDistRnd" );
 
 After that you can load the package as you would do normally.
 
@@ -50,7 +50,7 @@ After that you can load the package as you would do normally.
 After installation, basic tests of the package (most of the examples
 listed in the package manual) can by performed by running
 
-gap> `TestPackage("qdistrnd");`
+    gap> TestPackage("qdistrnd");
 
 at the GAP command prompt.  Note that the package name must be in
 lowercase. 
@@ -67,6 +67,6 @@ can also be accessed on the [package
 website](https://qec-pages.github.io/QDistRnd/) and through the
 standard `GAP` help system. Documentation can be recompiled by running
 
-`gap makedoc.g`
+    gap makedoc.g
 
 in the package directory.
