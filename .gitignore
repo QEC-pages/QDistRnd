@@ -2,9 +2,12 @@
 *~
 *.el
 *.DS_Store
+gh-pages
 doc/*.html
 doc/chap*.txt
 doc/manual.*
+doc/mathjax
+makedoc.log
 doc/*.tex
 doc/*.xml
 doc/*.css
