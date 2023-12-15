@@ -19,13 +19,9 @@ SetPackageInfo(
              Version := "0.8.5",
              Date := "21/03/2022",  
              License := "GPL-2.0-or-later",
-             PackageWWWHome :=
-             Concatenation( "https://QEC-pages.github.io/", 
-                            LowercaseString( ~.PackageName ) ),
+             PackageWWWHome := "https://QEC-pages.github.io/QDistRnd", 
              SourceRepository :=
-             rec( Type := "git", # edit as necessary
-                  URL := Concatenation( "https://github.com/QEC-pages/" , ~.PackageName )
-                ),
+             rec( Type := "git", URL := "https://github.com/QEC-pages/QDistRnd" ),
              IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
              README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
              PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
