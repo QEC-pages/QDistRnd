@@ -96,7 +96,7 @@ BindGlobal("QDR_DoProbOut",
 #! for use in the function `WriteMTXE`.
 #! If `F` is a prime Galois field, just specify it: 
 #! `% Field: GF(p)`
-#! For an extension field $\gf(p^m)$ with $p$ prime and $m>1$, also give 
+#! For an extension field $\mathop{\rm GF}(p^m)$ with $p$ prime and $m>1$, also give 
 #! the primitive polynomial **which should not contain any spaces**.  For example,  
 #! `% Field: GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3`
 #! See Chapter <Ref Chap="Chapter_FileFormat"/> for details.
@@ -159,8 +159,8 @@ BindGlobal("QDR_FieldHeaderStr",
 #! while `field`, `polynomial`, and `format` **should not contain any spaces.**
 #! Any additional records in this line will be silently ignored.
 #! 
-#! The `field` option should specify a valid field, $\gf(q)$ or
-#! $\gf(p^m)$, where $q>1$ should be a power of the prime $p$. 
+#! The `field` option should specify a valid field, $\mathop{\rm GF}(q)$ or
+#! $\mathop{\rm GF}(p^m)$, where $q>1$ should be a power of the prime $p$. 
 #! 
 #! The `polynomial` should be a valid expanded monic
 #! polynomial with integer coefficients, with a single independent
@@ -295,7 +295,7 @@ BindGlobal("QDR_ProcessFieldHeader",
 #! to the Galois Field element as specified in the `fmt`.
 #! * `str` is the string representing an integer.
 #! * `fmt` is a list  [Field, ConversionDegree, FormatIndex]
-#!   - `Field` is the Galois field $\gf(p^m)$ of the code
+#!   - `Field` is the Galois field $\mathop{\rm GF}(p^m)$ of the code
 #!   - `ConversionDegree` $c$ : every element $x$ read is replaces with
 #!     $x^c$.  This may be needed if a non-standard primitive
 #!     polynomial is used to define the field. 
@@ -361,7 +361,7 @@ BindGlobal("QDR_ProcEntry",
 #!            $ (a_1, a_2, \ldots, a_n\;    b_1, b_2,\ldots, b_n) $ 
 #!      * `pair=3` this is the only option for `type=complex` with elements 
 #!            specified as "complex" pairs 
-#! * `field` (Options stack):  Galois field, default: $\gf(2)$.
+#! * `field` (Options stack):  Galois field, default: $\mathop{\rm GF}(2)$.
 #! **Must** match that given in the file (if any).
 #! __Notice__: with `pair`=1 and `pair`=2, the number of matrix columns
 #! specified in the file must be even, twice the block length of the
@@ -387,7 +387,7 @@ BindGlobal("QDR_ProcEntry",
 #! @InsertCode LineTwoB
 #! 
 #! Any additional entries in the second line are silently ignored.  By
-#! default, $\gf(2)$ is assumed;
+#! default, $\mathop{\rm GF}(2)$ is assumed;
 #! the default can be overriden
 #! by the optional `field` argument.   If the field is specified both
 #! in the file and by the optional argument, the corresponding values
@@ -746,7 +746,7 @@ BindGlobal("QDR_MakeH",
 #!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
 #!   * 4 (2nd bit set) : show occasional progress update
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $\gf(2)$.   
+#! * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 BindGlobal("DistRandCSS",
@@ -901,7 +901,7 @@ BindGlobal("DistRandCSS",
 #!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
 #!   * 4 (2nd bit set) : show occasional progress update
 #!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $\gf(2)$.   
+#! * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
 #! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
 #!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 BindGlobal("DistRandStab",

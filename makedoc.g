@@ -9,9 +9,6 @@ AutoDoc( rec( scaffold := true,
                    rec(
                         EarlyExtraPreamble := 
                         """ 
-                        \newcommand{\rank}{\mathop{\rm rank}}
-                        \newcommand{\wgt}{\mathop{\rm wgt}} 
-                        \newcommand{\gf}{\mathop{\rm GF}} 
                         """
                        )
                       ),
