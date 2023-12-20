@@ -13,7 +13,7 @@
 ##  With a new release of the package at least the entries .Version, .Date 
 ##  and .ArchiveURL must be updated.
 SetPackageInfo( 
-        rec(
+        rec( 
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
              Version := "0.8.7",
