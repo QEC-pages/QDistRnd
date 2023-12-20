@@ -725,31 +725,31 @@ BindGlobal("QDR_MakeH",
                      );
 
 #! @Section DistanceFunctions 
-#!
+
+#! @Description
+#!  Computes an upper bound on the distance $d_Z$ of the
+#!  $q$-ary code with stabilizer generator matrices $H_X$, $H_Z$ whose rows
+#!  are assumed to be orthogonal (**orthogonality is not verified**).
+#!  Details of the input parameters 
+#!  * `HX`, `HZ`: the input matrices with elements in the Galois `field` $F$
+#!  * `num`: number of information sets to construct (should be large)
+#!  * `mindist` - the algorithm stops when distance equal or below `mindist`
+#!     is found and returns the result with negative sign.  Set
+#!     `mindist` to 0 if you want the actual distance.   
+#!  * `debug`: optional integer argument containing debug bitmap (default: `0`)
+#!    * 1 (0s  bit set) : print 1st of the vectors found
+#!    * 2 (1st bit set) : check orthogonality of matrices and of the final vector
+#!    * 4 (2nd bit set) : show occasional progress update
+#!    * 8 (3rd bit set) : maintain cw count and estimate the success probability
+#!  * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
+#!  * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
+#!    see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
+#!  See Section <Ref Sect="Section_SimpleVersion"/> for the
+#!  description of the algorithm.  
 #! @Arguments HX, HZ, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the CSS distance $d_Z$
-#! @Description Computes an upper bound on the distance $d_Z$ of the
-#! $q$-ary code with stabilizer generator matrices $H_X$, $H_Z$ whose rows
-#! are assumed to be orthogonal (**orthogonality is not verified**).
-
-#! See Section <Ref Sect="Section_SimpleVersion"/> for the
-#! description of the algorithm.  
-#!
-#! Details of the input parameters 
-#! * `HX`, `HZ`: the input matrices with elements in the Galois `field` $F$
-#! * `num`: number of information sets to construct (should be large)
-#! * `mindist` - the algorithm stops when distance equal or below `mindist`
-#!    is found and returns the result with negative sign.  Set
-#!    `mindist` to 0 if you want the actual distance.   
-#! * `debug`: optional integer argument containing debug bitmap (default: `0`)
-#!   * 1 (0s  bit set) : print 1st of the vectors found
-#!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
-#!   * 4 (2nd bit set) : show occasional progress update
-#!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
-#! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
-BindGlobal("DistRandCSS",
+DeclareGlobalFunction("DistRandCSS");
+InstallGlobalFunction("DistRandCSS",
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
                          
                          local DistBound, i, j, dimsWZ, rowsWZ, colsWZ, F, debug, pos, CodeWords, mult,
@@ -881,30 +881,32 @@ BindGlobal("DistRandCSS",
                      );
 
 
+#! @Description
+#!  Computes an upper bound on the distance $d$ of the
+#!  $F$-linear stabilizer code with generator matrix $G$ whose rows
+#!  are assumed to be symplectic-orthogonal, see Section <Ref
+#!  Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
+#!
+#!  Details of the input parameters:
+#!  * `G`: the input matrix with elements in the Galois `field` $F$
+#!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
+#!  The remaining options are identical to those in the function
+#!  `DistRandCSS` <Ref Func="DistRandCSS"/>.
+#!  * `num`: number of information sets to construct (should be large)
+#!  * `mindist` - the algorithm stops when distance equal or smaller than `mindist`
+#!     is found - set it to 0 if you want the actual distance
+#!  * `debug`: optional integer argument containing debug bitmap (default: `0`)
+#!    * 1 (0s  bit set) : print 1st of the vectors found
+#!    * 2 (1st bit set) : check orthogonality of matrices and of the final vector
+#!    * 4 (2nd bit set) : show occasional progress update
+#!    * 8 (3rd bit set) : maintain cw count and estimate the success probability
+#!  * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
+#!  * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
+#!       see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 #! @Arguments G, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the code distance $d$
-#! @Description Computes an upper bound on the distance $d$ of the
-#! $F$-linear stabilizer code with generator matrix $G$ whose rows
-#! are assumed to be symplectic-orthogonal, see Section <Ref
-#! Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
-#!
-#! Details of the input parameters:
-#! * `G`: the input matrix with elements in the Galois `field` $F$
-#!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
-#! The remaining options are identical to those in the function
-#! `DistRandCSS` <Ref Func="DistRandCSS"/>.
-#! * `num`: number of information sets to construct (should be large)
-#! * `mindist` - the algorithm stops when distance equal or smaller than `mindist`
-#!    is found - set it to 0 if you want the actual distance
-#! * `debug`: optional integer argument containing debug bitmap (default: `0`)
-#!   * 1 (0s  bit set) : print 1st of the vectors found
-#!   * 2 (1st bit set) : check orthogonality of matrices and of the final vector
-#!   * 4 (2nd bit set) : show occasional progress update
-#!   * 8 (3rd bit set) : maintain cw count and estimate the success probability
-#! * `field` (Options stack): Galois field, default: $\mathop{\rm GF}(2)$.   
-#! * `maxav` (Options stack): if set, terminate when $\langle n\rangle$&gt;`maxav`, 
-#!      see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
-BindGlobal("DistRandStab",
+DeclareGlobalFunction("DistRandStab");
+InstallGlobalFunction("DistRandStab",
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,
           rows, cols, DistBound, FirstVecFound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,

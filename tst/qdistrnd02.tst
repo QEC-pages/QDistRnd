@@ -29,11 +29,11 @@ gap> H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
 gap> DistRandStab(H,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:73-76
+# doc/_Chapter_AllFunctions.xml:178-181
 gap> QDR_AverageCalc([2,3,4,5]);
 3.5
 
-# doc/_Chapter_AllFunctions.xml:79-90
+# doc/_Chapter_AllFunctions.xml:184-195
 gap> F:=GF(3);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1-x);;
 gap> n:=5;;
