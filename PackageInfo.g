@@ -35,7 +35,7 @@ SetPackageInfo(
                             "minimum distance of a quantum code linear over a finite\n" ,
                             "field GF(<var>q</var>).\n"
                  ),
-             ArchiveFormats:="tar.gz",             
+             ArchiveFormats:=".tar.gz",
              SupportEmail := "leonid.pryadko@gmail.com",
              PackageDoc := rec(
                                 BookName  := ~.PackageName,
