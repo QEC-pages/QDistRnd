@@ -119,7 +119,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! @Section Randomly generated cyclic codes
 
 #! As a final and hopefully somewhat useful example, the file 
-#! "lib/cyclic.g" contains a piece of 
+#! "examples/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
 #! $n:=15$ over the field $\mathop{\rm GF}(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
@@ -132,7 +132,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! @Subsection Examples
 
 #! Here are a few simple examples illustrating the use of distance
-#! functions.  In all examples, we use `DistRandCSS` and
+#! functions.  In all examples, we use functions `DistRandCSS` and
 #! `DistRandStab` with `debug=2` to ensure that row
 #! orthogonality in the input matrices is verified.
 #! @BeginExample

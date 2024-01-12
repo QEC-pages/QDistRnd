@@ -899,13 +899,13 @@ InstallGlobalFunction("DistRandCSS",
 #!  Computes an upper bound on the distance $d$ of the
 #!  $F$-linear stabilizer code with generator matrix $G$ whose rows
 #!  are assumed to be symplectic-orthogonal, see Section <Ref
-#!  Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
+#!  Subsect="Subsection_AlgorithmGeneric"/> (**orthogonality is not verified**). 
 #!
 #!  Details of the input parameters:
 #!  * `G`: the input matrix with elements in the Galois `field` $F$
 #!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
 #!  The remaining options are identical to those in the function
-#!  `DistRandCSS` <Ref Func="DistRandCSS"/>.
+#!  `DistRandCSS` <Ref Sect="Section_DistanceFunctions"/>.
 #!  * `num`: number of information sets to construct (should be large)
 #!  * `mindist` - the algorithm stops when distance equal or smaller than `mindist`
 #!     is found - set it to 0 if you want the actual distance

@@ -10,18 +10,18 @@
 #
 gap> START_TEST( "qdistrnd02.tst");
 
-# doc/_Chapter_AllFunctions.xml:19-25
+# doc/_Chapter_AllFunctions.xml:125-131
 gap> F:=GF(5);;
 gap> Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;
 gap> Hz:=One(F)*[[1, 1,1,1]];;
 gap> DistRandCSS(Hz,Hx,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:32-35
+# doc/_Chapter_AllFunctions.xml:138-141
 gap> DistRandCSS(Hz,Hx,100,2,2 : field:=F);
 -2
 
-# doc/_Chapter_AllFunctions.xml:42-49
+# doc/_Chapter_AllFunctions.xml:148-155
 gap> F:=GF(5);;
 gap> H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
 >            [0,0,  0,0,  1,0, -1,0 ],
@@ -29,11 +29,11 @@ gap> H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
 gap> DistRandStab(H,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:309-312
+# doc/_Chapter_AllFunctions.xml:463-466
 gap> QDR_AverageCalc([2,3,4,5]);
 3.5
 
-# doc/_Chapter_AllFunctions.xml:315-326
+# doc/_Chapter_AllFunctions.xml:469-480
 gap> F:=GF(3);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1-x);;
 gap> n:=5;;

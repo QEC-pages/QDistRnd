@@ -131,10 +131,10 @@ obtained as the first row of $G_S$.
 <Cite Key="Cuellar-etal-2020"/>).
 
 @Subsection CSS version of the algorithm
-@SubsectionLabel DistRandCSS
+@SubsectionLabel AlgorithmCSS
 
-The described version of the algorithm is implemented in the function
-<Ref Func="DistRandCSS"/>.  It applies to the case of
+The described version of the algorithm is implemented in the function `DistRandCSS`
+(<Ref Sect="Section_DistanceFunctions"/>).  It applies to the case of
 Calderbank-Shor-Steane (CSS) codes, where the matrices $P=H_X$ and
 $Q=H_Z$ are called the CSS generator matrices, and the computed
 minimum weight is the distance $d_Z$ of the code.  The number of
@@ -148,7 +148,7 @@ $[[n,k,(d_X,d_Z)]]_q$, or simply $[[n,k,d]]_q$ as for a general
 $q$-ary stabilizer code.
 
 @Subsection Generic version of the algorithm
-@SubsectionLabel DistRandStab
+@SubsectionLabel AlgorithmGeneric
 
 CSS codes are a subclass of general $F$-linear stabilizer codes which
 are specified by a single stabilizer generator matrix $H=(A|B)$
@@ -171,7 +171,7 @@ generators $H_X$ and $H_Z$, the stabilizer generator matrix has a
 block-diagonal form, $H=$`diag`$(H_X,H_Z)$.
 
 A version of the algorithm for general $F$-linear stabilizer codes is
-implemented in the function <Ref Func="DistRandStab"/>.
+implemented in the function `DistRandStab` (<Ref Sect="Section_DistanceFunctions"/>).
 
 **Important Notice**: In general, here one could use most general
 permutations of $2n$ columns, or restricted permutations of $n$
@@ -373,7 +373,7 @@ codewords found (i.e., the average $\langle n\rangle$ must be large,
 which is the same condition as needed for confidence in the result.)
 
 With `debug[4]` set (binary value 8) in `DistRandCSS` and
-`DistRandStab` <Ref Sect="Section_DistanceFunctions"/>, whenever more
+`DistRandStab` (<Ref Sect="Section_DistanceFunctions"/>), whenever more
 than one minimum-weight vector is found, the quantity $X^2$ is
 computed and output along with the average number of times $\langle
 n\rangle$ a minimum-weight codeword has been found.  However, no
@@ -467,7 +467,7 @@ The ordering of the columns is governed by a parameter
   this case the MTX header should use the `integer` type.  This is the
   defailt storage format for stabilizer generator matrices of CSS
   codes, and also the internal matrix format for single-block matrices
-  accepted by the function `DistRandCSS`, see <Ref
+  accepted by the function `DistRandCSS`, see Section <Ref
   Sect="Section_DistanceFunctions"/>.
 
 * With `pair=1` the block matrix $(A,B)$ is stored with intercalated
@@ -492,8 +492,8 @@ corresponds to `type=complex`.  **It is strongly recommended** that
 matrices intended for use by others should only use these two variants of
 the MTXE format.
 
-For efficiency reasons, the function `DistRandStab` <Ref
-Sect="Section_DistanceFunctions"/> assumes the generator matrix with
+For efficiency reasons, the function `DistRandStab` (<Ref
+Sect="Section_DistanceFunctions"/>) assumes the generator matrix with
 intercalated columns.
 
 @Subsection Explicit format of each line
@@ -736,7 +736,7 @@ to use the default binary field].
 @EndExample
 
 Finally, the following is an example of a five-qudit code over
-$\mathop{\rm GF}(2^3)$ constructed by the script `lib/cyclic.g`.
+$\mathop{\rm GF}(2^3)$ constructed by the script `examples/cyclic.g`.
 @BeginCode SampleFileC
 %%MatrixMarket matrix coordinate complex general
 % Field: GF(2^3) PrimitiveP(x): x^3+x+1
