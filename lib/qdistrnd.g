@@ -11,10 +11,12 @@
 #! @Chapter AllFunctions
 #! @Section HelperFunctions
 
-#! @Description Calculate the average of the components of a `vector`
-#! containing numbers 
+
+
+#! @Description Calculate the average of the components of a numerical `vector`
 #! @Arguments vector
-BindGlobal("QDR_AverageCalc",
+DeclareGlobalFunction("QDR_AverageCalc");
+InstallGlobalFunction("QDR_AverageCalc",
                      function(mult)
                          return 1.0*Sum(mult)/Length(mult);
                      end
@@ -32,14 +34,16 @@ BindGlobal("QDR_AverageCalc",
 #! **Note: the parity of vector `length` and the format are not verified!!!**
 #! @Returns symplectic weight of a vector 
 #! @Arguments vector, field
-BindGlobal("QDR_SymplVecWeight",
+DeclareGlobalFunction("QDR_SymplVecWeight");        
+InstallGlobalFunction("QDR_SymplVecWeight",
                      function(vec, F)
-                         local wgt, i, len; # local variables: wgt - the weight, i - for "for" loop, len - length of vec
+                         local wgt, i, len;
+    # local variables: wgt - the weight, i - for "for" loop, len - length of vec
                          
                          len := Length(vec);
-#    if (not IsInt(len / 2)) then
-#	Error(" symplectic vector must have even length, = ", len,"\n");
-#    fi;
+    #    if (not IsInt(len / 2)) then
+    #	Error(" symplectic vector must have even length, = ", len,"\n");
+    #    fi;
 
                          wgt := 0;
                          for i in [1..(len/2)] do
@@ -54,7 +58,9 @@ BindGlobal("QDR_SymplVecWeight",
 
 #! @Description count the total number of non-zero entries in a matrix.
 #! @Arguments matrix
-BindGlobal("QDR_WeightMat",
+#! @Returns number of non-zero elements
+DeclareGlobalFunction("QDR_WeightMat");
+InstallGlobalFunction("QDR_WeightMat",
                      function(mat)
                          local NonZeroElem,i,rows;
                          rows:=DimensionsMat(mat)[1];
@@ -74,7 +80,9 @@ BindGlobal("QDR_WeightMat",
 #! program.  See <Ref Sect="Section_Empirical"/> for 
 #! related discussion.
 #! @Arguments vector, n, num
-BindGlobal("QDR_DoProbOut",
+#! @Returns nothing
+DeclareGlobalFunction("QDR_DoProbOut");
+InstallGlobalFunction("QDR_DoProbOut",
                      function(mult,n,num)
                          local s0,s1,s2;
                          Print("<n>=", QDR_AverageCalc(mult));
@@ -83,9 +91,9 @@ BindGlobal("QDR_DoProbOut",
                              s1:=Sum(mult);
                              s2:=Sum(mult, x->x^2);
                              Print(" X^2_",s0-1,"=",Float(s2*s0-s1^2)/s1, "\n");
-# Here the expression is due to the map to
-# multinomial distribution (divide by the total) and the quantity is
-# supposed to be distributed by chi^2 with s0-1 degrees of freedom.
+                         # Here the expression is due to the map to
+                         # multinomial distribution (divide by the total) and the quantity is
+                         # supposed to be distributed by chi^2 with s0-1 degrees of freedom.
                          else
                              Print("\n");
                          fi;
@@ -102,7 +110,8 @@ BindGlobal("QDR_DoProbOut",
 #! See Chapter <Ref Chap="Chapter_FileFormat"/> for details.
 #! @Returns the created header string 
 #! @Arguments F
-BindGlobal("QDR_FieldHeaderStr",
+DeclareGlobalFunction("QDR_FieldHeaderStr");
+InstallGlobalFunction("QDR_FieldHeaderStr",
                      function(F) # field F
                          local p,m, poly,lis,i,j, b, str, out;
                          if not IsField(F) then 
@@ -191,7 +200,8 @@ BindGlobal("QDR_FieldHeaderStr",
 #! @Returns the list [Field, ConversionDegree, FormatIndex] (plus anything else we
 #! may need in the future); the list is to be used as the second
 #! parameter in `QDR_ProcEntry()`  
-BindGlobal("QDR_ProcessFieldHeader",
+DeclareGlobalFunction("QDR_ProcessFieldHeader");
+InstallGlobalFunction("QDR_ProcessFieldHeader",
                      function(recs,optF)
                          local m,F,Fp,poly,x,ic,is,a,x_global_val,
                                x_bound,x_readonly;
@@ -309,7 +319,8 @@ BindGlobal("QDR_ProcessFieldHeader",
 #!
 #! @Returns the converted field element 
 #! @Arguments str, fmt, FileName, LineNo
-BindGlobal("QDR_ProcEntry",
+DeclareGlobalFunction("QDR_ProcEntry");
+InstallGlobalFunction("QDR_ProcEntry",
                      function(str,fmt,FileName,LineNo)
                          local ival, fval;
                          ival:=Int(str);
@@ -398,7 +409,8 @@ BindGlobal("QDR_ProcEntry",
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $p$ prime, and $m>1$.
 #! 
-BindGlobal("ReadMTXE",
+DeclareGlobalFunction("ReadMTXE");
+InstallGlobalFunction("ReadMTXE",
                      function(StrPath, opt... ) # supported option: "field"
                          local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
                                iCommentStart,iComment;
@@ -540,7 +552,8 @@ BindGlobal("ReadMTXE",
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $ m>1 $.
 #! 
-BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
+DeclareGlobalFunction("WriteMTXE");
+InstallGlobalFunction("WriteMTXE", # function (StrPath,pair,G,comment...)
                      function (StrPath,pair,G,comment...) # supported option: field [default: GF(2)]
                          local F, dims, rows, cols, nonzero, i, row, pos, filename;
                          # F - field to be used (default: no field specified)
@@ -699,7 +712,8 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
 #! The parity of the number of columns is verified. 
 #! @Returns `H` (the check matrix constructed)
 #!
-BindGlobal("QDR_MakeH",
+DeclareGlobalFunction("QDR_MakeH");
+InstallGlobalFunction("QDR_MakeH",
                      function(G, F)
                           
                          local dims, i, H;
@@ -885,13 +899,13 @@ InstallGlobalFunction("DistRandCSS",
 #!  Computes an upper bound on the distance $d$ of the
 #!  $F$-linear stabilizer code with generator matrix $G$ whose rows
 #!  are assumed to be symplectic-orthogonal, see Section <Ref
-#!  Subsect="Subsection_DistRandStab"/> (**orthogonality is not verified**). 
+#!  Subsect="Subsection_AlgorithmGeneric"/> (**orthogonality is not verified**). 
 #!
 #!  Details of the input parameters:
 #!  * `G`: the input matrix with elements in the Galois `field` $F$
 #!    with $2n$ columns $(a_1,b_1,a_2,b_2,\ldots,a_n,b_n)$.
 #!  The remaining options are identical to those in the function
-#!  `DistRandCSS` <Ref Func="DistRandCSS"/>.
+#!  `DistRandCSS` <Ref Sect="Section_DistanceFunctions"/>.
 #!  * `num`: number of information sets to construct (should be large)
 #!  * `mindist` - the algorithm stops when distance equal or smaller than `mindist`
 #!     is found - set it to 0 if you want the actual distance
@@ -1103,7 +1117,8 @@ InstallGlobalFunction("DistRandStab",
 #! constructs the corresponding `m` by 2`n` double circulant matrix
 #! obtained by `m` repeated cyclic shifts of the coefficients' vector
 #! by $s=2$ positions at a time. 
-BindGlobal("QDR_DoCirc",
+DeclareGlobalFunction("QDR_DoCirc");
+InstallGlobalFunction("QDR_DoCirc",
                      function(poly,m,n,F)
                          local v,perm,j,deg,mat;
                          v:=CoefficientsOfUnivariatePolynomial(poly);

@@ -10,7 +10,7 @@
 #
 gap> START_TEST( "qdistrnd01.tst");
 
-# doc/_Chapter_Examples.xml:20-38
+# doc/_Chapter_Examples.xml:20-37
 gap> q:=3;; F:=GF(q);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1+x^3-x^5-x^6);;
 gap> n:=5;;
@@ -22,15 +22,14 @@ gap> Display(mat);
  . 2 2 . . . 1 . . 1
 gap> d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 3
-gap> AUTODOC_CreateDirIfMissing("tmp");;
-gap> WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
+gap> WriteMTXE("matrices/n5_q3_complex.mtx",3,mat,
 >         "% The 5-qubit code [[5,1,3]]_3",
 >         "% Generated from h(x)=1+x^3-x^5-x^6",
 >         "% Example from the QDistRnd GAP package"   : field:=F);
-File tmp/n5_q3_complex.mtx was created
+File matrices/n5_q3_complex.mtx was created
 
-# doc/_Chapter_Examples.xml:80-91
-gap> lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
+# doc/_Chapter_Examples.xml:79-90
+gap> lis:=ReadMTXE("matrices/n5_q3_complex.mtx");;  
 gap> lis[1]; # the field 
 GF(3)
 gap> lis[2]; # converted to `pair=1`
@@ -41,7 +40,7 @@ gap> Display(lis[3]);
  2 . . . 1 . . 1 . 2
  . 2 2 . . . 1 . . 1
 
-# doc/_Chapter_Examples.xml:114-122
+# doc/_Chapter_Examples.xml:113-121
 gap> filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
 gap> lisX:=ReadMTXE(Filename(filedir,"QX80.mtx"),0);;
 gap> GX:=lisX[3];;

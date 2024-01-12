@@ -19,12 +19,11 @@ Display(mat);
 #!  . 2 2 . . . 1 . . 1
 d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 #! 3
-AUTODOC_CreateDirIfMissing("tmp");;
-WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
+WriteMTXE("matrices/n5_q3_complex.mtx",3,mat,
         "% The 5-qubit code [[5,1,3]]_3",
         "% Generated from h(x)=1+x^3-x^5-x^6",
         "% Example from the QDistRnd GAP package"   : field:=F);
-#! File tmp/n5_q3_complex.mtx was created
+#! File matrices/n5_q3_complex.mtx was created
 #! @EndExample
 
 #! Here is the contents of the resulting file which also illustrates
@@ -66,7 +65,7 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! Notice that a `pair=2` or `pair=3` matrix is always converted to `pair=1`, i.e., with $2n$
 #! intercalated columns $(a_1,b_1,a_2,b_2,\ldots)$. 
 #! @BeginExample
-lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
+lis:=ReadMTXE("matrices/n5_q3_complex.mtx");;  
 lis[1]; # the field 
 #! GF(3)
 lis[2]; # converted to `pair=1`
@@ -119,7 +118,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! @Section Randomly generated cyclic codes
 
 #! As a final and hopefully somewhat useful example, the file 
-#! "lib/cyclic.g" contains a piece of 
+#! "examples/cyclic.g" contains a piece of 
 #! code searching for random one-generator cyclic codes of length
 #! $n:=15$ over the field $\mathop{\rm GF}(8)$, and generator weight `wei:=6`.  
 #! Note how the `mindist` parameter and the option `maxav` are used to
@@ -132,7 +131,7 @@ DistRandCSS(GX,GZ,100,1,2:field:=GF(2));
 #! @Subsection Examples
 
 #! Here are a few simple examples illustrating the use of distance
-#! functions.  In all examples, we use `DistRandCSS` and
+#! functions.  In all examples, we use functions `DistRandCSS` and
 #! `DistRandStab` with `debug=2` to ensure that row
 #! orthogonality in the input matrices is verified.
 #! @BeginExample
