@@ -70,3 +70,24 @@ standard `GAP` help system. Documentation can be recompiled by running
     gap makedoc.g
 
 in the package directory.
+
+## Plans for the future
+
+1. The package only deals with Galois-qubit `q`-ary codes.  It would
+   be nice to develop and implement similar methods for quantum codes
+   over a finite ring, e.g., `Z(q)` with `q` not necessarily a power
+   of a prime.  This could be done with the help of Smith normal form
+   decomposition.  The required complexity may be higher, however.
+   
+2. Write sample read/write routines for `MTXE` files in `Mathematica`
+   and/or `C`.
+
+3. If there is need (or interest), add routines for the alternate
+   integer format to represent elements from extension fields, where
+   polynomials over a prime field `GF(p)` will be encoded as `p`-ary
+   integers.  The only apparent advantage would be a unification with
+   the currently used format for prime field elements using the
+   equivalence with `Z(p)`.  On the other hand, it would not improve
+   readability: the corresponding decimal integers would be as
+   difficult to interpret as the currently used integer powers of a
+   primitive field element.
