@@ -147,13 +147,21 @@ BindGlobal("QDR_ParseFieldStr",
                      );
 
 #! @Description Parse string `str` as a polynomial over the field `F`.
-#! No spaces are allowed.
+#! Only characters in "0123456789*+-^x" are allowed in the string. 
+#! In particular, no spaces are allowed.
 #! @Returns the corresponding polynomial
 #! @Arguments F, str
 #DeclareGlobalFunction("QDR_ParsePolyStr");
 BindGlobal("QDR_ParsePolyStr", 
           function(F, str)
-              local func;
+              local func, new_str;
+              # make sure `str` only contains these characters 
+              new_str := String(str); # copy
+              RemoveCharacters(new_str,"0123456789x*+-^");
+              if (Length(new_str) > 0) then 
+                  ERROR("QDR_ParsePolyStr: invalid character(s) [",new_str,"] in polynomial ",str);
+              fi;              
+              
               func := EvalString(Concatenation("""
                 function(F)   
                   local x;       
