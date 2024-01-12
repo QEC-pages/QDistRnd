@@ -14,6 +14,7 @@ doc/*.css
 doc/*.js
 auto/*
 tmp/*
+tmp
 /doc/*.aux
 /doc/*.bbl
 /doc/*.blg
@@ -37,3 +38,4 @@ tmp/*
 /doc/title.xml
 /doc/manual.lab
 /doc/manual.six
+/matrices/n5_q3_complex.mtx

@@ -19,12 +19,11 @@ Display(mat);
 #!  . 2 2 . . . 1 . . 1
 d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);
 #! 3
-AUTODOC_CreateDirIfMissing("tmp");;
-WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
+WriteMTXE("matrices/n5_q3_complex.mtx",3,mat,
         "% The 5-qubit code [[5,1,3]]_3",
         "% Generated from h(x)=1+x^3-x^5-x^6",
         "% Example from the QDistRnd GAP package"   : field:=F);
-#! File tmp/n5_q3_complex.mtx was created
+#! File matrices/n5_q3_complex.mtx was created
 #! @EndExample
 
 #! Here is the contents of the resulting file which also illustrates
@@ -66,7 +65,7 @@ WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,
 #! Notice that a `pair=2` or `pair=3` matrix is always converted to `pair=1`, i.e., with $2n$
 #! intercalated columns $(a_1,b_1,a_2,b_2,\ldots)$. 
 #! @BeginExample
-lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  
+lis:=ReadMTXE("matrices/n5_q3_complex.mtx");;  
 lis[1]; # the field 
 #! GF(3)
 lis[2]; # converted to `pair=1`
