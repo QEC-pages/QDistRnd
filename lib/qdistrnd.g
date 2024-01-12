@@ -15,8 +15,8 @@
 
 #! @Description Calculate the average of the components of a numerical `vector`
 #! @Arguments vector
-DeclareGlobalFunction("QDR_AverageCalc");
-InstallGlobalFunction("QDR_AverageCalc",
+#DeclareGlobalFunction("QDR_AverageCalc");
+BindGlobal("QDR_AverageCalc",
                      function(mult)
                          return 1.0*Sum(mult)/Length(mult);
                      end
@@ -34,8 +34,8 @@ InstallGlobalFunction("QDR_AverageCalc",
 #! **Note: the parity of vector `length` and the format are not verified!!!**
 #! @Returns symplectic weight of a vector 
 #! @Arguments vector, field
-DeclareGlobalFunction("QDR_SymplVecWeight");        
-InstallGlobalFunction("QDR_SymplVecWeight",
+#DeclareGlobalFunction("QDR_SymplVecWeight");        
+BindGlobal("QDR_SymplVecWeight",
                      function(vec, F)
                          local wgt, i, len;
     # local variables: wgt - the weight, i - for "for" loop, len - length of vec
@@ -100,18 +100,86 @@ InstallGlobalFunction("QDR_DoProbOut",
                      end
                      );
 
+#! @Description Parse a string describing a Galois field
+#! Supported formats: `Z(p)`, `GF(q)`, and `GF(q^m)`,
+#! where `p` must be a prime, `q` a prime or a power of a prime, and `m` a natural integer.  
+#! No spaces are allowed.
+#! @Returns the corresponding Galois field
+#! @Arguments str
+#DeclareGlobalFunction("QDR_ParseFieldStr");
+BindGlobal("QDR_ParseFieldStr",
+                     function(str)
+                         local body, q;                         
+                         if EndsWith(str,")") then 
+                             if StartsWith(str,"Z(") then 
+                                 body := str{[3..Length(str)-1]};
+                                 q := Int(body);
+                                 if IsInt(q) and IsPrimeInt(q) then
+                                     return Z(q);
+                                 else
+                                     Print("\n Argument of ",str,"should be prime\n");
+                                 fi;
+                             elif StartsWith(str,"GF(") then 
+                                 body := str{[4..Length(str)-1]};
+                                 q := Int(body);
+                                 if IsInt(q) then 
+                                     if IsPrimePowerInt(q) then
+                                         return GF(q);
+                                     fi;
+                                 else 
+                                     q := SplitString(body,"^");
+                                     if Length(q) = 2 then
+                                         if IsInt(Int(q[1])) and 
+                                            IsInt(Int(q[2])) and 
+                                            IsPrimePowerInt(Int(q[1])^Int(q[2]))
+                                         then
+                                             return GF(Int(q[1])^Int(q[2]));
+                                         fi;
+                                     fi;
+                                 fi;
+                                 Print("\n Argument of ",str,"should be a prime power\n");
+                             fi;
+                         fi;
+                         Error("\n QDR_ParseFieldStr: Invalid argument format str=",str,
+                               "\n valid format: 'GF(p)', 'Z(p)', 'GF(p^m)', 'GF(q)'",
+                               "\n with 'p' prime, 'm' positive integer, and 'q' a prime power\n");
+                     end
+                     );
+
+#! @Description Parse string `str` as a polynomial over the field `F`.
+#! No spaces are allowed.
+#! @Returns the corresponding polynomial
+#! @Arguments F, str
+#DeclareGlobalFunction("QDR_ParsePolyStr");
+BindGlobal("QDR_ParsePolyStr", 
+          function(F, str)
+              local func;
+              func := EvalString(Concatenation("""
+                function(F)   
+                  local x;       
+                  x := Indeterminate(F,"x");
+                  return """, str, """;
+                end
+                """));
+              return func(F);
+          end);
+
 #! @Description Create a header string describing the field `F`
 #! for use in the function `WriteMTXE`.
 #! If `F` is a prime Galois field, just specify it: 
-#! `% Field: GF(p)`
+#! @BeginCode
+#! % Field: GF(p)
+#! @EndCode
 #! For an extension field $\mathop{\rm GF}(p^m)$ with $p$ prime and $m>1$, also give 
 #! the primitive polynomial **which should not contain any spaces**.  For example,  
-#! `% Field: GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3`
+#! @BeginCode
+#! % Field: GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3
+#! @EndCode
 #! See Chapter <Ref Chap="Chapter_FileFormat"/> for details.
 #! @Returns the created header string 
 #! @Arguments F
-DeclareGlobalFunction("QDR_FieldHeaderStr");
-InstallGlobalFunction("QDR_FieldHeaderStr",
+#DeclareGlobalFunction("QDR_FieldHeaderStr");
+BindGlobal("QDR_FieldHeaderStr",
                      function(F) # field F
                          local p,m, poly,lis,i,j, b, str, out;
                          if not IsField(F) then 
@@ -200,14 +268,13 @@ InstallGlobalFunction("QDR_FieldHeaderStr",
 #! @Returns the list [Field, ConversionDegree, FormatIndex] (plus anything else we
 #! may need in the future); the list is to be used as the second
 #! parameter in `QDR_ProcEntry()`  
-DeclareGlobalFunction("QDR_ProcessFieldHeader");
-InstallGlobalFunction("QDR_ProcessFieldHeader",
+#DeclareGlobalFunction("QDR_ProcessFieldHeader");
+BindGlobal("QDR_ProcessFieldHeader",
                      function(recs,optF)
-                         local m,F,Fp,poly,x,ic,is,a,x_global_val,
-                               x_bound,x_readonly;
+                         local m,F,Fp,poly,x,ic,is,a;
     
                          if (Length(recs)>2 and recs[1][1]='%' and recs[2]="Field:") then
-                             F:=EvalString(recs[3]);
+                             F:=QDR_ParseFieldStr(recs[3]);
                              if not IsField(F) then
                                  Error("invalid input file field '",recs[3],"' given\n");
                              fi;
@@ -237,29 +304,17 @@ InstallGlobalFunction("QDR_ProcessFieldHeader",
                          fi;    
                          ic:=1; is:=1; # set default conversion degree        
                          if Length(recs)>3 then # analyze primitive polynomial
-                             if StartsWith(recs[4],"PrimitiveP") then 
+                             if StartsWith(recs[4],"PrimitiveP(x)") then 
                                  # process primitive polynomial here 
                                  if Length(recs)=4 then 
                                      Error("Polynomial must be separated by space(s) ",recs[4],"\n");
                                  fi;
+                                 if not EndsWith(recs[4],"):") then 
+                                     Error("Invalid entry ",recs[4],"\n");
+                                 fi;                                 
                                  
-                                 x_readonly:=false;                                 
-                                 if IsReadOnlyGlobal("x") then 
-                                     x_readonly:=true;
-                                     MakeReadWriteGlobal("x");
-                                 fi;
+                                 poly:=QDR_ParsePolyStr(recs[5]);
                                  
-                                 x_bound:=false;                                     
-                                 if IsBoundGlobal("x") then 
-                                     x_global_val:=ValueGlobal("x");
-                                     x_bound:=true;
-                                     UnbindGlobal("x");                                  
-                                 fi;
-                                                 
-                                 BindGlobal("x",Indeterminate(F,"x"));                                
-                                 poly:=EvalString(recs[5]);
-                                 
-                                 # Print("'",recs[5],"'=",poly,"\n"); 
                                  if not IsUnivariatePolynomial(poly) then
                                      Error("Univariate polynomial expected ",recs[5],"\n");
                                  fi;
@@ -281,17 +336,6 @@ InstallGlobalFunction("QDR_ProcessFieldHeader",
                                  is:= 1/ic mod (Size(F)-1);
                                  Unbind(poly);
                                  
-                                 MakeReadWriteGlobal("x");
-                                 UnbindGlobal("x");                                     
-                                 if x_bound then 
-                                     BindGlobal("x",x_global_val);
-                                     MakeReadWriteGlobal("x");                                     
-                                     x_bound:=false;
-                                 fi;
-                                 if x_readonly then 
-                                     MakeReadOnlyGlobal("x");                                     
-                                 fi;                                 
-
                              fi;
                          fi;
     
@@ -319,8 +363,8 @@ InstallGlobalFunction("QDR_ProcessFieldHeader",
 #!
 #! @Returns the converted field element 
 #! @Arguments str, fmt, FileName, LineNo
-DeclareGlobalFunction("QDR_ProcEntry");
-InstallGlobalFunction("QDR_ProcEntry",
+#DeclareGlobalFunction("QDR_ProcEntry");
+BindGlobal("QDR_ProcEntry",
                      function(str,fmt,FileName,LineNo)
                          local ival, fval;
                          ival:=Int(str);
@@ -409,8 +453,8 @@ InstallGlobalFunction("QDR_ProcEntry",
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $p$ prime, and $m>1$.
 #! 
-DeclareGlobalFunction("ReadMTXE");
-InstallGlobalFunction("ReadMTXE",
+#DeclareGlobalFunction("ReadMTXE");
+BindGlobal("ReadMTXE",
                      function(StrPath, opt... ) # supported option: "field"
                          local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
                                iCommentStart,iComment;
@@ -552,154 +596,154 @@ InstallGlobalFunction("ReadMTXE",
 #! of the group are represented depending on whether the field is a prime
 #! field ($ q $ a prime) or an extension field with $ q=p^m $, $ m>1 $.
 #! 
-DeclareGlobalFunction("WriteMTXE");
-InstallGlobalFunction("WriteMTXE", # function (StrPath,pair,G,comment...)
-                     function (StrPath,pair,G,comment...) # supported option: field [default: GF(2)]
-                         local F, dims, rows, cols, nonzero, i, row, pos, filename;
-                         # F - field to be used (default: no field specified)
-                         # dims - dimensions of matrix G
-                         # rows and cols - number of rows and columns of the matrix G
-                         # nonzero - number of lines needed to store all nonzero elements of matrix with
-                         # pair parameter as given
-                         # i - for "for" loop
-                         # i, row and pos - temporary variables
-                         
-                         # see if the field is specified
-                         if ValueOption("field")<>fail then
-                             if not IsField(ValueOption("field")) then
-                                 Error("invalid option 'field'=",ValueOption("field"),"\n");
-                             else # default field is specified
-                                 F:=ValueOption("field");
-                             fi;
-                         else
-                             F:=GF(2); # default
-                         fi;
+#DeclareGlobalFunction("WriteMTXE");
+BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
+          function (StrPath,pair,G,comment...) # supported option: field [default: GF(2)]
+              local F, dims, rows, cols, nonzero, i, row, pos, filename;
+              # F - field to be used (default: no field specified)
+              # dims - dimensions of matrix G
+              # rows and cols - number of rows and columns of the matrix G
+              # nonzero - number of lines needed to store all nonzero elements of matrix with
+              # pair parameter as given
+              # i - for "for" loop
+              # i, row and pos - temporary variables
+              
+              # see if the field is specified
+              if ValueOption("field")<>fail then
+                  if not IsField(ValueOption("field")) then
+                      Error("invalid option 'field'=",ValueOption("field"),"\n");
+                  else # default field is specified
+                      F:=ValueOption("field");
+                  fi;
+              else
+                  F:=GF(2); # default
+              fi;
+              
+              # We check pair parameter
+              if (pair <0 ) or (pair>3) or (pair=2) then
+	          Error("\n", "Parameter pair=",pair," not supported, must be in {0,1,3}", "\n");
+              fi;
+              
+              # full file name with extension
+              if EndsWith(UppercaseString(StrPath),".MTX") then
+                  filename:=StrPath;
+              else
+                  filename := Concatenation(StrPath, ".mtx");
+              fi;
+              
+              if (pair=3) then row:="complex"; else row:="integer"; fi;
+              
+              # Header of the MatrixMarket
+              PrintTo(filename, "%%MatrixMarket matrix coordinate ", row, " general", "\n");
+              if ValueOption("field")<>fail then AppendTo(filename,QDR_FieldHeaderStr(F), "\n"); fi;
 
-                         # We check pair parameter
-                         if (pair <0 ) or (pair>3) or (pair=2) then
-	                     Error("\n", "Parameter pair=",pair," not supported, must be in {0,1,3}", "\n");
-                         fi;
-
-                         # full file name with extension
-                         if EndsWith(UppercaseString(StrPath),".MTX") then
-                             filename:=StrPath;
-                         else
-                             filename := Concatenation(StrPath, ".mtx");
-                         fi;
-
-                         if (pair=3) then row:="complex"; else row:="integer"; fi;
-
-                         # Header of the MatrixMarket
-                         PrintTo(filename, "%%MatrixMarket matrix coordinate ", row, " general", "\n");
-                         if ValueOption("field")<>fail then AppendTo(filename,QDR_FieldHeaderStr(F), "\n"); fi;
-
-                         for i in [1..Length(comment)] do
-                             if comment[i,1]<>'%' then
-	                         AppendTo(filename, "% ", comment[i], "\n");
-                             else
-	                         AppendTo(filename, comment[i], "\n");
-                             fi;
-                         od;
-                         if IsPrime(Size(F)) then
-                             AppendTo(filename,"% Values Z(",Size(F),") are given\n");
-                         else
-                             AppendTo(filename,"% Powers of GF(",Size(F),") primitive element and -1 for Zero are given\n");
-                         fi;
-
-                         # Matrix dimensions
-                         dims := DimensionsMat(G);;
-                         rows := dims[1];;
-                         cols := dims[2];;
-
-                         # count non-zero elements depending on the 'pair' parameter
-                         nonzero := 0;
-                         if (pair = 3) then
-	                     for i in [1..rows] do
-                                 nonzero := nonzero + QDR_SymplVecWeight(G[i], F);;
-                             od;
-                         else
-	                     for i in [1..rows] do
-	                         nonzero := nonzero + WeightVecFFE(G[i]);;
-	                     od;
-                         fi;
-                         
-                         if (pair < 3) then
-                             # write dimensions of the matrix and number of line containing nonzero elements
-                             AppendTo(filename, rows, " ", cols, " ", nonzero, "\n");
-                             
-                             # Finally, write nonzero elements and their positions according to pair parameter and field F.
-                             if IsPrime(Size(F)) then # this includes binary field
-	                         for i in [1..rows] do
-		                     row := G[i];;
-                                     
-		                     pos := PositionNonZero(row, 0);;
-		                     while pos <= cols do
-                                         AppendTo(filename, i, " ", pos, " ", Int(row[pos]), "\n");
-                                         pos := PositionNonZero(row, pos);;
-		                     od;
-	                         od;
-	                     else # extension field
-	                         for i in [1..rows] do
-                                     row := G[i];;
-
-                                     pos := PositionNonZero(row, 0);;
-                                     while pos <= cols do
-                                         AppendTo(filename, i, " ", pos, " ", 
-                                                  LogFFE(row[pos], PrimitiveElement(F)), "\n");
-                                         pos := PositionNonZero(row, pos);;
-                                     od;
-                                 od;
-	                     fi;
-                         else # pair=3
-                             # write dimensions of the matrix and number of line containing nonzero elements
-                             AppendTo(filename, rows, " ", cols/2," ", nonzero, "\n");
-                             # Finally, write nonzero elements and their positions according to pair parameter and field F.
-	                     if IsPrime(Size(F)) then
-	                         for i in [1..rows] do
-                                     row := G[i];;
-		                     pos := PositionNonZero(row, 0);;
-		                     while pos <= cols do
-		                         # For Ai = 0
-		                         if IsInt(pos/2) then
-			                     AppendTo(filename, i, " ", pos/2, " ", 0, " ", Int(row[pos]), "\n");
-                			     pos := PositionNonZero(row, pos);;
-                	                 # For Ai != 0
-                                         else
-                			     AppendTo(filename, i, " ", (pos+1)/2, " ", Int(row[pos]), " ", Int(row[pos + 1]), "\n");
-                			     pos := PositionNonZero(row, pos + 1);;
-		                         fi;
-                                     od;
-                                 od;
-                             else # extension field
-      	                         for i in [1..rows] do
-                                     row := G[i];;
-                                     
-                                     pos := PositionNonZero(row, 0);;
-                                     while pos <= cols do
-                                         # For Ai = 0
-                                         if IsInt(pos/2) then
-                                             AppendTo(filename, i, " ", pos/2, " ", -1, " ", LogFFE(row[pos], PrimitiveElement(F)), "\n");
-                                             pos := PositionNonZero(row, pos);;
-                                         # For Ai != 0
-                                         else
-                                             # Check if Bi = 0
-                                             if (row[pos + 1] = Zero(F)) then
-                                                 AppendTo(filename, i, " ", (pos+1)/2, " ", LogFFE(row[pos], PrimitiveElement(F)), " ", -1, "\n");
-                                             else
-                                                 AppendTo(filename, i, " ", (pos+1)/2, " ", LogFFE(row[pos], PrimitiveElement(F)),
-                                                          " ", LogFFE(row[pos + 1], PrimitiveElement(F)), "\n");
-                                             fi;
-                                             
-                                             pos := PositionNonZero(row, pos + 1);;
-		                         fi;
-		                     od;
-                                 od;
-                             fi;
-                         fi;
-
-                         Print("File ", filename, " was created\n");
-                     end
-                     );
+              for i in [1..Length(comment)] do
+                  if comment[i,1]<>'%' then
+	              AppendTo(filename, "% ", comment[i], "\n");
+                  else
+	              AppendTo(filename, comment[i], "\n");
+                  fi;
+              od;
+              if IsPrime(Size(F)) then
+                  AppendTo(filename,"% Values Z(",Size(F),") are given\n");
+              else
+                  AppendTo(filename,"% Powers of GF(",Size(F),") primitive element and -1 for Zero are given\n");
+              fi;
+              
+              # Matrix dimensions
+              dims := DimensionsMat(G);;
+              rows := dims[1];;
+              cols := dims[2];;
+              
+              # count non-zero elements depending on the 'pair' parameter
+              nonzero := 0;
+              if (pair = 3) then
+	          for i in [1..rows] do
+                      nonzero := nonzero + QDR_SymplVecWeight(G[i], F);;
+                  od;
+              else
+	          for i in [1..rows] do
+	              nonzero := nonzero + WeightVecFFE(G[i]);;
+	          od;
+              fi;
+              
+              if (pair < 3) then
+                  # write dimensions of the matrix and number of line containing nonzero elements
+                  AppendTo(filename, rows, " ", cols, " ", nonzero, "\n");
+                  
+                  # Finally, write nonzero elements and their positions according to pair parameter and field F.
+                  if IsPrime(Size(F)) then # this includes binary field
+	              for i in [1..rows] do
+		          row := G[i];;
+                          
+		          pos := PositionNonZero(row, 0);;
+		          while pos <= cols do
+                              AppendTo(filename, i, " ", pos, " ", Int(row[pos]), "\n");
+                              pos := PositionNonZero(row, pos);;
+		          od;
+	              od;
+	          else # extension field
+	              for i in [1..rows] do
+                          row := G[i];;
+                          
+                          pos := PositionNonZero(row, 0);;
+                          while pos <= cols do
+                              AppendTo(filename, i, " ", pos, " ", 
+                                       LogFFE(row[pos], PrimitiveElement(F)), "\n");
+                              pos := PositionNonZero(row, pos);;
+                          od;
+                      od;
+	          fi;
+              else # pair=3
+                  # write dimensions of the matrix and number of line containing nonzero elements
+                  AppendTo(filename, rows, " ", cols/2," ", nonzero, "\n");
+                  # Finally, write nonzero elements and their positions according to pair parameter and field F.
+	          if IsPrime(Size(F)) then
+	              for i in [1..rows] do
+                          row := G[i];;
+		          pos := PositionNonZero(row, 0);;
+		          while pos <= cols do
+		              # For Ai = 0
+		              if IsInt(pos/2) then
+			          AppendTo(filename, i, " ", pos/2, " ", 0, " ", Int(row[pos]), "\n");
+                		  pos := PositionNonZero(row, pos);;
+                	      # For Ai != 0
+                              else
+                		  AppendTo(filename, i, " ", (pos+1)/2, " ", Int(row[pos]), " ", Int(row[pos + 1]), "\n");
+                		  pos := PositionNonZero(row, pos + 1);;
+		              fi;
+                          od;
+                      od;
+                  else # extension field
+      	              for i in [1..rows] do
+                          row := G[i];;
+                          
+                          pos := PositionNonZero(row, 0);;
+                          while pos <= cols do
+                              # For Ai = 0
+                              if IsInt(pos/2) then
+                                  AppendTo(filename, i, " ", pos/2, " ", -1, " ", LogFFE(row[pos], PrimitiveElement(F)), "\n");
+                                  pos := PositionNonZero(row, pos);;
+                              # For Ai != 0
+                              else
+                                  # Check if Bi = 0
+                                  if (row[pos + 1] = Zero(F)) then
+                                      AppendTo(filename, i, " ", (pos+1)/2, " ", LogFFE(row[pos], PrimitiveElement(F)), " ", -1, "\n");
+                                  else
+                                      AppendTo(filename, i, " ", (pos+1)/2, " ", LogFFE(row[pos], PrimitiveElement(F)),
+                                               " ", LogFFE(row[pos + 1], PrimitiveElement(F)), "\n");
+                                  fi;
+                                  
+                                  pos := PositionNonZero(row, pos + 1);;
+		              fi;
+		          od;
+                      od;
+                  fi;
+              fi;
+              
+              Print("File ", filename, " was created\n");
+          end
+          );
 
 
 #! @Section HelperFunctions
@@ -712,8 +756,8 @@ InstallGlobalFunction("WriteMTXE", # function (StrPath,pair,G,comment...)
 #! The parity of the number of columns is verified. 
 #! @Returns `H` (the check matrix constructed)
 #!
-DeclareGlobalFunction("QDR_MakeH");
-InstallGlobalFunction("QDR_MakeH",
+#DeclareGlobalFunction("QDR_MakeH");
+BindGlobal("QDR_MakeH",
                      function(G, F)
                           
                          local dims, i, H;
@@ -762,8 +806,8 @@ InstallGlobalFunction("QDR_MakeH",
 #!  description of the algorithm.  
 #! @Arguments HX, HZ, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the CSS distance $d_Z$
-DeclareGlobalFunction("DistRandCSS");
-InstallGlobalFunction("DistRandCSS",
+#DeclareGlobalFunction("DistRandCSS");
+BindGlobal("DistRandCSS",
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
                          
                          local DistBound, i, j, dimsWZ, rowsWZ, colsWZ, F, debug, pos, CodeWords, mult,
@@ -919,8 +963,8 @@ InstallGlobalFunction("DistRandCSS",
 #!       see Section <Ref Sect="Section_Empirical"/>.  Not set by default.
 #! @Arguments G, num, mindist[, debug] :field:=GF(2), maxav:=fail
 #! @Returns An upper bound on the code distance $d$
-DeclareGlobalFunction("DistRandStab");
-InstallGlobalFunction("DistRandStab",
+#DeclareGlobalFunction("DistRandStab");
+BindGlobal("DistRandStab",
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,
           rows, cols, DistBound, FirstVecFound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,
@@ -1117,23 +1161,23 @@ InstallGlobalFunction("DistRandStab",
 #! constructs the corresponding `m` by 2`n` double circulant matrix
 #! obtained by `m` repeated cyclic shifts of the coefficients' vector
 #! by $s=2$ positions at a time. 
-DeclareGlobalFunction("QDR_DoCirc");
-InstallGlobalFunction("QDR_DoCirc",
-                     function(poly,m,n,F)
-                         local v,perm,j,deg,mat;
-                         v:=CoefficientsOfUnivariatePolynomial(poly);
-                         #    F:=DefaultField(v);
-                         deg:=Length(v);
-                         if (n>deg) then
-                             v:=Concatenation(v,ListWithIdenticalEntries(n-deg,0*One(F)));
-                         fi;
-                         mat:=[v];
-                         perm:=Concatenation([n],[1..n-1]);
-                         for j in [2..m] do
-                             v:=v{perm};
-                             v:=v{perm}; # this creates a quantum code
-                             Append(mat,[v]);
-                         od;
-                         return mat;
-                     end);
+#DeclareGlobalFunction("QDR_DoCirc");
+BindGlobal("QDR_DoCirc",
+          function(poly,m,n,F)
+              local v,perm,j,deg,mat;
+              v:=CoefficientsOfUnivariatePolynomial(poly);
+              #    F:=DefaultField(v);
+              deg:=Length(v);
+              if (n>deg) then
+                  v:=Concatenation(v,ListWithIdenticalEntries(n-deg,0*One(F)));
+              fi;
+              mat:=[v];
+              perm:=Concatenation([n],[1..n-1]);
+              for j in [2..m] do
+                  v:=v{perm};
+                  v:=v{perm}; # this creates a quantum code
+                  Append(mat,[v]);
+              od;
+              return mat;
+          end);
 

@@ -29,11 +29,11 @@ gap> H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions
 gap> DistRandStab(H,100,0,2 : field:=F);
 2
 
-# doc/_Chapter_AllFunctions.xml:463-466
+# doc/_Chapter_AllFunctions.xml:485-488
 gap> QDR_AverageCalc([2,3,4,5]);
 3.5
 
-# doc/_Chapter_AllFunctions.xml:469-480
+# doc/_Chapter_AllFunctions.xml:491-502
 gap> F:=GF(3);; 
 gap> x:=Indeterminate(F,"x");; poly:=One(F)*(1-x);;
 gap> n:=5;;
@@ -44,6 +44,22 @@ gap> Display(mat);
  . . . . 1 2 . . . .
  . . . . . . 1 2 . .
  . . . . . . . . 1 2
+
+# doc/_Chapter_AllFunctions.xml:506-517
+gap> QDR_ParseFieldStr("Z(5)");
+Z(5)
+gap> QDR_ParseFieldStr("Z(17)");
+Z(17)
+gap> QDR_ParseFieldStr("GF(5^2)");
+GF(5^2)
+gap> QDR_ParseFieldStr("GF(25)");
+GF(5^2)
+gap> QDR_ParseFieldStr("GF(125^2)");
+GF(5^6)
+
+# doc/_Chapter_AllFunctions.xml:520-523
+gap> QDR_ParsePolyStr(GF(25),"x^2+1");
+x^2+Z(5)^0
 
 #
 gap> STOP_TEST("qdistrnd02.tst", 1 );

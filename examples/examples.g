@@ -162,6 +162,7 @@ DistRandStab(H,100,0,2 : field:=F);
 #! 2
 #! @EndExample
 
+#! @Chapter AllFunctions
 #! @Section HelperFunctions
 #! @Subsection Examples
 #! @BeginExample
@@ -182,3 +183,20 @@ Display(mat);
 #!  . . . . . . . . 1 2
 #! @EndExample
 
+#! These examples illustrate the allowed format of field definitions in the header of an `MTXE` file:
+#! @BeginExample
+QDR_ParseFieldStr("Z(5)");
+#! Z(5)
+QDR_ParseFieldStr("Z(17)");
+#! Z(17)
+QDR_ParseFieldStr("GF(5^2)");
+#! GF(5^2)
+QDR_ParseFieldStr("GF(25)");
+#! GF(5^2)
+QDR_ParseFieldStr("GF(125^2)");
+#! GF(5^6)
+#! @EndExample
+#! @BeginExample
+QDR_ParsePolyStr(GF(25),"x^2+1");
+#! x^2+Z(5)^0
+#! @EndExample
