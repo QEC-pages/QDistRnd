@@ -159,7 +159,7 @@ BindGlobal("QDR_ParsePolyStr",
               new_str := String(str); # copy
               RemoveCharacters(new_str,"0123456789x*+-^");
               if (Length(new_str) > 0) then 
-                  ERROR("QDR_ParsePolyStr: invalid character(s) [",new_str,"] in polynomial ",str);
+                  Error("QDR_ParsePolyStr: invalid character(s) [",new_str,"] in polynomial ",str);
               fi;              
               
               func := EvalString(Concatenation("""
