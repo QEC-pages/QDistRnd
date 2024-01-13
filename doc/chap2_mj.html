@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (QDistRnd) - Chapter 2: Examples</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -59,12 +59,11 @@
  . 2 2 . . . 1 . . 1
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">d:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);</span>
 3
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">AUTODOC_CreateDirIfMissing("tmp");;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">WriteMTXE("tmp/n5_q3_complex.mtx",3,mat,</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">WriteMTXE("matrices/n5_q3_complex.mtx",3,mat,</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">        "% The 5-qubit code [[5,1,3]]_3",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">        "% Generated from h(x)=1+x^3-x^5-x^6",</span>
 <span class="GAPprompt">&gt;</span> <span class="GAPinput">        "% Example from the QDistRnd GAP package"   : field:=F);</span>
-File tmp/n5_q3_complex.mtx was created
+File matrices/n5_q3_complex.mtx was created
 </pre></div>
 
 <p>Here is the contents of the resulting file which also illustrates the <code class="code">coordinate complex</code> data format. Here a pair <span class="SimpleMath">\((a_{i,j},b_{i,j})\)</span> in row <span class="SimpleMath">\(i\)</span> and column <span class="SimpleMath">\(j\)</span> is written as a row of 4 integers, "<span class="SimpleMath">\(i\)</span> <span class="SimpleMath">\(j\)</span> <span class="SimpleMath">\(a_{i,j}\)</span> <span class="SimpleMath">\(b_{i,j}\)</span>", e.g., "1 2 0 1" for the second entry in the 1st row, so that the matrix in the file has <span class="SimpleMath">\(n\)</span> columns, each containing a pair of integers.</p>
@@ -100,7 +99,7 @@ File tmp/n5_q3_complex.mtx was created
 
 
 <div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  </span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lis:=ReadMTXE("matrices/n5_q3_complex.mtx");;  </span>
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lis[1]; # the field </span>
 GF(3)
 <span class="GAPprompt">gap&gt;</span> <span class="GAPinput">lis[2]; # converted to `pair=1`</span>
@@ -155,7 +154,7 @@ GF(3)
 
 <h4>2.3 <span class="Heading">Randomly generated cyclic codes</span></h4>
 
-<p>As a final and hopefully somewhat useful example, the file "lib/cyclic.g" contains a piece of code searching for random one-generator cyclic codes of length <span class="SimpleMath">\(n:=15\)</span> over the field <span class="SimpleMath">\(\gf(8)\)</span>, and generator weight <code class="code">wei:=6</code>. Note how the <code class="code">mindist</code> parameter and the option <code class="code">maxav</code> are used to speed up the calculation.</p>
+<p>As a final and hopefully somewhat useful example, the file "examples/cyclic.g" contains a piece of code searching for random one-generator cyclic codes of length <span class="SimpleMath">\(n:=15\)</span> over the field <span class="SimpleMath">\(\mathop{\rm GF}(8)\)</span>, and generator weight <code class="code">wei:=6</code>. Note how the <code class="code">mindist</code> parameter and the option <code class="code">maxav</code> are used to speed up the calculation.</p>
 
 
 <div class="chlinkprevnextbot">&nbsp;<a href="chap0_mj.html">[Top of Book]</a>&nbsp;  <a href="chap0_mj.html#contents">[Contents]</a>&nbsp;  &nbsp;<a href="chap1_mj.html">[Previous Chapter]</a>&nbsp;  &nbsp;<a href="chap3_mj.html">[Next Chapter]</a>&nbsp;  </div>

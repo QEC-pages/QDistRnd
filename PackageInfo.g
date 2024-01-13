@@ -13,19 +13,15 @@
 ##  With a new release of the package at least the entries .Version, .Date 
 ##  and .ArchiveURL must be updated.
 SetPackageInfo( 
-        rec(
+        rec( 
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.8.5",
-             Date := "21/03/2022",  
+             Version := "0.9.0",
+             Date := "12/01/2024",  
              License := "GPL-2.0-or-later",
-             PackageWWWHome :=
-             Concatenation( "https://QEC-pages.github.io/", 
-                            LowercaseString( ~.PackageName ) ),
+             PackageWWWHome := "https://QEC-pages.github.io/QDistRnd", 
              SourceRepository :=
-             rec( Type := "git", # edit as necessary
-                  URL := Concatenation( "https://github.com/QEC-pages/" , ~.PackageName )
-                ),
+             rec( Type := "git", URL := "https://github.com/QEC-pages/QDistRnd" ),
              IssueTrackerURL := Concatenation( ~.SourceRepository.URL, "/issues" ),
              README_URL      := Concatenation( ~.PackageWWWHome, "/README.md" ),
              PackageInfoURL  := Concatenation( ~.PackageWWWHome, "/PackageInfo.g" ),
@@ -39,7 +35,7 @@ SetPackageInfo(
                             "minimum distance of a quantum code linear over a finite\n" ,
                             "field GF(<var>q</var>).\n"
                  ),
-             ArchiveFormats:="tar.gz",             
+             ArchiveFormats:=".tar.gz",
              SupportEmail := "leonid.pryadko@gmail.com",
              PackageDoc := rec(
                                 BookName  := ~.PackageName,
@@ -141,7 +137,7 @@ SetPackageInfo(
       &copyright; 2021 by Leonid P. Pryadko and Vadim A. Shabashov<P/>    
       &QDistRnd; package is free software;  
       you can redistribute it and/or modify it under the terms of the
-      <URL Text="GNU General Public License">http://www.fsf.org/licenses/gpl.html</URL>
+      <URL Text="GNU General Public License">https://www.fsf.org/licenses/gpl.html</URL>
       as published by the Free Software Foundation; either version 2 of the License,
       or (at your option) any later version.
       """,

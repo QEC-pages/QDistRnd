@@ -9,8 +9,8 @@
   
   [33X[0;0YIn the simplest possible terms, we are given a pair of matrices [23XP[123X and [23XQ[123X with
   orthogonal  rows,  [23XPQ^T=0[123X.  The  matrices  have  entries  in  a finite field
-  [23XF=\gf(q)[123X,  where  [23Xq[123X  is a power of a prime. The goal is to find the smallest
-  weight  of  a  non-zero  vector  [23Xc[123X  over  the  same  field [23XF[123X, such that [23Xc[123X be
+  [23XF=\mathop{\rm GF}(q)[123X, where [23Xq[123X is a power of a prime. The goal is to find the
+  smallest weight of a non-zero vector [23Xc[123X over the same field [23XF[123X, such that [23Xc[123X be
   orthogonal  with  the  rows  of [23XP[123X, [23XPc^T=0[123X, and linearly independent from the
   rows of [23XQ[123X.[133X
   
@@ -49,7 +49,7 @@
   [1X3.1-4 [33X[0;0YCSS version of the algorithm[133X[101X
   
   [33X[0;0YThe  described  version  of  the  algorithm  is  implemented in the function
-  [2XDistRandCSS[102X  ([14X4.1-2[114X). It applies to the case of Calderbank-Shor-Steane (CSS)
+  [10XDistRandCSS[110X  ([14X4.1[114X).  It  applies to the case of Calderbank-Shor-Steane (CSS)
   codes,  where  the  matrices  [23XP=H_X[123X  and  [23XQ=H_Z[123X are called the CSS generator
   matrices,  and  the computed minimum weight is the distance [23Xd_Z[123X of the code.
   The  number  of  columns [23Xn[123X is the block length of the code, and it encodes [23Xk[123X
@@ -88,7 +88,7 @@
   a block-diagonal form, [23XH=[123X[10Xdiag[110X[23X(H_X,H_Z)[123X.[133X
   
   [33X[0;0YA  version  of  the  algorithm  for  general  [23XF[123X-linear  stabilizer  codes is
-  implemented in the function [2XDistRandStab[102X ([14X4.1-3[114X).[133X
+  implemented in the function [10XDistRandStab[110X ([14X4.1[114X).[133X
   
   [33X[0;0Y[13XImportant  Notice[113X:  In general, here one could use most general permutations
   of  [23X2n[123X columns, or restricted permutations of [23Xn[123X two-column blocks preserving
@@ -114,13 +114,13 @@
   a non-trivial power of a prime).[133X
   
   [33X[0;0YIn  the  binary  case  (more  generally,  when [23Xq[123X is a prime), [23XF[123X-linear codes
-  coincide  with  [13Xadditive[113X  codes.  The [13Xlinear[113X codes [e.g., over [23X\gf(4)[123X in the
-  binary   case  [CRSS98]]  is  a  different  construction  which  assumes  an
-  additional  symmetry.  A  brief  summary  of  [23XF[123X-linear  quantum codes [where
-  [23XF=\gf(q)[123X with [23Xq=p^m[123X, [23Xm>1[123X a non-trivial power of a prime] can be found in the
-  introduction  of  Ref.  [ZP20].  The  construction  is  equivalent to a more
-  physical  approach  in  terms of a lifted Pauli group suggested by Gottesman
-  [Got14].[133X
+  coincide  with  [13Xadditive[113X  codes.  The  [13Xlinear[113X  codes [e.g., over [23X\mathop{\rm
+  GF}(4)[123X  in  the  binary  case  [CRSS98]]  is  a different construction which
+  assumes  an  additional  symmetry. A brief summary of [23XF[123X-linear quantum codes
+  [where  [23XF=\mathop{\rm GF}(q)[123X with [23Xq=p^m[123X, [23Xm>1[123X a non-trivial power of a prime]
+  can  be  found  in  the  introduction  of  Ref.  [ZP20]. The construction is
+  equivalent  to  a  more  physical  approach in terms of a lifted Pauli group
+  suggested by Gottesman [Got14].[133X
   
   
   [1X3.2-2 [33X[0;0YThe algorithm[133X[101X
@@ -275,7 +275,7 @@
   (i.e.,  the  average  [23X\langle  n\rangle[123X  must  be  large,  which is the same
   condition as needed for confidence in the result.)[133X
   
-  [33X[0;0YWith  [10Xdebug[4][110X  set  (binary  value  8) in [10XDistRandCSS[110X and [10XDistRandStab[110X [14X4.1[114X,
+  [33X[0;0YWith  [10Xdebug[4][110X  set  (binary value 8) in [10XDistRandCSS[110X and [10XDistRandStab[110X ([14X4.1[114X),
   whenever  more  than one minimum-weight vector is found, the quantity [23XX^2[123X is
   computed  and output along with the average number of times [23X\langle n\rangle[123X
   a  minimum-weight  codeword  has  been found. However, no attempt is made to

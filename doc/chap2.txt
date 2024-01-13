@@ -25,12 +25,11 @@
     [4X[28X . 2 2 . . . 1 . . 1[128X[104X
     [4X[25Xgap>[125X [27Xd:=DistRandStab(mat,100,1,0 : field:=F,maxav:=20/n);[127X[104X
     [4X[28X3[128X[104X
-    [4X[25Xgap>[125X [27XAUTODOC_CreateDirIfMissing("tmp");;[127X[104X
-    [4X[25Xgap>[125X [27XWriteMTXE("tmp/n5_q3_complex.mtx",3,mat,[127X[104X
+    [4X[25Xgap>[125X [27XWriteMTXE("matrices/n5_q3_complex.mtx",3,mat,[127X[104X
     [4X[25X>[125X [27X        "% The 5-qubit code [[5,1,3]]_3",[127X[104X
     [4X[25X>[125X [27X        "% Generated from h(x)=1+x^3-x^5-x^6",[127X[104X
     [4X[25X>[125X [27X        "% Example from the QDistRnd GAP package"   : field:=F);[127X[104X
-    [4X[28XFile tmp/n5_q3_complex.mtx was created[128X[104X
+    [4X[28XFile matrices/n5_q3_complex.mtx was created[128X[104X
   [4X[32X[104X
   
   [33X[0;0YHere  is  the  contents  of  the  resulting  file which also illustrates the
@@ -73,7 +72,7 @@
   columns [23X(a_1,b_1,a_2,b_2,\ldots)[123X.[133X
   
   [4X[32X  Example  [32X[104X
-    [4X[25Xgap>[125X [27Xlis:=ReadMTXE("tmp/n5_q3_complex.mtx");;  [127X[104X
+    [4X[25Xgap>[125X [27Xlis:=ReadMTXE("matrices/n5_q3_complex.mtx");;  [127X[104X
     [4X[25Xgap>[125X [27Xlis[1]; # the field [127X[104X
     [4X[28XGF(3)[128X[104X
     [4X[25Xgap>[125X [27Xlis[2]; # converted to `pair=1`[127X[104X
@@ -129,9 +128,9 @@
   
   [1X2.3 [33X[0;0YRandomly generated cyclic codes[133X[101X
   
-  [33X[0;0YAs  a  final  and hopefully somewhat useful example, the file "lib/cyclic.g"
-  contains  a piece of code searching for random one-generator cyclic codes of
-  length  [23Xn:=15[123X  over  the field [23X\gf(8)[123X, and generator weight [10Xwei:=6[110X. Note how
-  the  [10Xmindist[110X  parameter  and  the  option  [10Xmaxav[110X  are  used  to speed up the
-  calculation.[133X
+  [33X[0;0YAs   a   final   and   hopefully   somewhat   useful   example,   the   file
+  "examples/cyclic.g"   contains   a   piece  of  code  searching  for  random
+  one-generator  cyclic  codes  of  length  [23Xn:=15[123X  over  the field [23X\mathop{\rm
+  GF}(8)[123X,  and generator weight [10Xwei:=6[110X. Note how the [10Xmindist[110X parameter and the
+  option [10Xmaxav[110X are used to speed up the calculation.[133X
   

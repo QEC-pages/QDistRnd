@@ -6,10 +6,10 @@
           [1X Calculate the distance of a q-ary quantum stabilizer code [101X
   
   
-                                     0.8.5
+                                     0.9.0
   
   
-                                 21 March 2022
+                                12 January 2024
   
   
                                Leonid P. Pryadko
@@ -45,7 +45,7 @@
   
   [33X[0;0Y[5XQDistRnd[105X  package is free software; you can redistribute it and/or modify it
   under     the     terms     of    the    GNU    General    Public    License
-  ([7Xhttp://www.fsf.org/licenses/gpl.html[107X)  as  published  by  the Free Software
+  ([7Xhttps://www.fsf.org/licenses/gpl.html[107X)  as  published  by the Free Software
   Foundation;  either  version 2 of the License, or (at your option) any later
   version.[133X
   
@@ -80,23 +80,25 @@
     3.3 [33X[0;0YEmpirical estimate of the success probability[133X
   4 [33X[0;0YAll Functions[133X
     4.1 [33X[0;0YFunctions for computing the distance[133X
-      4.1-1 [33X[0;0YExamples[133X
-      4.1-2 DistRandCSS
-      4.1-3 DistRandStab
+      4.1-1 DistRandCSS
+      4.1-2 DistRandStab
+      4.1-3 [33X[0;0YExamples[133X
     4.2 [33X[0;0YInput/Output Functions[133X
       4.2-1 ReadMTXE
       4.2-2 WriteMTXE
     4.3 [33X[0;0YHelper Functions[133X
-      4.3-1 [33X[0;0YExamples[133X
-      4.3-2 QDR_AverageCalc
-      4.3-3 QDR_SymplVecWeight
-      4.3-4 QDR_WeightMat
-      4.3-5 QDR_DoProbOut
-      4.3-6 QDR_FieldHeaderStr
-      4.3-7 QDR_ProcessFieldHeader
-      4.3-8 QDR_ProcEntry
-      4.3-9 QDR_MakeH
-      4.3-10 QDR_DoCirc
+      4.3-1 QDR_AverageCalc
+      4.3-2 QDR_SymplVecWeight
+      4.3-3 QDR_WeightMat
+      4.3-4 QDR_DoProbOut
+      4.3-5 QDR_ParseFieldStr
+      4.3-6 QDR_ParsePolyStr
+      4.3-7 QDR_FieldHeaderStr
+      4.3-8 QDR_ProcessFieldHeader
+      4.3-9 QDR_ProcEntry
+      4.3-10 [33X[0;0YExamples[133X
+      4.3-11 QDR_MakeH
+      4.3-12 QDR_DoCirc
   5 [33X[0;0YExtended MTX (MTXE) File Format[133X
     5.1 [33X[0;0YGeneral information[133X
       5.1-1 [33X[0;0YRepresentation of field elements via integers[133X

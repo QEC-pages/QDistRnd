@@ -1,7 +1,7 @@
 name: QDistRnd
-version: "0.8.5"
+version: "0.9.0"
 license: "GPL-2.0-or-later"
-date: 2022-03-21
+date: 2024-01-12
 description: |
     Calculate the distance of a q-ary quantum stabilizer code
 
@@ -32,13 +32,13 @@ needed-pkgs:
       version: "3.14"
       url: "https://gap-packages.github.io/guava"
 
-www: https://QEC-pages.github.io/qdistrnd
+www: https://QEC-pages.github.io/QDistRnd
 readme: README.md
-packageinfo: https://QEC-pages.github.io/qdistrnd/PackageInfo.g
+packageinfo: https://QEC-pages.github.io/QDistRnd/PackageInfo.g
 
 downloads:
-    - name: tar.gz
-      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.8.5/qdistrnd-0.8.5tar.gz
+    - name: .tar.gz
+      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.9.0/qdistrnd-0.9.0.tar.gz
 
 abstract: |
     The GAP package <code>QDistRnd</code> 
@@ -53,28 +53,28 @@ keywords: |
     QECC, quantum code, stabilizer code, quantum error correcting code, distance.
 citeas: |
     <p class='BibEntry'>
-    [<span class='BibKey'>PSK22</span>]   <b class='BibAuthor'>Pryadko, L. P., Shabashov, V. A. and Kozin, V. K.</b>,
+    [<span class='BibKey'>PSK24</span>]   <b class='BibAuthor'>Pryadko, L. P., Shabashov, V. A. and Kozin, V. K.</b>,
      <i class='BibTitle'>QDistRnd, Calculate the distance of a q-ary quantum stabilizer code,
-             Version 0.8.5</i>
-     (<span class='BibYear'>2022</span>)<br />
+             Version 0.9.0</i>
+     (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
-    <span class='BibHowpublished'><a href="https://QEC-pages.github.io/qdistrnd">https://QEC-pages.github.io/qdistrnd</a></span>.
+    <span class='BibHowpublished'><a href="https://QEC-pages.github.io/QDistRnd">https://QEC-pages.github.io/QDistRnd</a></span>.
     </p>
     
 
 bibtex: |
-    @misc{ QDistRnd0.8.5,
+    @misc{ QDistRnd0.9.0,
       author =           {Pryadko, L. P. and Shabashov, V. A. and Kozin, V. K.},
       title =            {{QDistRnd},  Calculate the distance of a q-ary quantum
-                          stabilizer code, {V}ersion 0.8.5},
-      month =            {Mar},
-      year =             {2022},
+                          stabilizer code, {V}ersion 0.9.0},
+      month =            {Jan},
+      year =             {2024},
       note =             {GAP package},
-      howpublished =     {\href           {https://QEC-pages.github.io/qdistrnd}
+      howpublished =     {\href           {https://QEC-pages.github.io/QDistRnd}
                           {\texttt{https://QEC-pages.github.io/}\discretionary
-                          {}{}{}\texttt{qdistrnd}}},
+                          {}{}{}\texttt{QDistRnd}}},
       keywords =         {QECC;  quantum  code;  stabilizer  code; quantum error
                           correcting code; distance},
-      printedkey =       {PSK22}
+      printedkey =       {PSK24}
     }
 

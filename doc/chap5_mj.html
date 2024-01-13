@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (QDistRnd) - Chapter 5: Extended MTX (MTXE) File Format</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -54,7 +54,7 @@
 
 <h5>5.1-1 <span class="Heading">Representation of field elements via integers</span></h5>
 
-<p>Every finite field is isomorphic to a Galois field <span class="SimpleMath">\(F=\gf(q)\)</span>, where <span class="SimpleMath">\(q\)</span> is a power of a prime, <span class="SimpleMath">\(q=p^m\)</span>.</p>
+<p>Every finite field is isomorphic to a Galois field <span class="SimpleMath">\(F=\mathop{\rm GF}(q)\)</span>, where <span class="SimpleMath">\(q\)</span> is a power of a prime, <span class="SimpleMath">\(q=p^m\)</span>.</p>
 
 
 <ul>
@@ -64,7 +64,7 @@
 </ul>
 
 <ul>
-<li><p>When <span class="SimpleMath">\(q=p^m\)</span> with <span class="SimpleMath">\(m &gt; 1\)</span>, <span class="SimpleMath">\(F\)</span> is an extension field. Non-zero elements of such a field can be represented as integer powers of a primitive element <span class="SimpleMath">\(\alpha\)</span>, a primitive root of unity in the field. Primitive element is a root of a primitive polynomial <span class="SimpleMath">\(f(x)\)</span>, that is, an irreducible polynomial with coefficients in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>, with the property that the smallest integer <span class="SimpleMath">\(n\)</span> such that <span class="SimpleMath">\(f(x)\)</span> divides <span class="SimpleMath">\(x^n-1\)</span> is <span class="SimpleMath">\(n=p^m-1\)</span>. Alternatively, field elements can be represented as <span class="SimpleMath">\(p\)</span>-ary polynomials modulo the chosen primitive polynomial <span class="SimpleMath">\(f(x)\)</span>.</p>
+<li><p>When <span class="SimpleMath">\(q=p^m\)</span> with <span class="SimpleMath">\(m &gt; 1\)</span>, <span class="SimpleMath">\(F\)</span> is an extension field. Non-zero elements of such a field can be represented as integer powers of a primitive element <span class="SimpleMath">\(\alpha\)</span>, a primitive root of unity in the field. Primitive element is a root of a primitive polynomial <span class="SimpleMath">\(f(x)\)</span>, that is, an irreducible polynomial with coefficients in the corresponding prime field <span class="SimpleMath">\(\mathop{\rm GF}(p)\)</span>, with the property that the smallest integer <span class="SimpleMath">\(n\)</span> such that <span class="SimpleMath">\(f(x)\)</span> divides <span class="SimpleMath">\(x^n-1\)</span> is <span class="SimpleMath">\(n=p^m-1\)</span>. Alternatively, field elements can be represented as <span class="SimpleMath">\(p\)</span>-ary polynomials modulo the chosen primitive polynomial <span class="SimpleMath">\(f(x)\)</span>.</p>
 
 </li>
 </ul>
@@ -74,7 +74,7 @@
 
 
 <ul>
-<li><p>First, assuming all elements needed are actually in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>, the integer values (mod <span class="SimpleMath">\(p\)</span>) directly correspond to the values of field elements. This is the case, e.g., with <span class="SimpleMath">\(0,\pm1\)</span> matrices which obey the orthogonality condition already over integers, and retain orthogonality over Z<span class="SimpleMath">\((q)\)</span> with any <span class="SimpleMath">\(q\)</span> (what is more relevant here, the same matrix would work with any prime field). (<em>this is currently not implemented</em>)</p>
+<li><p>First, assuming all elements needed are actually in the corresponding prime field <span class="SimpleMath">\(\mathop{\rm GF}(p)\)</span>, the integer values (mod <span class="SimpleMath">\(p\)</span>) directly correspond to the values of field elements. This is the case, e.g., with <span class="SimpleMath">\(0,\pm1\)</span> matrices which obey the orthogonality condition already over integers, and retain orthogonality over Z<span class="SimpleMath">\((q)\)</span> with any <span class="SimpleMath">\(q\)</span> (what is more relevant here, the same matrix would work with any prime field). (<em>this is currently not implemented</em>)</p>
 
 </li>
 </ul>
@@ -108,7 +108,7 @@
 
 
 <ul>
-<li><p>With <code class="code">pair=0</code> the matrix elements are stored in the usual order. In this case the MTX header should use the <code class="code">integer</code> type. This is the defailt storage format for stabilizer generator matrices of CSS codes, and also the internal matrix format for single-block matrices accepted by the function <code class="code">DistRandCSS</code>, see <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>.</p>
+<li><p>With <code class="code">pair=0</code> the matrix elements are stored in the usual order. In this case the MTX header should use the <code class="code">integer</code> type. This is the defailt storage format for stabilizer generator matrices of CSS codes, and also the internal matrix format for single-block matrices accepted by the function <code class="code">DistRandCSS</code>, see Section <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>.</p>
 
 </li>
 </ul>
@@ -132,7 +132,7 @@
 </ul>
 <p>By default, <code class="code">pair=0</code> corresponds to <code class="code">type=integer</code> and <code class="code">pair=3</code> corresponds to <code class="code">type=complex</code>. <em>It is strongly recommended</em> that matrices intended for use by others should only use these two variants of the MTXE format.</p>
 
-<p>For efficiency reasons, the function <code class="code">DistRandStab</code> <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a> assumes the generator matrix with intercalated columns.</p>
+<p>For efficiency reasons, the function <code class="code">DistRandStab</code> (<a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>) assumes the generator matrix with intercalated columns.</p>
 
 <p><a id="X80B886F0796AF0D5" name="X80B886F0796AF0D5"></a></p>
 
@@ -201,7 +201,7 @@
 % Field: GF(25) PrimitiveP(x): x^2+4*x+2 
 </pre></div>
 
-<p>The field may be left undefined; by default, it is <span class="SimpleMath">\(\gf(2)\)</span>, or it can be specified by hand when reading the matrices. If the primitive polynomial is undefined, it will be assumed that the Conway polynomial used internally by <code class="code">GAP</code> should be used.</p>
+<p>The field may be left undefined; by default, it is <span class="SimpleMath">\(\mathop{\rm GF}(2)\)</span>, or it can be specified by hand when reading the matrices. If the primitive polynomial is undefined, it will be assumed that the Conway polynomial used internally by <code class="code">GAP</code> should be used.</p>
 
 <p>Next follows the comment section, with each line either empty or starting with the <code class="code">%</code> symbol:</p>
 
@@ -253,7 +253,7 @@ i     j     a[i,j]     b[i,j]
 
 <p>The function <code class="code">ReadMTXE</code> can read matrix elements specified (in the case of an extension field) with any primitive polynomial as specified in the file.</p>
 
-<p>Given the field <span class="SimpleMath">\(\gf(p^m)\)</span> and the primitive polynomial <span class="SimpleMath">\(p(x)\)</span> specified in the file, the function <code class="code">ReadMTXE</code> first checks that the degree of <span class="SimpleMath">\(p(x)\)</span> is indeed <span class="SimpleMath">\(m\)</span> and that it is a primitive polynomial in the corresponding prime field <span class="SimpleMath">\(\gf(p)\)</span>. If either of these tests fail, <code class="code">ReadMTXE</code> produces an error. Otherwise, it will attempt to find the conversion coefficient <span class="SimpleMath">\(c\)</span> such that <span class="SimpleMath">\(\alpha^c\)</span> is a root of <span class="SimpleMath">\(p(x)\)</span>, starting with <span class="SimpleMath">\(c=1\)</span>. When found, the multiplicative inverse <span class="SimpleMath">\(s\)</span> such that <span class="SimpleMath">\(sc\equiv 1\bmod (q-1)\)</span> will be used to convert the elements being read, i.e., for any matrix element <span class="SimpleMath">\(y\)</span> read, <span class="SimpleMath">\(y^s\)</span> will be used instead.</p>
+<p>Given the field <span class="SimpleMath">\(\mathop{\rm GF}(p^m)\)</span> and the primitive polynomial <span class="SimpleMath">\(p(x)\)</span> specified in the file, the function <code class="code">ReadMTXE</code> first checks that the degree of <span class="SimpleMath">\(p(x)\)</span> is indeed <span class="SimpleMath">\(m\)</span> and that it is a primitive polynomial in the corresponding prime field <span class="SimpleMath">\(\mathop{\rm GF}(p)\)</span>. If either of these tests fail, <code class="code">ReadMTXE</code> produces an error. Otherwise, it will attempt to find the conversion coefficient <span class="SimpleMath">\(c\)</span> such that <span class="SimpleMath">\(\alpha^c\)</span> is a root of <span class="SimpleMath">\(p(x)\)</span>, starting with <span class="SimpleMath">\(c=1\)</span>. When found, the multiplicative inverse <span class="SimpleMath">\(s\)</span> such that <span class="SimpleMath">\(sc\equiv 1\bmod (q-1)\)</span> will be used to convert the elements being read, i.e., for any matrix element <span class="SimpleMath">\(y\)</span> read, <span class="SimpleMath">\(y^s\)</span> will be used instead.</p>
 
 <p>Notice that, unless the Conway polynomial was used (in which case <span class="SimpleMath">\(c=s=1\)</span>, and the conversion is trivial), this search can be slow for large fields, as all integer values in <span class="SimpleMath">\([1,2,\ldots,q-2]\)</span> will be tested sequentially. To help ensure that the correct polynomial is used, it is recommended that orthogonality of matrices be checked.</p>
 
@@ -349,7 +349,7 @@ field GF(17)
 3
 </pre></div>
 
-<p>Finally, the following is an example of a five-qudit code over <span class="SimpleMath">\(\gf(2^3)\)</span> constructed by the script <code class="code">lib/cyclic.g</code>.</p>
+<p>Finally, the following is an example of a five-qudit code over <span class="SimpleMath">\(\mathop{\rm GF}(2^3)\)</span> constructed by the script <code class="code">examples/cyclic.g</code>.</p>
 
 
 <div class="example"><pre>

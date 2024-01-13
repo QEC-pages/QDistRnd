@@ -29,10 +29,10 @@
 <h2>Calculate the distance of a q-ary quantum stabilizer code</h2>
 
 <p>
-    0.8.5</p>
+    0.9.0</p>
 
 <p>
-    21 March 2022
+    12 January 2024
   </p>
 
 </div>
@@ -62,7 +62,7 @@
 <h3>Copyright</h3>
 <p>© 2021 by Leonid P. Pryadko and Vadim A. Shabashov</p>
 
-<p><strong class="pkg">QDistRnd</strong> package is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="http://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+<p><strong class="pkg">QDistRnd</strong> package is free software; you can redistribute it and/or modify it under the terms of the <span class="URL"><a href="https://www.fsf.org/licenses/gpl.html">GNU General Public License</a></span> as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
 
 <p><a id="X82A988D47DFAFCFA" name="X82A988D47DFAFCFA"></a></p>
 <h3>Acknowledgements</h3>
@@ -117,10 +117,10 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X826856C47F9890F3">4.1 <span class="Heading">Functions for computing the distance</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A489A5D79DA9E5C">4.1-1 <span class="Heading">Examples</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83CF58308216037F">4.1-1 DistRandCSS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7894F0027B144AB8">4.1-2 DistRandStab</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A489A5D79DA9E5C">4.1-3 <span class="Heading">Examples</span></a>
 </span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X83CF58308216037F">4.1-2 DistRandCSS</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7894F0027B144AB8">4.1-3 DistRandStab</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7E4EA2B38128F66B">4.2 <span class="Heading">Input/Output Functions</span></a>
 </span>
@@ -131,17 +131,19 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4.html#X7BD4785D8488BAD5">4.3 <span class="Heading">Helper Functions</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A489A5D79DA9E5C">4.3-1 <span class="Heading">Examples</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80975EC07BDC757B">4.3-1 QDR_AverageCalc</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8615F38C79B4684C">4.3-2 QDR_SymplVecWeight</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80BB67727F7F99C3">4.3-3 QDR_WeightMat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8441E8807AE9C477">4.3-4 QDR_DoProbOut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7B6713FC7A5124A8">4.3-5 QDR_ParseFieldStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X810D9FD7796AD286">4.3-6 QDR_ParsePolyStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8638277B86B97B56">4.3-7 QDR_FieldHeaderStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8388DFBC816EF47D">4.3-8 QDR_ProcessFieldHeader</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82A75836794421A8">4.3-9 QDR_ProcEntry</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X7A489A5D79DA9E5C">4.3-10 <span class="Heading">Examples</span></a>
 </span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80975EC07BDC757B">4.3-2 QDR_AverageCalc</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8615F38C79B4684C">4.3-3 QDR_SymplVecWeight</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X80BB67727F7F99C3">4.3-4 QDR_WeightMat</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8441E8807AE9C477">4.3-5 QDR_DoProbOut</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8638277B86B97B56">4.3-6 QDR_FieldHeaderStr</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8388DFBC816EF47D">4.3-7 QDR_ProcessFieldHeader</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X82A75836794421A8">4.3-8 QDR_ProcEntry</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8020FCA787C830FE">4.3-9 QDR_MakeH</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X819DC3247F3F7B4F">4.3-10 QDR_DoCirc</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X8020FCA787C830FE">4.3-11 QDR_MakeH</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4.html#X819DC3247F3F7B4F">4.3-12 QDR_DoCirc</a></span>
 </div></div>
 </div>
 <div class="ContChap"><a href="chap5.html#X7D0187B5831B764D">5 <span class="Heading">Extended MTX (MTXE) File Format</span></a>

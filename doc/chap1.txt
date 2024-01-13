@@ -3,11 +3,11 @@
   
   [33X[0;0YThe  [5XGAP[105X  package  [5XQDistRnd[105X implements a probabilistic algorithm for finding
   the  distance of a [23Xq[123X-ary quantum low-density parity-check code linear over a
-  finite field [23XF=\gf(q)[123X. While there is no guarantee of the performance of the
-  algorithm  (the  existing bounds in the case of quantum LDPC codes are weak,
-  see  [14X3.2-2[114X),  an  empirical  convergence  criterion is given to estimate the
-  probability  that a minimum weight codeword has been found. Versions for CSS
-  and regular stabilizer codes are given, see Section [14X4.1[114X[133X
+  finite  field  [23XF=\mathop{\rm  GF}(q)[123X.  While  there  is  no guarantee of the
+  performance  of  the  algorithm  (the existing bounds in the case of quantum
+  LDPC codes are weak, see [14X3.2-2[114X), an empirical convergence criterion is given
+  to  estimate  the probability that a minimum weight codeword has been found.
+  Versions for CSS and regular stabilizer codes are given, see Section [14X4.1[114X[133X
   
   [33X[0;0YIn  addition,  a  format  for storing matrices associated with [23Xq[123X-ary quantum
   codes  is introduced and implemented, see Chapter [14X5[114X and Sec. [14X4.2[114X. The format

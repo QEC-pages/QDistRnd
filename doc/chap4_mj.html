@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (QDistRnd) - Chapter 4: All Functions</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -28,10 +28,10 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X826856C47F9890F3">4.1 <span class="Heading">Functions for computing the distance</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A489A5D79DA9E5C">4.1-1 <span class="Heading">Examples</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83CF58308216037F">4.1-1 DistRandCSS</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7894F0027B144AB8">4.1-2 DistRandStab</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A489A5D79DA9E5C">4.1-3 <span class="Heading">Examples</span></a>
 </span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X83CF58308216037F">4.1-2 DistRandCSS</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7894F0027B144AB8">4.1-3 DistRandStab</a></span>
 </div></div>
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7E4EA2B38128F66B">4.2 <span class="Heading">Input/Output Functions</span></a>
 </span>
@@ -42,17 +42,19 @@
 <div class="ContSect"><span class="tocline"><span class="nocss">&nbsp;</span><a href="chap4_mj.html#X7BD4785D8488BAD5">4.3 <span class="Heading">Helper Functions</span></a>
 </span>
 <div class="ContSSBlock">
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A489A5D79DA9E5C">4.3-1 <span class="Heading">Examples</span></a>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80975EC07BDC757B">4.3-1 QDR_AverageCalc</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8615F38C79B4684C">4.3-2 QDR_SymplVecWeight</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80BB67727F7F99C3">4.3-3 QDR_WeightMat</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8441E8807AE9C477">4.3-4 QDR_DoProbOut</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7B6713FC7A5124A8">4.3-5 QDR_ParseFieldStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X810D9FD7796AD286">4.3-6 QDR_ParsePolyStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8638277B86B97B56">4.3-7 QDR_FieldHeaderStr</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8388DFBC816EF47D">4.3-8 QDR_ProcessFieldHeader</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82A75836794421A8">4.3-9 QDR_ProcEntry</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X7A489A5D79DA9E5C">4.3-10 <span class="Heading">Examples</span></a>
 </span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80975EC07BDC757B">4.3-2 QDR_AverageCalc</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8615F38C79B4684C">4.3-3 QDR_SymplVecWeight</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X80BB67727F7F99C3">4.3-4 QDR_WeightMat</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8441E8807AE9C477">4.3-5 QDR_DoProbOut</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8638277B86B97B56">4.3-6 QDR_FieldHeaderStr</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8388DFBC816EF47D">4.3-7 QDR_ProcessFieldHeader</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X82A75836794421A8">4.3-8 QDR_ProcEntry</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8020FCA787C830FE">4.3-9 QDR_MakeH</a></span>
-<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X819DC3247F3F7B4F">4.3-10 QDR_DoCirc</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X8020FCA787C830FE">4.3-11 QDR_MakeH</a></span>
+<span class="ContSS"><br /><span class="nocss">&nbsp;&nbsp;</span><a href="chap4_mj.html#X819DC3247F3F7B4F">4.3-12 QDR_DoCirc</a></span>
 </div></div>
 </div>
 
@@ -62,51 +64,14 @@
 
 <h4>4.1 <span class="Heading">Functions for computing the distance</span></h4>
 
-<p><a id="X7A489A5D79DA9E5C" name="X7A489A5D79DA9E5C"></a></p>
-
-<h5>4.1-1 <span class="Heading">Examples</span></h5>
-
-<p>Here are a few simple examples illustrating the use of distance functions. In all examples, we use <code class="code">DistRandCSS</code> and <code class="code">DistRandStab</code> with <code class="code">debug=2</code> to ensure that row orthogonality in the input matrices is verified.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F:=GF(5);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hz:=One(F)*[[1, 1,1,1]];;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,0,2 : field:=F);</span>
-2
-</pre></div>
-
-<p>Now, if we set the minimum distance <code class="code">mindist</code> parameter too large, the function terminates immediately after a codeword with such a weight is found; in such a case the result is returned with the negative sign.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,2,2 : field:=F);</span>
--2
-</pre></div>
-
-<p>The function <code class="code">DistRandStab</code> takes only one matrix. This example uses the same CSS code but written into a single matrix. Notice how the values from the previous example are intercalated with zeros.</p>
-
-
-<div class="example"><pre>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F:=GF(5);;</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,0,  0,0,  1,0, -1,0 ],</span>
-<span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions</span>
-<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandStab(H,100,0,2 : field:=F);</span>
-2
-</pre></div>
-
 <p><a id="X83CF58308216037F" name="X83CF58308216037F"></a></p>
 
-<h5>4.1-2 DistRandCSS</h5>
+<h5>4.1-1 DistRandCSS</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DistRandCSS</code>( <var class="Arg">HX</var>, <var class="Arg">HZ</var>, <var class="Arg">num</var>, <var class="Arg">mindist</var>[, <var class="Arg">debug</var>]<var class="Arg">:</var> <var class="Arg">field</var> <var class="Arg">:=</var> <var class="Arg">GF(2)</var>, <var class="Arg">maxav</var> <var class="Arg">:=</var> <var class="Arg">fail</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: An upper bound on the CSS distance <span class="SimpleMath">\(d_Z\)</span></p>
 
-<p>Computes an upper bound on the distance <span class="SimpleMath">\(d_Z\)</span> of the <span class="SimpleMath">\(q\)</span>-ary code with stabilizer generator matrices <span class="SimpleMath">\(H_X\)</span>, <span class="SimpleMath">\(H_Z\)</span> whose rows are assumed to be orthogonal (<em>orthogonality is not verified</em>). See Section <a href="chap3_mj.html#X7DDF42DF7D7F87EF"><span class="RefLink">3.1</span></a> for the description of the algorithm.</p>
-
-<p>Details of the input parameters</p>
+<p>Computes an upper bound on the distance <span class="SimpleMath">\(d_Z\)</span> of the <span class="SimpleMath">\(q\)</span>-ary code with stabilizer generator matrices <span class="SimpleMath">\(H_X\)</span>, <span class="SimpleMath">\(H_Z\)</span> whose rows are assumed to be orthogonal (<em>orthogonality is not verified</em>). Details of the input parameters</p>
 
 
 <ul>
@@ -137,16 +102,16 @@
 </li>
 </ul>
 </li>
-<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\gf(2)\)</span>.</p>
+<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\mathop{\rm GF}(2)\)</span>.</p>
 
 </li>
-<li><p><code class="code">maxav</code> (Options stack): if set, terminate when <span class="SimpleMath">\(\langle n\rangle\)</span>&gt;<code class="code">maxav</code>, see Section <a href="chap3_mj.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a>. Not set by default.</p>
+<li><p><code class="code">maxav</code> (Options stack): if set, terminate when <span class="SimpleMath">\(\langle n\rangle\)</span>&gt;<code class="code">maxav</code>, see Section <a href="chap3_mj.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a>. Not set by default. See Section <a href="chap3_mj.html#X7DDF42DF7D7F87EF"><span class="RefLink">3.1</span></a> for the description of the algorithm.</p>
 
 </li>
 </ul>
 <p><a id="X7894F0027B144AB8" name="X7894F0027B144AB8"></a></p>
 
-<h5>4.1-3 DistRandStab</h5>
+<h5>4.1-2 DistRandStab</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; DistRandStab</code>( <var class="Arg">G</var>, <var class="Arg">num</var>, <var class="Arg">mindist</var>[, <var class="Arg">debug</var>]<var class="Arg">:</var> <var class="Arg">field</var> <var class="Arg">:=</var> <var class="Arg">GF(2)</var>, <var class="Arg">maxav</var> <var class="Arg">:=</var> <var class="Arg">fail</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: An upper bound on the code distance <span class="SimpleMath">\(d\)</span></p>
@@ -157,14 +122,9 @@
 
 
 <ul>
-<li><p><code class="code">G</code>: the input matrix with elements in the Galois <code class="code">field</code> <span class="SimpleMath">\(F\)</span> with <span class="SimpleMath">\(2n\)</span> columns <span class="SimpleMath">\((a_1,b_1,a_2,b_2,\ldots,a_n,b_n)\)</span>.</p>
+<li><p><code class="code">G</code>: the input matrix with elements in the Galois <code class="code">field</code> <span class="SimpleMath">\(F\)</span> with <span class="SimpleMath">\(2n\)</span> columns <span class="SimpleMath">\((a_1,b_1,a_2,b_2,\ldots,a_n,b_n)\)</span>. The remaining options are identical to those in the function <code class="code">DistRandCSS</code> <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a>.</p>
 
 </li>
-</ul>
-<p>The remaining options are identical to those in the function <code class="code">DistRandCSS</code> <code class="func">DistRandCSS</code> (<a href="chap4_mj.html#X83CF58308216037F"><span class="RefLink">4.1-2</span></a>).</p>
-
-
-<ul>
 <li><p><code class="code">num</code>: number of information sets to construct (should be large)</p>
 
 </li>
@@ -189,13 +149,48 @@
 </li>
 </ul>
 </li>
-<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\gf(2)\)</span>.</p>
+<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\mathop{\rm GF}(2)\)</span>.</p>
 
 </li>
 <li><p><code class="code">maxav</code> (Options stack): if set, terminate when <span class="SimpleMath">\(\langle n\rangle\)</span>&gt;<code class="code">maxav</code>, see Section <a href="chap3_mj.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a>. Not set by default.</p>
 
 </li>
 </ul>
+<p><a id="X7A489A5D79DA9E5C" name="X7A489A5D79DA9E5C"></a></p>
+
+<h5>4.1-3 <span class="Heading">Examples</span></h5>
+
+<p>Here are a few simple examples illustrating the use of distance functions. In all examples, we use functions <code class="code">DistRandCSS</code> and <code class="code">DistRandStab</code> with <code class="code">debug=2</code> to ensure that row orthogonality in the input matrices is verified.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F:=GF(5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hx:=One(F)*[[1,-1,0,0 ],[0,0,1,-1]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">Hz:=One(F)*[[1, 1,1,1]];;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,0,2 : field:=F);</span>
+2
+</pre></div>
+
+<p>Now, if we set the minimum distance <code class="code">mindist</code> parameter too large, the function terminates immediately after a codeword with such a weight is found; in such a case the result is returned with the negative sign.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandCSS(Hz,Hx,100,2,2 : field:=F);</span>
+-2
+</pre></div>
+
+<p>The function <code class="code">DistRandStab</code> takes only one matrix. This example uses the same CSS code but written into a single matrix. Notice how the values from the previous example are intercalated with zeros.</p>
+
+
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">F:=GF(5);;</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">H:=One(F)*[[1,0, -1,0,  0,0,  0,0 ], # original Hx in odd positions</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,0,  0,0,  1,0, -1,0 ],</span>
+<span class="GAPprompt">&gt;</span> <span class="GAPinput">           [0,1,  0,1,  0,1,  0,1 ]];; # original Hz in even positions</span>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">DistRandStab(H,100,0,2 : field:=F);</span>
+2
+</pre></div>
+
 <p><a id="X7E4EA2B38128F66B" name="X7E4EA2B38128F66B"></a></p>
 
 <h4>4.2 <span class="Heading">Input/Output Functions</span></h4>
@@ -232,7 +227,7 @@
 </li>
 </ul>
 </li>
-<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\gf(2)\)</span>.</p>
+<li><p><code class="code">field</code> (Options stack): Galois field, default: <span class="SimpleMath">\(\mathop{\rm GF}(2)\)</span>.</p>
 
 </li>
 </ul>
@@ -261,7 +256,7 @@
  % Field: `valid_field_name_in_Gap` PrimitiveP(x): `polynomial` 
 </pre></div>
 
-<p>Any additional entries in the second line are silently ignored. By default, <span class="SimpleMath">\(\gf(2)\)</span> is assumed; the default can be overriden by the optional <code class="code">field</code> argument. If the field is specified both in the file and by the optional argument, the corresponding values must match. Primitive polynomial (if any) is only checked in the case of an extension field; it is silently ignored for a prime field.</p>
+<p>Any additional entries in the second line are silently ignored. By default, <span class="SimpleMath">\(\mathop{\rm GF}(2)\)</span> is assumed; the default can be overriden by the optional <code class="code">field</code> argument. If the field is specified both in the file and by the optional argument, the corresponding values must match. Primitive polynomial (if any) is only checked in the case of an extension field; it is silently ignored for a prime field.</p>
 
 <p>See Chapter <a href="chap5_mj.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> for the details of how the elements of the group are represented depending on whether the field is a prime field (<span class="SimpleMath">\( q \)</span> a prime) or an extension field with <span class="SimpleMath">\( q=p^m \)</span>, <span class="SimpleMath">\(p\)</span> prime, and <span class="SimpleMath">\(m&gt;1\)</span>.</p>
 
@@ -312,9 +307,131 @@
 
 <h4>4.3 <span class="Heading">Helper Functions</span></h4>
 
+<p><a id="X80975EC07BDC757B" name="X80975EC07BDC757B"></a></p>
+
+<h5>4.3-1 QDR_AverageCalc</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_AverageCalc</code>( <var class="Arg">vector</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Calculate the average of the components of a numerical <code class="code">vector</code></p>
+
+<p><a id="X8615F38C79B4684C" name="X8615F38C79B4684C"></a></p>
+
+<h5>4.3-2 QDR_SymplVecWeight</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_SymplVecWeight</code>( <var class="Arg">vector</var>, <var class="Arg">field</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: symplectic weight of a vector</p>
+
+<p>Calculate the symplectic weight of a <code class="code">vector</code> with an even number of entries from the field <code class="code">field</code>. The elements of the pairs are intercalated: <span class="SimpleMath">\((a_1, b_1, a_2, b_2,\ldots)\)</span>.</p>
+
+<p><em>Note: the parity of vector <code class="code">length</code> and the format are not verified!!!</em></p>
+
+<p><a id="X80BB67727F7F99C3" name="X80BB67727F7F99C3"></a></p>
+
+<h5>4.3-3 QDR_WeightMat</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_WeightMat</code>( <var class="Arg">matrix</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: number of non-zero elements</p>
+
+<p>count the total number of non-zero entries in a matrix.</p>
+
+<p><a id="X8441E8807AE9C477" name="X8441E8807AE9C477"></a></p>
+
+<h5>4.3-4 QDR_DoProbOut</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_DoProbOut</code>( <var class="Arg">vector</var>, <var class="Arg">n</var>, <var class="Arg">num</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: nothing</p>
+
+<p>Aux function to print out the relevant probabilities given the list <code class="code">vector</code> of multiplicities of the codewords found. Additional parameters are <code class="code">n</code>, the code length, and <code class="code">num</code>, the number of repetitions; these are ignored in the present version of the program. See <a href="chap3_mj.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a> for related discussion.</p>
+
+<p><a id="X7B6713FC7A5124A8" name="X7B6713FC7A5124A8"></a></p>
+
+<h5>4.3-5 QDR_ParseFieldStr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ParseFieldStr</code>( <var class="Arg">str</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the corresponding Galois field</p>
+
+<p>Parse a string describing a Galois field Supported formats: <code class="code">Z(p)</code>, <code class="code">GF(q)</code>, and <code class="code">GF(q^m)</code>, where <code class="code">p</code> must be a prime, <code class="code">q</code> a prime or a power of a prime, and <code class="code">m</code> a natural integer. No spaces are allowed.</p>
+
+<p><a id="X810D9FD7796AD286" name="X810D9FD7796AD286"></a></p>
+
+<h5>4.3-6 QDR_ParsePolyStr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ParsePolyStr</code>( <var class="Arg">F</var>, <var class="Arg">str</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the corresponding polynomial</p>
+
+<p>Parse string <code class="code">str</code> as a polynomial over the field <code class="code">F</code>. Only characters in "0123456789*+-^x" are allowed in the string. In particular, no spaces are allowed.</p>
+
+<p><a id="X8638277B86B97B56" name="X8638277B86B97B56"></a></p>
+
+<h5>4.3-7 QDR_FieldHeaderStr</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_FieldHeaderStr</code>( <var class="Arg">F</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the created header string</p>
+
+<p>Create a header string describing the field <code class="code">F</code> for use in the function <code class="code">WriteMTXE</code>. If <code class="code">F</code> is a prime Galois field, just specify it: For an extension field <span class="SimpleMath">\(\mathop{\rm GF}(p^m)\)</span> with <span class="SimpleMath">\(p\)</span> prime and <span class="SimpleMath">\(m&gt;1\)</span>, also give the primitive polynomial <em>which should not contain any spaces</em>. For example, See Chapter <a href="chap5_mj.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> for details.</p>
+
+<p><a id="X8388DFBC816EF47D" name="X8388DFBC816EF47D"></a></p>
+
+<h5>4.3-8 QDR_ProcessFieldHeader</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ProcessFieldHeader</code>( <var class="Arg">recs</var>, <var class="Arg">optF</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the list [Field, ConversionDegree, FormatIndex] (plus anything else we may need in the future); the list is to be used as the second parameter in <code class="code">QDR_ProcEntry()</code></p>
+
+<p>Process the field header (second line in the MTXE file format), including the field, PrimitiveP record, and anything else. Supported format options:</p>
+
+
+<div class="example"><pre>
+ Field: `field` PrimitiveP(x): `polynomial` Format: `format`
+</pre></div>
+
+<p>Here the records should be separated by one or more spaces; while <code class="code">field</code>, <code class="code">polynomial</code>, and <code class="code">format</code> <em>should not contain any spaces.</em> Any additional records in this line will be silently ignored.</p>
+
+<p>The <code class="code">field</code> option should specify a valid field, <span class="SimpleMath">\(\mathop{\rm GF}(q)\)</span> or <span class="SimpleMath">\(\mathop{\rm GF}(p^m)\)</span>, where <span class="SimpleMath">\(q&gt;1\)</span> should be a power of the prime <span class="SimpleMath">\(p\)</span>.</p>
+
+<p>The <code class="code">polynomial</code> should be a valid expanded monic polynomial with integer coefficients, with a single independent variable <code class="code">x</code>; it should contain no spaces. An error will be signaled if <code class="code">polynomial</code> is not a valid primitive polynomial of the <code class="code">field</code>. This argument is optional; by default, Conway polynomial will be used.</p>
+
+<p>The optional <code class="code">format</code> string (<em>not implemented</em>) should be "AdditiveInt" (the default for prime fields), "PowerInt" (the default for extension fields with <span class="SimpleMath">\(m&gt;1\)</span>) or "VectorInt".</p>
+
+<p><code class="code">AdditiveInt</code> indicates that values listed are expected to be in the corresponding prime field and should be interpreted as integers mod <span class="SimpleMath">\(p\)</span>. <code class="code">PowerInt</code> indicates that field elements are represented as integers powers of the primitive element, root of the primitive polynomial, or <span class="SimpleMath">\(-1\)</span> for the zero field element. <code class="code">VectorInt</code> corresponds to encoding coefficients of a degree-<span class="SimpleMath">\((m-1)\)</span> <span class="SimpleMath">\(p\)</span>-ary polynomial representing field elements into a <span class="SimpleMath">\(p\)</span>-ary integer. In this notation, any negative value will be taken mod <span class="SimpleMath">\(p\)</span>, thus <span class="SimpleMath">\(-1\)</span> will be interpreted as <span class="SimpleMath">\(p-1\)</span>, the additive inverse of the field <span class="SimpleMath">\(1\)</span>.</p>
+
+<p>On input, <code class="code">recs</code> should contain a list of tokens obtained by splitting the field record line; <code class="code">optF</code> should be assigned to <code class="code">ValueOption("field")</code> or <code class="code">fail</code>.</p>
+
+<p><a id="X82A75836794421A8" name="X82A75836794421A8"></a></p>
+
+<h5>4.3-9 QDR_ProcEntry</h5>
+
+<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ProcEntry</code>( <var class="Arg">str</var>, <var class="Arg">fmt</var>, <var class="Arg">FileName</var>, <var class="Arg">LineNo</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
+<p>Returns: the converted field element</p>
+
+<p>Convert a string entry which should represent an integer to the Galois Field element as specified in the <code class="code">fmt</code>.</p>
+
+
+<ul>
+<li><p><code class="code">str</code> is the string representing an integer.</p>
+
+</li>
+<li><p><code class="code">fmt</code> is a list [Field, ConversionDegree, FormatIndex]</p>
+
+
+<ul>
+<li><p><code class="code">Field</code> is the Galois field <span class="SimpleMath">\(\mathop{\rm GF}(p^m)\)</span> of the code</p>
+
+</li>
+<li><p><code class="code">ConversionDegree</code> <span class="SimpleMath">\(c\)</span> : every element <span class="SimpleMath">\(x\)</span> read is replaces with <span class="SimpleMath">\(x^c\)</span>. This may be needed if a non-standard primitive polynomial is used to define the field.</p>
+
+</li>
+<li><p><code class="code">FormatIndex</code> in {0,1,2}. <code class="code">0</code> indicates no conversion (just a modular integer). <code class="code">1</code> indicates that the integer represents a power of the primitive element, or <span class="SimpleMath">\(-1\)</span> for 0. <code class="code">2</code> indicates that the integer encodes coordinates of a length <span class="SimpleMath">\(m\)</span> vector as the digits of a <span class="SimpleMath">\(p\)</span>-ary integer (<em>not yet implemented</em>).</p>
+
+</li>
+</ul>
+</li>
+<li><p><code class="code">FileName</code>, <code class="code">LineNo</code> are the line number and the name of the input file; these are used to signal an error.</p>
+
+</li>
+</ul>
 <p><a id="X7A489A5D79DA9E5C" name="X7A489A5D79DA9E5C"></a></p>
 
-<h5>4.3-1 <span class="Heading">Examples</span></h5>
+<h5>4.3-10 <span class="Heading">Examples</span></h5>
 
 
 <div class="example"><pre>
@@ -336,109 +453,31 @@
  . . . . . . . . 1 2
 </pre></div>
 
-<p><a id="X80975EC07BDC757B" name="X80975EC07BDC757B"></a></p>
-
-<h5>4.3-2 QDR_AverageCalc</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_AverageCalc</code>( <var class="Arg">vector</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Calculate the average of the components of a <code class="code">vector</code> containing numbers</p>
-
-<p><a id="X8615F38C79B4684C" name="X8615F38C79B4684C"></a></p>
-
-<h5>4.3-3 QDR_SymplVecWeight</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_SymplVecWeight</code>( <var class="Arg">vector</var>, <var class="Arg">field</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: symplectic weight of a vector</p>
-
-<p>Calculate the symplectic weight of a <code class="code">vector</code> with an even number of entries from the field <code class="code">field</code>. The elements of the pairs are intercalated: <span class="SimpleMath">\((a_1, b_1, a_2, b_2,\ldots)\)</span>.</p>
-
-<p><em>Note: the parity of vector <code class="code">length</code> and the format are not verified!!!</em></p>
-
-<p><a id="X80BB67727F7F99C3" name="X80BB67727F7F99C3"></a></p>
-
-<h5>4.3-4 QDR_WeightMat</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_WeightMat</code>( <var class="Arg">matrix</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>count the total number of non-zero entries in a matrix.</p>
-
-<p><a id="X8441E8807AE9C477" name="X8441E8807AE9C477"></a></p>
-
-<h5>4.3-5 QDR_DoProbOut</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_DoProbOut</code>( <var class="Arg">vector</var>, <var class="Arg">n</var>, <var class="Arg">num</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Aux function to print out the relevant probabilities given the list <code class="code">vector</code> of multiplicities of the codewords found. Additional parameters are <code class="code">n</code>, the code length, and <code class="code">num</code>, the number of repetitions; these are ignored in the present version of the program. See <a href="chap3_mj.html#X7CCA4B9B834960EE"><span class="RefLink">3.3</span></a> for related discussion.</p>
-
-<p><a id="X8638277B86B97B56" name="X8638277B86B97B56"></a></p>
-
-<h5>4.3-6 QDR_FieldHeaderStr</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_FieldHeaderStr</code>( <var class="Arg">F</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: the created header string</p>
-
-<p>Create a header string describing the field <code class="code">F</code> for use in the function <code class="code">WriteMTXE</code>. If <code class="code">F</code> is a prime Galois field, just specify it: <code class="code">% Field: GF(p)</code> For an extension field <span class="SimpleMath">\(\gf(p^m)\)</span> with <span class="SimpleMath">\(p\)</span> prime and <span class="SimpleMath">\(m&gt;1\)</span>, also give the primitive polynomial <em>which should not contain any spaces</em>. For example, <code class="code">% Field: GF(7^4) PrimitiveP(x): x^4-2*x^2-3*x+3</code> See Chapter <a href="chap5_mj.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> for details.</p>
-
-<p><a id="X8388DFBC816EF47D" name="X8388DFBC816EF47D"></a></p>
-
-<h5>4.3-7 QDR_ProcessFieldHeader</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ProcessFieldHeader</code>( <var class="Arg">recs</var>, <var class="Arg">optF</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: the list [Field, ConversionDegree, FormatIndex] (plus anything else we may need in the future); the list is to be used as the second parameter in <code class="code">QDR_ProcEntry()</code></p>
-
-<p>Process the field header (second line in the MTXE file format), including the field, PrimitiveP record, and anything else. Supported format options:</p>
+<p>These examples illustrate the allowed format of field definitions in the header of an <code class="code">MTXE</code> file:</p>
 
 
 <div class="example"><pre>
- Field: `field` PrimitiveP(x): `polynomial` Format: `format`
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParseFieldStr("Z(5)");</span>
+Z(5)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParseFieldStr("Z(17)");</span>
+Z(17)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParseFieldStr("GF(5^2)");</span>
+GF(5^2)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParseFieldStr("GF(25)");</span>
+GF(5^2)
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParseFieldStr("GF(125^2)");</span>
+GF(5^6)
 </pre></div>
 
-<p>Here the records should be separated by one or more spaces; while <code class="code">field</code>, <code class="code">polynomial</code>, and <code class="code">format</code> <em>should not contain any spaces.</em> Any additional records in this line will be silently ignored.</p>
 
-<p>The <code class="code">field</code> option should specify a valid field, <span class="SimpleMath">\(\gf(q)\)</span> or <span class="SimpleMath">\(\gf(p^m)\)</span>, where <span class="SimpleMath">\(q&gt;1\)</span> should be a power of the prime <span class="SimpleMath">\(p\)</span>.</p>
+<div class="example"><pre>
+<span class="GAPprompt">gap&gt;</span> <span class="GAPinput">QDR_ParsePolyStr(GF(25),"x^2+1");</span>
+x^2+Z(5)^0
+</pre></div>
 
-<p>The <code class="code">polynomial</code> should be a valid expanded monic polynomial with integer coefficients, with a single independent variable <code class="code">x</code>; it should contain no spaces. An error will be signaled if <code class="code">polynomial</code> is not a valid primitive polynomial of the <code class="code">field</code>. This argument is optional; by default, Conway polynomial will be used.</p>
-
-<p>The optional <code class="code">format</code> string (<em>not implemented</em>) should be "AdditiveInt" (the default for prime fields), "PowerInt" (the default for extension fields with <span class="SimpleMath">\(m&gt;1\)</span>) or "VectorInt".</p>
-
-<p><code class="code">AdditiveInt</code> indicates that values listed are expected to be in the corresponding prime field and should be interpreted as integers mod <span class="SimpleMath">\(p\)</span>. <code class="code">PowerInt</code> indicates that field elements are represented as integers powers of the primitive element, root of the primitive polynomial, or <span class="SimpleMath">\(-1\)</span> for the zero field element. <code class="code">VectorInt</code> corresponds to encoding coefficients of a degree-<span class="SimpleMath">\((m-1)\)</span> <span class="SimpleMath">\(p\)</span>-ary polynomial representing field elements into a <span class="SimpleMath">\(p\)</span>-ary integer. In this notation, any negative value will be taken mod <span class="SimpleMath">\(p\)</span>, thus <span class="SimpleMath">\(-1\)</span> will be interpreted as <span class="SimpleMath">\(p-1\)</span>, the additive inverse of the field <span class="SimpleMath">\(1\)</span>.</p>
-
-<p>On input, <code class="code">recs</code> should contain a list of tokens obtained by splitting the field record line; <code class="code">optF</code> should be assigned to <code class="code">ValueOption("field")</code> or <code class="code">fail</code>.</p>
-
-<p><a id="X82A75836794421A8" name="X82A75836794421A8"></a></p>
-
-<h5>4.3-8 QDR_ProcEntry</h5>
-
-<div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_ProcEntry</code>( <var class="Arg">str</var>, <var class="Arg">fmt</var>, <var class="Arg">FileName</var>, <var class="Arg">LineNo</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
-<p>Returns: the converted field element</p>
-
-<p>Convert a string entry which should represent an integer to the Galois Field element as specified in the <code class="code">fmt</code>.</p>
-
-
-<ul>
-<li><p><code class="code">str</code> is the string representing an integer.</p>
-
-</li>
-<li><p><code class="code">fmt</code> is a list [Field, ConversionDegree, FormatIndex]</p>
-
-
-<ul>
-<li><p><code class="code">Field</code> is the Galois field <span class="SimpleMath">\(\gf(p^m)\)</span> of the code</p>
-
-</li>
-<li><p><code class="code">ConversionDegree</code> <span class="SimpleMath">\(c\)</span> : every element <span class="SimpleMath">\(x\)</span> read is replaces with <span class="SimpleMath">\(x^c\)</span>. This may be needed if a non-standard primitive polynomial is used to define the field.</p>
-
-</li>
-<li><p><code class="code">FormatIndex</code> in {0,1,2}. <code class="code">0</code> indicates no conversion (just a modular integer). <code class="code">1</code> indicates that the integer represents a power of the primitive element, or <span class="SimpleMath">\(-1\)</span> for 0. <code class="code">2</code> indicates that the integer encodes coordinates of a length <span class="SimpleMath">\(m\)</span> vector as the digits of a <span class="SimpleMath">\(p\)</span>-ary integer (<em>not yet implemented</em>).</p>
-
-</li>
-</ul>
-</li>
-<li><p><code class="code">FileName</code>, <code class="code">LineNo</code> are the line number and the name of the input file; these are used to signal an error.</p>
-
-</li>
-</ul>
 <p><a id="X8020FCA787C830FE" name="X8020FCA787C830FE"></a></p>
 
-<h5>4.3-9 QDR_MakeH</h5>
+<h5>4.3-11 QDR_MakeH</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_MakeH</code>( <var class="Arg">matrix</var>, <var class="Arg">field</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: <code class="code">H</code> (the check matrix constructed)</p>
@@ -449,7 +488,7 @@
 
 <p><a id="X819DC3247F3F7B4F" name="X819DC3247F3F7B4F"></a></p>
 
-<h5>4.3-10 QDR_DoCirc</h5>
+<h5>4.3-12 QDR_DoCirc</h5>
 
 <div class="func"><table class="func" width="100%"><tr><td class="tdleft"><code class="func">&#8227; QDR_DoCirc</code>( <var class="Arg">poly</var>, <var class="Arg">m</var>, <var class="Arg">n</var>, <var class="Arg">field</var> )</td><td class="tdright">(&nbsp;function&nbsp;)</td></tr></table></div>
 <p>Returns: <code class="code">m</code> by <code class="code">2*n</code> circulant matrix constructed from the polynomial coefficients</p>

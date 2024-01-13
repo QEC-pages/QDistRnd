@@ -2,18 +2,20 @@
   
   [1XIndex[101X
   
-  [2XDistRandCSS[102X 4.1-2 
-  [2XDistRandStab[102X 4.1-3 
+  [2XDistRandCSS[102X 4.1-1 
+  [2XDistRandStab[102X 4.1-2 
   License .-1 
-  [2XQDR_AverageCalc[102X 4.3-2 
-  [2XQDR_DoCirc[102X 4.3-10 
-  [2XQDR_DoProbOut[102X 4.3-5 
-  [2XQDR_FieldHeaderStr[102X 4.3-6 
-  [2XQDR_MakeH[102X 4.3-9 
-  [2XQDR_ProcEntry[102X 4.3-8 
-  [2XQDR_ProcessFieldHeader[102X 4.3-7 
-  [2XQDR_SymplVecWeight[102X 4.3-3 
-  [2XQDR_WeightMat[102X 4.3-4 
+  [2XQDR_AverageCalc[102X 4.3-1 
+  [2XQDR_DoCirc[102X 4.3-12 
+  [2XQDR_DoProbOut[102X 4.3-4 
+  [2XQDR_FieldHeaderStr[102X 4.3-7 
+  [2XQDR_MakeH[102X 4.3-11 
+  [2XQDR_ParseFieldStr[102X 4.3-5 
+  [2XQDR_ParsePolyStr[102X 4.3-6 
+  [2XQDR_ProcEntry[102X 4.3-9 
+  [2XQDR_ProcessFieldHeader[102X 4.3-8 
+  [2XQDR_SymplVecWeight[102X 4.3-2 
+  [2XQDR_WeightMat[102X 4.3-3 
   [2XReadMTXE[102X 4.2-1 
   [2XWriteMTXE[102X 4.2-2 
   

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
 <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  src="mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 <title>GAP (QDistRnd) - Chapter 1: Introduction</title>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
@@ -29,7 +29,7 @@
 
 <h3>1 <span class="Heading">Introduction</span></h3>
 
-<p>The <strong class="pkg">GAP</strong> package <strong class="pkg">QDistRnd</strong> implements a probabilistic algorithm for finding the distance of a <span class="SimpleMath">\(q\)</span>-ary quantum low-density parity-check code linear over a finite field <span class="SimpleMath">\(F=\gf(q)\)</span>. While there is no guarantee of the performance of the algorithm (the existing bounds in the case of quantum LDPC codes are weak, see <a href="chap3_mj.html#X7C198D417DA58DFD"><span class="RefLink">3.2-2</span></a>), an empirical convergence criterion is given to estimate the probability that a minimum weight codeword has been found. Versions for CSS and regular stabilizer codes are given, see Section <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a></p>
+<p>The <strong class="pkg">GAP</strong> package <strong class="pkg">QDistRnd</strong> implements a probabilistic algorithm for finding the distance of a <span class="SimpleMath">\(q\)</span>-ary quantum low-density parity-check code linear over a finite field <span class="SimpleMath">\(F=\mathop{\rm GF}(q)\)</span>. While there is no guarantee of the performance of the algorithm (the existing bounds in the case of quantum LDPC codes are weak, see <a href="chap3_mj.html#X7C198D417DA58DFD"><span class="RefLink">3.2-2</span></a>), an empirical convergence criterion is given to estimate the probability that a minimum weight codeword has been found. Versions for CSS and regular stabilizer codes are given, see Section <a href="chap4_mj.html#X826856C47F9890F3"><span class="RefLink">4.1</span></a></p>
 
 <p>In addition, a format for storing matrices associated with <span class="SimpleMath">\(q\)</span>-ary quantum codes is introduced and implemented, see Chapter <a href="chap5_mj.html#X7D0187B5831B764D"><span class="RefLink">5</span></a> and Sec. <a href="chap4_mj.html#X7E4EA2B38128F66B"><span class="RefLink">4.2</span></a>. The format is based on the well establised MaTrix market eXchange (MTX) Coordinate format developed at NIST, and is designed for full backward compatibility with this format. Thus, the files are readable by any software package which supports MTX.</p>
 
