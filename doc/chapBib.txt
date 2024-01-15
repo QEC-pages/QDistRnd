@@ -8,7 +8,7 @@
   [[20XCG90[120X]  [16XCoffey,  J. T. and Goodman, R. M.[116X, [17XThe complexity of information set
   decoding[117X, [18XIEEE Trans. Info. Theory[118X, [19X36[119X, 5 (1990), 1031 -1037.
   
-  [[20XCGTLN21[120X]  [16XCu{\'e}llar, M. P., G{\'o}mez-Torrecillas, J., Lobillo, F. J. and
+  [[20XCGLN21[120X]  [16XCu{\'e}llar,  M. P., G{\'o}mez-Torrecillas, J., Lobillo, F. J. and
   Navarro,  G.[116X,  [17XGenetic  algorithms with permutation-based representation for
   computing  the distance of linear codes[117X, [18XSwarm and Evolutionary Computation[118X,
   [19X60[119X (2021), 100797.
@@ -37,21 +37,21 @@
   thesis, Caltech (1997).
   
   [[20XGot14[120X]  [16XGottesman,  D.[116X,  [17XStabilizer  codes  with prime power qudits[117X (2014),
-  ((Invited talk at QEC 2014 (ETH Zurich))).
+  (Invited talk at QEC 2014 (ETH Zurich)).
   
   [[20XKKKS06[120X]  [16XKetkar,  A.,  Klappenecker,  A.,  Kumar, S. and Sarvepalli, P. K.[116X,
   [17XNonbinary  Stabilizer Codes Over Finite Fields[117X, [18X{IEEE} Trans. Info. Th.[118X, [19X52[119X,
   11 (2006), 4892-4914.
   
   [[20XKru89[120X]  [16XKruk,  E.  A.[116X,  [17XDecoding  Complexity  Bound for Linear Block Codes[117X,
-  [18XProbl. Peredachi Inf.[118X, [19X25[119X, 3 (1989), 103-107, (((In Russian))).
+  [18XProbl. Peredachi Inf.[118X, [19X25[119X, 3 (1989), 103-107, ((In Russian)).
   
   [[20XLeo88[120X] [16XLeon, J. S.[116X, [17XA probabilistic algorithm for computing minimum weights
   of  large  error-correcting  codes[117X,  [18XIEEE Trans. Info. Theory[118X, [19X34[119X, 5 (1988),
   1354 -1359.
   
   [[20XL\t21[120X]  [16XL{\"u}beck,  F.[116X,  [17XConway  polynomials  for  finite  fields[117X  (2021),
-  (([Downloaded on 2022-02-19])).
+  ([Downloaded on 2022-02-19]).
   
   [[20XNC00[120X]  [16XNielsen,  M.  A.  and Chuang, I. L.[116X, [17XQuantum Computation and Quantum
   Infomation[117X, Cambridge Unive. Press, Cambridge, MA (2000).

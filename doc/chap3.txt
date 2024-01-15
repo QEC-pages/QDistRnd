@@ -43,7 +43,7 @@
   positions  into  the  last  [23Xd-1[123X  columns.  Vector  [23Xc[123X being the lowest-weight
   non-trivial vector, no pivot column may be in the block of last [23Xd-1[123X columns.
   This  guarantees  that  vector  [23Xc[123X is obtained as the first row of [23XG_S[123X. (This
-  argument is adapted to degenerate quantum codes from [CGTLN21]).[133X
+  argument is adapted to degenerate quantum codes from [CGLN21]).[133X
   
   
   [1X3.1-4 [33X[0;0YCSS version of the algorithm[133X[101X

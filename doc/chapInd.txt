@@ -4,7 +4,7 @@
   
   [2XDistRandCSS[102X 4.1-1 
   [2XDistRandStab[102X 4.1-2 
-  License .-1 
+  License 0.0-1 
   [2XQDR_AverageCalc[102X 4.3-1 
   [2XQDR_DoCirc[102X 4.3-12 
   [2XQDR_DoProbOut[102X 4.3-4 
