@@ -42,12 +42,12 @@ BindGlobal("QDR_SymplVecWeight",
                          
                          len := Length(vec);
     #    if (not IsInt(len / 2)) then
-    #	Error(" symplectic vector must have even length, = ", len,"\n");
+    #   Error(" symplectic vector must have even length, = ", len,"\n");
     #    fi;
 
                          wgt := 0;
                          for i in [1..(len/2)] do
-	                     if (vec[2*i-1] <> Zero(F) or vec[2*i] <> Zero(F)) then
+                             if (vec[2*i-1] <> Zero(F) or vec[2*i] <> Zero(F)) then
                                  wgt := wgt + 1;;
                              fi;
                          od;
@@ -472,7 +472,7 @@ BindGlobal("ReadMTXE",
                          # fmt  - array returned by QDR_ProcessFieldHeader
                          # pair - 0,1,2 (integer) or 3 (complex), see input variables
                          #        indicates if we store matrix in the compressed form,
-                         #		using complex representation a+i*b
+                         #              using complex representation a+i*b
                          #        (normal form if pair=integer and compressed form if pair=complex),
                          # F - Galois field, over which we are working
                          # rowsG - number of rows in G
@@ -528,14 +528,14 @@ BindGlobal("ReadMTXE",
                          # search for the end of top comment section (including any empty lines):
                          iComment := iCommentStart;
                          while Length(data[iComment + 1]) = 0 or data[iComment + 1, 1] = '%' do
-	                     iComment := iComment + 1;
+                             iComment := iComment + 1;
                              if Length(data[iComment]) = 0 then
                                  data[iComment]:="%"; # suppress empty comment lines
                              fi;
                          od;
                          
                          for i in [iComment+1..Length(data)] do
-	                     data[i] := SplitString(data[i], " ");; # separate into records
+                             data[i] := SplitString(data[i], " ");; # separate into records
                          od;
                          
                          # Parameters (dimensions and number of non-zero elemments) of G
@@ -546,14 +546,14 @@ BindGlobal("ReadMTXE",
                          G := NullMat(rowsG, colsG, F);;    # empty matrix
     
                          # Then we fill G with the elements from data (no more empty / comment lines allowed)
-                         if (pair <>3 ) then	                  
-	                     for i in [(iComment + 2)..Length(data)] do
-		                 G[Int(data[i,1]), Int(data[i,2])] := 
-                                     QDR_ProcEntry(data[i,3],fmt,StrPath,i);                                 
-	                     od;
-	                 else # pair=3 
+                         if (pair <>3 ) then                      
                              for i in [(iComment + 2)..Length(data)] do
-		                 G[Int(data[i,1]),2*Int(data[i,2])-1]:=
+                                 G[Int(data[i,1]), Int(data[i,2])] := 
+                                     QDR_ProcEntry(data[i,3],fmt,StrPath,i);                                 
+                             od;
+                         else # pair=3 
+                             for i in [(iComment + 2)..Length(data)] do
+                                 G[Int(data[i,1]),2*Int(data[i,2])-1]:=
                                      QDR_ProcEntry(data[i,3],fmt,StrPath,i);                                 
                                  G[Int(data[i,1]),2*Int(data[i,2])]:=
                                      QDR_ProcEntry(data[i,4],fmt,StrPath,i);                                 
@@ -629,7 +629,7 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
               
               # We check pair parameter
               if (pair <0 ) or (pair>3) or (pair=2) then
-	          Error("\n", "Parameter pair=",pair," not supported, must be in {0,1,3}", "\n");
+                  Error("\n", "Parameter pair=",pair," not supported, must be in {0,1,3}", "\n");
               fi;
               
               # full file name with extension
@@ -647,9 +647,9 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
 
               for i in [1..Length(comment)] do
                   if comment[i,1]<>'%' then
-	              AppendTo(filename, "% ", comment[i], "\n");
+                      AppendTo(filename, "% ", comment[i], "\n");
                   else
-	              AppendTo(filename, comment[i], "\n");
+                      AppendTo(filename, comment[i], "\n");
                   fi;
               od;
               if IsPrime(Size(F)) then
@@ -666,13 +666,13 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
               # count non-zero elements depending on the 'pair' parameter
               nonzero := 0;
               if (pair = 3) then
-	          for i in [1..rows] do
+                  for i in [1..rows] do
                       nonzero := nonzero + QDR_SymplVecWeight(G[i], F);;
                   od;
               else
-	          for i in [1..rows] do
-	              nonzero := nonzero + WeightVecFFE(G[i]);;
-	          od;
+                  for i in [1..rows] do
+                      nonzero := nonzero + WeightVecFFE(G[i]);;
+                  od;
               fi;
               
               if (pair < 3) then
@@ -681,17 +681,17 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
                   
                   # Finally, write nonzero elements and their positions according to pair parameter and field F.
                   if IsPrime(Size(F)) then # this includes binary field
-	              for i in [1..rows] do
-		          row := G[i];;
+                      for i in [1..rows] do
+                          row := G[i];;
                           
-		          pos := PositionNonZero(row, 0);;
-		          while pos <= cols do
+                          pos := PositionNonZero(row, 0);;
+                          while pos <= cols do
                               AppendTo(filename, i, " ", pos, " ", Int(row[pos]), "\n");
                               pos := PositionNonZero(row, pos);;
-		          od;
-	              od;
-	          else # extension field
-	              for i in [1..rows] do
+                          od;
+                      od;
+                  else # extension field
+                      for i in [1..rows] do
                           row := G[i];;
                           
                           pos := PositionNonZero(row, 0);;
@@ -701,29 +701,29 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
                               pos := PositionNonZero(row, pos);;
                           od;
                       od;
-	          fi;
+                  fi;
               else # pair=3
                   # write dimensions of the matrix and number of line containing nonzero elements
                   AppendTo(filename, rows, " ", cols/2," ", nonzero, "\n");
                   # Finally, write nonzero elements and their positions according to pair parameter and field F.
-	          if IsPrime(Size(F)) then
-	              for i in [1..rows] do
+                  if IsPrime(Size(F)) then
+                      for i in [1..rows] do
                           row := G[i];;
-		          pos := PositionNonZero(row, 0);;
-		          while pos <= cols do
-		              # For Ai = 0
-		              if IsInt(pos/2) then
-			          AppendTo(filename, i, " ", pos/2, " ", 0, " ", Int(row[pos]), "\n");
-                		  pos := PositionNonZero(row, pos);;
-                	      # For Ai != 0
+                          pos := PositionNonZero(row, 0);;
+                          while pos <= cols do
+                              # For Ai = 0
+                              if IsInt(pos/2) then
+                                  AppendTo(filename, i, " ", pos/2, " ", 0, " ", Int(row[pos]), "\n");
+                                  pos := PositionNonZero(row, pos);;
+                              # For Ai != 0
                               else
-                		  AppendTo(filename, i, " ", (pos+1)/2, " ", Int(row[pos]), " ", Int(row[pos + 1]), "\n");
-                		  pos := PositionNonZero(row, pos + 1);;
-		              fi;
+                                  AppendTo(filename, i, " ", (pos+1)/2, " ", Int(row[pos]), " ", Int(row[pos + 1]), "\n");
+                                  pos := PositionNonZero(row, pos + 1);;
+                              fi;
                           od;
                       od;
                   else # extension field
-      	              for i in [1..rows] do
+                      for i in [1..rows] do
                           row := G[i];;
                           
                           pos := PositionNonZero(row, 0);;
@@ -743,13 +743,12 @@ BindGlobal("WriteMTXE", # function (StrPath,pair,G,comment...)
                                   fi;
                                   
                                   pos := PositionNonZero(row, pos + 1);;
-		              fi;
-		          od;
+                              fi;
+                          od;
                       od;
                   fi;
               fi;
-              
-              Print("File ", filename, " was created\n");
+              # Print("File ", filename, " was created\n");
           end
           );
 
@@ -776,7 +775,7 @@ BindGlobal("QDR_MakeH",
                           
                          # Checking that G has even number of columns
                          if (Gcd(dims[2] , 2) = 1) then
-	                     Error("\n", "Generator Matrix G has odd number of columns!", "\n");
+                             Error("\n", "Generator Matrix G has odd number of columns!", "\n");
                          fi;
                          
                          # Introducing check matrix
@@ -867,11 +866,11 @@ BindGlobal("DistRandCSS",
                                          if debug[2]=1 then # Check that H*c = 0
                                              if (WeightVecFFE(GX * TempVec) > 0) then
                                                  Print("\nError: codeword found is not orthogonal to rows of HX!\n");
-	                                         if (colsWZ <= 100) then
-	                                             Print("The improper vector is:\n");
-	                                             Display(TempVec);
+                                                 if (colsWZ <= 100) then
+                                                     Print("The improper vector is:\n");
+                                                     Display(TempVec);
                                                  fi;
-	                                         Error("\n");
+                                                 Error("\n");
                                              fi;
                                          fi;
                                          
@@ -976,7 +975,7 @@ BindGlobal("DistRandStab",
                      function(G,num,mindist,opt...) # supported options: field, maxav
     local F, debug, CodeWords, mult, TempPos, dims, H, i, l, j, W, V, dimsW,
           rows, cols, DistBound, FirstVecFound, VecCount, per, W1, W2, TempVec, TempWeight,maxav,
-	             per1, per2;
+                     per1, per2;
     # CodeWords - if debug[4] = 1, record the first 100 different CWs with the lowest weight found so far
     # mult - number of times codewords from CodeWords were found
     # TempPos - temporary variable corresponding to the position of TempVec in CodeWords
@@ -1023,9 +1022,9 @@ BindGlobal("DistRandStab",
 
     # optionally check for orthogonality
     if (debug[2] = 1) then
-	     if QDR_WeightMat(G * TransposedMat(H))>0 then
-	        Error("\n", "Problem with ortogonality GH^T!", "\n");
-	     fi;
+             if QDR_WeightMat(G * TransposedMat(H))>0 then
+                Error("\n", "Problem with ortogonality GH^T!", "\n");
+             fi;
     fi;
 
     # Below we are getting vector spaces W and V ortogonal to the columns of H and G correspondingly.
@@ -1042,13 +1041,13 @@ BindGlobal("DistRandStab",
     # The main part of algorithm.
     for i in [1..num] do
       #Print(i);
-    	## We start by creating random permutation for columns in W.
-    	# per1 := ListPerm(Random(SymmetricGroup(cols/2)), cols/2);;  # random permutation of length cols/2
-    	# per2 := []; #  We extend the permutation, so it works now on pairs
-    	# for l in [1..cols/2] do
-    	#    Append(per2, [2*per1[l]-1, 2*per1[l]]);  # per2 contains the permutation we want as a list
-    	# od;
-    	# per := PermList(per2); # this is a permutation of length 2n moving pairs
+        ## We start by creating random permutation for columns in W.
+        # per1 := ListPerm(Random(SymmetricGroup(cols/2)), cols/2);;  # random permutation of length cols/2
+        # per2 := []; #  We extend the permutation, so it works now on pairs
+        # for l in [1..cols/2] do
+        #    Append(per2, [2*per1[l]-1, 2*per1[l]]);  # per2 contains the permutation we want as a list
+        # od;
+        # per := PermList(per2); # this is a permutation of length 2n moving pairs
 
       per := Random(SymmetricGroup(cols));;
 
@@ -1057,22 +1056,22 @@ BindGlobal("DistRandStab",
       W2 := PermutedCols(W2,Inverse(per));; # Inverse permutation
 
       for j in [1..rows] do
-	      # We take one of the sample vectors for this iteration. It supposed to be low-weight.
+              # We take one of the sample vectors for this iteration. It supposed to be low-weight.
         TempVec := W2[j];;
         TempWeight := QDR_SymplVecWeight(TempVec, F);;
 
-	      # check if this vector is a logical operator).
-	      # First, rough check:
+              # check if this vector is a logical operator).
+              # First, rough check:
         if (TempWeight > 0) and (TempWeight <= DistBound) then
           if (WeightVecFFE(V * TempVec) > 0) then # linear independence from rows of G
             if debug[2]=1 then # Check that H*c = 0
               if (WeightVecFFE(H * TempVec) > 0) then
                 Print("\nSomething wrong: cw found is not orthogonal to rows of H!\n");
-	              if (Length(TempVec) <= 100) then
-	                Print("The improper vector is:\n");
-	                Display(TempVec);
-	              fi;
-	              Error("\n");
+                      if (Length(TempVec) <= 100) then
+                        Print("The improper vector is:\n");
+                        Display(TempVec);
+                      fi;
+                      Error("\n");
               fi;
             fi;
 
@@ -1081,38 +1080,38 @@ BindGlobal("DistRandStab",
               DistBound := TempWeight;; # min weight found
               VecCount := 1;; # reset the overall count of vectors of such weight
 
-        			# Recording all discovered codewords of minimum weight and their multiplicities
+                                # Recording all discovered codewords of minimum weight and their multiplicities
               if debug[4] = 1 or ValueOption("maxav")<>fail then
-        	  CodeWords := [TempVec];;
-        	  mult := [1];;
+                  CodeWords := [TempVec];;
+                  mult := [1];;
               fi;                 
               if debug[1] = 1 then
                   FirstVecFound := TempVec;;
               fi;
 
-  		      # If we already received such a weight (up to now - it is minimal),
+                      # If we already received such a weight (up to now - it is minimal),
             # we want to update number of vectors, corresponding to it
             elif (TempWeight = DistBound) then
               VecCount := VecCount + 1;;
 
-  			      # Recording of the first 100 different discovered codewords of
+                              # Recording of the first 100 different discovered codewords of
               # minimum weight with their multiplicities
               if debug[4] = 1 or ValueOption("maxav")<>fail then
                   TempPos := Position(CodeWords, TempVec);
-  		  if ((TempPos = fail) and (Length(mult) < 100)) then
-      		      Add(CodeWords, TempVec);
-      		      Add(mult, 1);
-  		  elif (TempPos <> fail) then
-  		      mult[TempPos] := mult[TempPos] + 1;;
-  		  fi;
-  	      fi;
+                  if ((TempPos = fail) and (Length(mult) < 100)) then
+                      Add(CodeWords, TempVec);
+                      Add(mult, 1);
+                  elif (TempPos <> fail) then
+                      mult[TempPos] := mult[TempPos] + 1;;
+                  fi;
+              fi;
 
            fi;
 
-  		     # Specific terminator, if we don't care for distances below a particular value.
+                     # Specific terminator, if we don't care for distances below a particular value.
            if (DistBound <= mindist) then # not interesting, exit immediately!
                if debug[1]=1 then
-  		   Print("\n", "The found distance ",DistBound,"<=",mindist,
+                   Print("\n", "The found distance ",DistBound,"<=",mindist,
                          " too small, exiting!\n");
                fi;               
              return -DistBound;

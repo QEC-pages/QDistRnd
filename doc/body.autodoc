@@ -436,7 +436,7 @@ storage options for elements of an extension field can in be used.
   $a_0+a_1x+a_2x^2+\ldots +a_{m-1}x^{m-1}$ as
   digits of a $p$-ary integer $(a_{m-1}a_{m-2}\ldots a_2a_1)_p$. 
   (**this is currently not implemented**)
-	
+        
 @Subsection Matrix storage format
 
 There are two recommended storage formats.
@@ -593,7 +593,7 @@ i     j     element[i,j]
 @EndCode
 @InsertCode MMXFormatLineB
 
-* `type=complex`:	
+* `type=complex`:       
 @BeginCode  MMXFormatLineC
 i     j     a[i,j]     b[i,j]
 @EndCode
@@ -649,7 +649,7 @@ is specified explicitly, this matrix would work with any
 prime field.
 
 @BeginCode SampleFileA
-%%MatrixMarket matrix coordinate integer general		
+%%MatrixMarket matrix coordinate integer general                
 % Field: GF(7)
 % 5-qubit code generator matrix / normal storage with intercalated cols
 5 10 20
@@ -679,7 +679,7 @@ prime field.
 This same matrix is stored in the file `matrices/n5k1A.mtx`.  This is
 how the matrix can be read and distance calculated:
 @BeginExample
-	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+        filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
     lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;
     Print("field ",lis[1],"\n");
 #! field GF(7)
