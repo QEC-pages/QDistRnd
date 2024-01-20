@@ -8,7 +8,7 @@ bug reports, and code reviews.
 * Before you report an issue, or wish to add functionality, please try
   and check to see if there are existing issues or pull requests. We
   do not want you wasting your time duplicating somebody else's work.
-	
+
 * For substantial changes it is also advisable to contact us before
   you start work to discuss your ideas.
   
@@ -20,10 +20,10 @@ bug reports, and code reviews.
 * To help increase the chance of your pull request being accepted:
 
   - Run the tests.
-  
+
   - Update the documentation, tests, examples, guides, and whatever
     else is affected by your contribution.
-	
+
   - Use appropriate code formatting for your code.
 
 * Try to follow *the Campsite Rule:* leave the codebase in better

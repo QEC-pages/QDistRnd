@@ -11,7 +11,7 @@
 gap> START_TEST("qdistrnd03.tst");
 
 # doc/_Chapter_FileFormat.xml:344-351
-gap> 	filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
+gap>         filedir:=DirectoriesPackageLibrary("QDistRnd","matrices");;
 gap>     lis:=ReadMTXE(Filename(filedir,"n5k1A.mtx" ));;
 gap>     Print("field ",lis[1],"\n");
 field GF(7)
