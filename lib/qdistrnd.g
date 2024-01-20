@@ -844,7 +844,7 @@ BindGlobal("DistRandCSS",
 
                          if debug[2]=1 then # check the orthogonality
                              if QDR_WeightMat(GX*TransposedMat(GZ))>0 then
-                                 Error("\nDistRandCSS: input matrices should have orthogonal rows!\n");
+                                 Error("DistRandCSS: input matrices should have orthogonal rows!\n");
                              fi;
                          fi;
 
