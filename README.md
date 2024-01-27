@@ -1,4 +1,4 @@
-# gap-package-qdistrnd
+# `GAP` package `QDistRnd`
 The `GAP` package for calculating the distance of a $q$-ary quantum
 stabilizer code.
 
