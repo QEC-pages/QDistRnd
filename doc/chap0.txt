@@ -6,10 +6,10 @@
           [1X Calculate the distance of a q-ary quantum stabilizer code [101X
   
   
-                                     0.9.2
+                                     0.9.3
   
   
-                                19 January 2024
+                                6 February 2024
   
   
                                Leonid P. Pryadko
@@ -21,8 +21,7 @@
   Leonid P. Pryadko
       Email:    [7Xmailto:leonid.pryadko@gmail.com[107X
       Homepage: [7Xhttp://faculty.ucr.edu/~leonid[107X
-      Address:  [33X[0;14YLeonid Pryadko[133X
-                [33X[0;14YDepartment of Physics & Astronomy[133X
+      Address:  [33X[0;14YDepartment of Physics & Astronomy[133X
                 [33X[0;14YUniversity of California[133X
                 [33X[0;14YRiverside, CA 92521[133X
                 [33X[0;14YUSA[133X
@@ -31,8 +30,7 @@
   Vadim A. Shabashov
       Email:    [7Xmailto:vadim.art.shabashov@gmail.com[107X
       Homepage: [7Xhttps://sites.google.com/view/vadim-shabashov/[107X
-      Address:  [33X[0;14YVadim Shabashov[133X
-                [33X[0;14YThe Department of Physics & Engineering[133X
+      Address:  [33X[0;14YThe Department of Physics & Engineering[133X
                 [33X[0;14YITMO University[133X
                 [33X[0;14YSt. Petersburg, 197101[133X
                 [33X[0;14YRussia[133X
@@ -41,7 +39,7 @@
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2021 by Leonid P. Pryadko and Vadim A. Shabashov[133X
+  [33X[0;0Y© 2021--2024 by Leonid P. Pryadko and Vadim A. Shabashov[133X
   
   [33X[0;0Y[5XQDistRnd[105X  package is free software; you can redistribute it and/or modify it
   under     the     terms     of    the    GNU    General    Public    License
