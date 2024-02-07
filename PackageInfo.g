@@ -16,8 +16,8 @@ SetPackageInfo(
         rec( 
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.9.2",
-             Date := "19/01/2024",  
+             Version := "0.9.3",
+             Date := "06/02/2024",  
              License := "GPL-2.0-or-later",
              PackageWWWHome := "https://QEC-pages.github.io/QDistRnd", 
              SourceRepository :=
@@ -57,7 +57,6 @@ SetPackageInfo(
                                   Email         := "leonid.pryadko@gmail.com",
                                   WWWHome       := "http://faculty.ucr.edu/~leonid",
                                   PostalAddress := Concatenation( [
-                                                                    "Leonid Pryadko\n",
                                                                     "Department of Physics &amp; Astronomy\n",
                                                                     "University of California\n",
                                                                     "Riverside, CA 92521\n",
@@ -73,7 +72,6 @@ SetPackageInfo(
                                   Email         := "vadim.art.shabashov@gmail.com",
                                   WWWHome       := "https://sites.google.com/view/vadim-shabashov/",
                                   PostalAddress := Concatenation( [
-                                                                    "Vadim Shabashov\n",
                                                                     "The Department of Physics &amp; Engineering\n",
                                                                     "ITMO University\n",
                                                                     "St. Petersburg, 197101\n",
@@ -87,11 +85,9 @@ SetPackageInfo(
                                   IsMaintainer  := true,
                                   Email         := "kozin.valera@gmail.com",
                                   PostalAddress := Concatenation( [
-                                                                    "Valerii Kozin\n",
-                                                                    "The Department of Physics &amp; Engineering\n",
-                                                                    "ITMO University\n",
-                                                                    "St. Petersburg, 197101\n",
-                                                                    "Russia" ] ),
+                                                                    "Department of Physics, University of Basel\n",
+                                                                    "Klingelbergstrasse 82, CH-4056 Basel,\n",
+                                                                    "Switzerland" ] ),
                                   Institution   := "ITMO University"
                               )
                           
@@ -134,7 +130,7 @@ SetPackageInfo(
                              TitlePage := rec(
                                                Copyright := """
       <Index>License</Index>                                    
-      &copyright; 2021 by Leonid P. Pryadko and Vadim A. Shabashov<P/>    
+      &copyright; 2021--2024 by Leonid P. Pryadko and Vadim A. Shabashov<P/>    
       &QDistRnd; package is free software;  
       you can redistribute it and/or modify it under the terms of the
       <URL Text="GNU General Public License">https://www.fsf.org/licenses/gpl.html</URL>

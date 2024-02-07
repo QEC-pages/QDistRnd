@@ -27,8 +27,7 @@ included with `GAP` version 4.11; this or later version of `GAP` is
 strongly recommended.
 
 ## Installation
-As of February 2022, the `QDistRnd` package is not distributed with a
-standard installation of `GAP`. 
+Starting with GAP.4.13.0, the `QDistRnd` package is distributed with a standard installation of `GAP`. 
 
 To install the package permanently, download the latest released version from 
 [releases](https://github.com/QEC-pages/QDistRnd/releases/) 
