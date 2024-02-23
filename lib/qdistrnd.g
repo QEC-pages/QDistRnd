@@ -3,6 +3,7 @@
 #
 # Written by
 # Vadim A. Shabashov <vadim.art.shabashov@gmail.com>
+# Valerii K. Kozin <kozin.valera@gmail.com>
 # Leonid P. Pryadko <leonid.pryadko@gmail.com>
 
 

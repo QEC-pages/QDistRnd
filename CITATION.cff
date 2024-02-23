@@ -5,9 +5,9 @@ authors:
     given-names: "Leonid P."
     orcid: https://orcid.org/0000-0002-4990-0259
   - family-names: Shabashov
-    given-names: "Vadim A."
+    given-names: "V. A."
   - family-names: Kozin
-    given-names: "Valerii K."
+    given-names: "V. K."
 title: "QDistRnd: Calculate the distance of a q-ary quantum stabilizer code"
 version: v0.9.3
 date-released: 2024-02-06
