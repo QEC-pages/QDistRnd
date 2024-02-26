@@ -6,15 +6,17 @@
           [1X Calculate the distance of a q-ary quantum stabilizer code [101X
   
   
-                                     0.9.3
+                                     0.9.4
   
   
-                                6 February 2024
+                                23 February 2024
   
   
                                Leonid P. Pryadko
   
-                               Vadim A. Shabashov
+                                V. A. Shabashov
+  
+                                  V. K. Kozin
   
   
   
@@ -27,19 +29,20 @@
                 [33X[0;14YUSA[133X
   
   
-  Vadim A. Shabashov
+  V. A. Shabashov
       Email:    [7Xmailto:vadim.art.shabashov@gmail.com[107X
       Homepage: [7Xhttps://sites.google.com/view/vadim-shabashov/[107X
-      Address:  [33X[0;14YThe Department of Physics & Engineering[133X
-                [33X[0;14YITMO University[133X
-                [33X[0;14YSt. Petersburg, 197101[133X
-                [33X[0;14YRussia[133X
+  V. K. Kozin
+      Email:    [7Xmailto:kozin.valera@gmail.com[107X
+      Address:  [33X[0;14YDepartment of Physics, University of Basel[133X
+                [33X[0;14YKlingelbergstrasse 82, CH-4056 Basel,[133X
+                [33X[0;14YSwitzerland[133X
   
   
   
   -------------------------------------------------------
   [1XCopyright[101X
-  [33X[0;0Y© 2021--2024 by Leonid P. Pryadko and Vadim A. Shabashov[133X
+  [33X[0;0Y© 2021--2024 by L. P. Pryadko, V. K. Kozin, and V. A. Shabashov[133X
   
   [33X[0;0Y[5XQDistRnd[105X  package is free software; you can redistribute it and/or modify it
   under     the     terms     of    the    GNU    General    Public    License

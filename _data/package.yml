@@ -1,23 +1,21 @@
 name: QDistRnd
-version: "0.9.3"
+version: "0.9.4"
 license: "GPL-2.0-or-later"
-date: 2024-02-06
+date: 2024-02-23
 description: |
     Calculate the distance of a q-ary quantum stabilizer code
 
 authors:
     - name: Leonid P. Pryadko
       url: http://faculty.ucr.edu/~leonid
-    - name: Vadim A. Shabashov
+    - name: V. A. Shabashov
       url: https://sites.google.com/view/vadim-shabashov/
+    - name: V. K. Kozin
+      url: mailto:kozin.valera@gmail.com
 
 maintainers:
     - name: Leonid P. Pryadko
       url: http://faculty.ucr.edu/~leonid
-    - name: Vadim A. Shabashov
-      url: https://sites.google.com/view/vadim-shabashov/
-    - name: Valerii K. Kozin
-      url: mailto:kozin.valera@gmail.com
 
 GAP: "4.11"
 
@@ -38,7 +36,7 @@ packageinfo: https://QEC-pages.github.io/QDistRnd/PackageInfo.g
 
 downloads:
     - name: .tar.gz
-      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.9.3/qdistrnd-0.9.3.tar.gz
+      url: https://github.com/QEC-pages/QDistRnd/releases/download/v0.9.4/qdistrnd-0.9.4.tar.gz
 
 abstract: |
     The GAP package <code>QDistRnd</code> 
@@ -46,7 +44,7 @@ abstract: |
     minimum distance of a quantum code linear over a finite
     field GF(<var>q</var>).
 
-status: other
+status: deposited
 doc-html: doc/chap0.html
 doc-pdf: doc/manual.pdf
 keywords: |
@@ -55,7 +53,7 @@ citeas: |
     <p class='BibEntry'>
     [<span class='BibKey'>PSK24</span>]   <b class='BibAuthor'>Pryadko, L. P., Shabashov, V. A. and Kozin, V. K.</b>,
      <i class='BibTitle'>QDistRnd, Calculate the distance of a q-ary quantum stabilizer code,
-             Version 0.9.3</i>
+             Version 0.9.4</i>
      (<span class='BibYear'>2024</span>)<br />
     (<span class='BibNote'>GAP package</span>),
     <span class='BibHowpublished'><a href="https://QEC-pages.github.io/QDistRnd">https://QEC-pages.github.io/QDistRnd</a></span>.
@@ -63,11 +61,11 @@ citeas: |
     
 
 bibtex: |
-    @misc{ QDistRnd0.9.3,
+    @misc{ QDistRnd0.9.4,
       author =           {Pryadko, L. P. and Shabashov, V. A. and Kozin, V. K.},
       title =            {{QDistRnd},    Calculate    the    distance    of    a
                           q\texttt{\symbol{45}}ary   quantum   stabilizer  code,
-                          {V}ersion 0.9.3},
+                          {V}ersion 0.9.4},
       month =            {Feb},
       year =             {2024},
       note =             {GAP package},

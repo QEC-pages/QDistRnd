@@ -1,8 +1,8 @@
 #############################################################################
 ##  
-##  PackageInfo.g for the package `QDistRnd'                     Leonid P. Pryadko
-##                                                               Vadim A. Shabashov
-##                                                               Valerii K. Kozin
+##  PackageInfo.g for the package `QDistRnd'                     L. P. Pryadko
+##                                                               V. A. Shabashov
+##                                                               V. K. Kozin
 ##  For the LoadPackage mechanism in GAP >= 4.5 the minimal set of needed
 ##  entries is .PackageName, .Version, and .AvailabilityTest, and an error
 ##  will occur if any of them is missing. Other important entries are
@@ -16,8 +16,8 @@ SetPackageInfo(
         rec( 
              PackageName := "QDistRnd",             
              Subtitle := "Calculate the distance of a q-ary quantum stabilizer code",
-             Version := "0.9.3",
-             Date := "06/02/2024",  
+             Version := "0.9.4",
+             Date := "23/02/2024",  
              License := "GPL-2.0-or-later",
              PackageWWWHome := "https://QEC-pages.github.io/QDistRnd", 
              SourceRepository :=
@@ -66,29 +66,23 @@ SetPackageInfo(
                               ),
                           rec( 
                                   LastName      := "Shabashov",
-                                  FirstNames    := "Vadim A.",
+                                  FirstNames    := "V. A.",
                                   IsAuthor      := true,
-                                  IsMaintainer  := true,
+                                  IsMaintainer  := false,
                                   Email         := "vadim.art.shabashov@gmail.com",
-                                  WWWHome       := "https://sites.google.com/view/vadim-shabashov/",
-                                  PostalAddress := Concatenation( [
-                                                                    "The Department of Physics &amp; Engineering\n",
-                                                                    "ITMO University\n",
-                                                                    "St. Petersburg, 197101\n",
-                                                                    "Russia" ] ),
-                                  Institution   := "ITMO University"
+                                  WWWHome       := "https://sites.google.com/view/vadim-shabashov/"
                               ),
                           rec( 
                                   LastName      := "Kozin",
-                                  FirstNames    := "Valerii K.",
-                                  IsAuthor      := false,
-                                  IsMaintainer  := true,
+                                  FirstNames    := "V. K.",
+                                  IsAuthor      := true,
+                                  IsMaintainer  := false,
                                   Email         := "kozin.valera@gmail.com",
                                   PostalAddress := Concatenation( [
                                                                     "Department of Physics, University of Basel\n",
                                                                     "Klingelbergstrasse 82, CH-4056 Basel,\n",
                                                                     "Switzerland" ] ),
-                                  Institution   := "ITMO University"
+                                  Institution   := "University of Basel"
                               )
                           
              ],
@@ -101,7 +95,7 @@ SetPackageInfo(
 ##    "dev"           for development versions of packages 
 ##    "other"         for all other packages
 ##
-             Status := "other",
+             Status := "deposited",
 
              Dependencies := rec(
                                   GAP := "4.11",
@@ -130,7 +124,7 @@ SetPackageInfo(
                              TitlePage := rec(
                                                Copyright := """
       <Index>License</Index>                                    
-      &copyright; 2021--2024 by Leonid P. Pryadko and Vadim A. Shabashov<P/>    
+      &copyright; 2021--2024 by L. P. Pryadko, V. K. Kozin, and V. A. Shabashov<P/>    
       &QDistRnd; package is free software;  
       you can redistribute it and/or modify it under the terms of the
       <URL Text="GNU General Public License">https://www.fsf.org/licenses/gpl.html</URL>
