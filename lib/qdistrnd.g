@@ -465,7 +465,7 @@ BindGlobal("QDR_ProcEntry",
 #DeclareGlobalFunction("ReadMTXE");
 BindGlobal("ReadMTXE",
                      function(StrPath, opt... ) # supported option: "field"
-                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
+                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, infile,
                                iCommentStart,iComment;
                          # local variables:
                          # input - file converted to a string
@@ -483,7 +483,9 @@ BindGlobal("ReadMTXE",
                          # i - dummy for "for" loop
                          # iCommentStart, iComment - range of line numbers for comment section
                          
-                         input := ReadAll(InputTextFile(StrPath));; # read the file in
+                         infile := InputTextFile(StrPath);
+                         input := ReadAll(infile);;                        # read the file in
+                         CloseStream(infile);
                          data := SplitString(input, "\n");;         # separate into lines
                          line := SplitString(data[1], " ");;         # separate into records
                          
