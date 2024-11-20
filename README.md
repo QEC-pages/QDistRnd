@@ -1,6 +1,6 @@
 # `GAP` package `QDistRnd`
 The `GAP` package for calculating the distance of a $q$-ary quantum
-stabilizer code.
+stabilizer code
 
 [![DOI](https://joss.theoj.org/papers/10.21105/joss.04120/status.svg)](https://doi.org/10.21105/joss.04120)
 
