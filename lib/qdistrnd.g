@@ -483,9 +483,9 @@ BindGlobal("ReadMTXE",
                          # i - dummy for "for" loop
                          # iCommentStart, iComment - range of line numbers for comment section
                          
-                         infile := InputTextFile(StrPath);                          
+                         infile := InputTextFile(StrPath);
                          input := ReadAll(infile);;                        # read the file in
-                         CloseStream(infile);                         
+                         CloseStream(infile);
                          data := SplitString(input, "\n");;         # separate into lines
                          line := SplitString(data[1], " ");;         # separate into records
                          
