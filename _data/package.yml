@@ -63,12 +63,17 @@ citeas: |
 bibtex: |
     @misc{ QDistRnd,
       author =           {Pryadko, L. P. and Shabashov, V. A. and Kozin, V. K.},
-      title =            {{QDistRnd}, Calculate the distance of a q\texttt{\symbol{45}}ary quantum stabilizer code, {V}ersion 0.9.5},
+      title =            {{QDistRnd},    Calculate    the    distance    of    a
+                          q\texttt{\symbol{45}}ary   quantum   stabilizer  code,
+                          {V}ersion 0.9.5},
       month =            {Nov},
       year =             {2024},
       note =             {GAP package},
-      howpublished =     {\href {https://QEC-pages.github.io/QDistRnd} {\texttt{https://QEC\texttt{\symbol{45}}pages.github.io/}\discretionary {}{}{}\texttt{QDistRnd}}},
-      keywords =         {QECC; quantum code; stabilizer code; quantum error correcting code; distance},
+      howpublished =     {\href           {https://QEC-pages.github.io/QDistRnd}
+                          {\texttt{https://QEC\texttt{\symbol{45}}pages.github.io/}\discretionary
+                          {}{}{}\texttt{QDistRnd}}},
+      keywords =         {QECC;  quantum  code;  stabilizer  code; quantum error
+                          correcting code; distance},
       printedkey =       {PSK24}
     }
 
