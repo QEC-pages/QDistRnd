@@ -8,7 +8,7 @@
   [[20XCG90[120X]  [16XCoffey,  J. T. and Goodman, R. M.[116X, [17XThe complexity of information set
   decoding[117X, [18XIEEE Trans. Info. Theory[118X, [19X36[119X, 5 (1990), 1031 -1037.
   
-  [[20XCGLN21[120X]  [16XCu{\'e}llar,  M. P., G{\'o}mez-Torrecillas, J., Lobillo, F. J. and
+  [[20XCGLN21[120X]  [16XCu\'ellar,  M.  P.,  G\'omez-Torrecillas,  J.,  Lobillo, F. J. and
   Navarro,  G.[116X,  [17XGenetic  algorithms with permutation-based representation for
   computing  the distance of linear codes[117X, [18XSwarm and Evolutionary Computation[118X,
   [19X60[119X (2021), 100797.
@@ -17,8 +17,8 @@
   Estimates  in  χ^2  Tests  for  Goodness  of Fit[117X, [18XThe Annals of Mathematical
   Statistics[118X, Institute of Mathematical Statistics, [19X25[119X, 3 (1954), 579 -- 586.
   
-  [[20XCra99[120X]   [16XCram{\'e}r,   H.[116X,  [17XMathematical  Methods  of  Statistics  (PMS-9)[117X,
-  Princeton University Press (1999).
+  [[20XCra99[120X]  [16XCram\'er, H.[116X, [17XMathematical Methods of Statistics (PMS-9)[117X, Princeton
+  University Press (1999).
   
   [[20XCRSS98[120X]  [16XCalderbank, A. R., Rains, E. M., Shor, P. M. and Sloane, N. J. A.[116X,
   [17XQuantum  error correction via codes over GF(4)[117X, [18XIEEE Trans. Info. Theory[118X, [19X44[119X
@@ -50,7 +50,7 @@
   of  large  error-correcting  codes[117X,  [18XIEEE Trans. Info. Theory[118X, [19X34[119X, 5 (1988),
   1354 -1359.
   
-  [[20XL\t21[120X]  [16XL{\"u}beck,  F.[116X,  [17XConway  polynomials  for  finite  fields[117X  (2021),
+  [[20XL\t21[120X]   [16XL\"ubeck,   F.[116X,  [17XConway  polynomials  for  finite  fields[117X  (2021),
   ([Downloaded on 2022-02-19]).
   
   [[20XNC00[120X]  [16XNielsen,  M.  A.  and Chuang, I. L.[116X, [17XQuantum Computation and Quantum
