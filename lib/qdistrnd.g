@@ -465,7 +465,7 @@ BindGlobal("QDR_ProcEntry",
 #DeclareGlobalFunction("ReadMTXE");
 BindGlobal("ReadMTXE",
                      function(StrPath, opt... ) # supported option: "field"
-                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, infile,
+                         local input, data, fmt, line, pair, F, rowsG, colsG, G, G1, i, 
                                iCommentStart,iComment;
                          # local variables:
                          # input - file converted to a string
@@ -483,9 +483,7 @@ BindGlobal("ReadMTXE",
                          # i - dummy for "for" loop
                          # iCommentStart, iComment - range of line numbers for comment section
                          
-                         infile := InputTextFile(StrPath);
-                         input := ReadAll(infile);;                        # read the file in
-                         CloseStream(infile);
+                         input := ReadAll(InputTextFile(StrPath));; # read the file in
                          data := SplitString(input, "\n");;         # separate into lines
                          line := SplitString(data[1], " ");;         # separate into records
                          
@@ -821,9 +819,15 @@ BindGlobal("DistRandCSS",
                      function (GX,GZ,num,mindist,opt...) # supported options: field, maxav
                          
                          local DistBound, i, j, dimsWZ, rowsWZ, colsWZ, F, debug, pos, CodeWords, mult,
-                               VecCount,  maxav, WZ, WZ1, WZ2, WX,
-                               TempVec, FirstVecFound, TempWeight, per; 
-
+                               VecCount,  maxav, WZ, WZ1, WZ2, WX, wt2mat,wt3mat,wt4mat,res,wt5mat,
+                               TempVec, FirstVecFound, TempWeight, per;
+                         
+                         wt2mat:=[];
+                         wt3mat:=[];
+                         wt4mat:=[];
+                         wt5mat:=[];
+                         res:=[];
+                         
                          if ValueOption("field")<>fail then
                              if not IsField(ValueOption("field")) then
                                  Error("invalid option 'field'=",ValueOption("field"),"\n");
@@ -864,6 +868,22 @@ BindGlobal("DistRandCSS",
                              for j in [1..rowsWZ] do
                                  TempVec:=WZ2[j]; # this samples low-weight vectors from the code
                                  TempWeight:=WeightVecFFE(TempVec);
+                                  ######
+                                  if debug[1] = 1 then
+                                     if TempWeight = 2 and WeightVecFFE(WX*TempVec)>0 then
+                                        Add(wt2mat,TempVec);
+                                     fi;
+                                     if TempWeight = 3 and WeightVecFFE(WX*TempVec)>0 then
+                                        Add(wt3mat,TempVec);
+                                     fi;
+                                     if TempWeight = 4 and WeightVecFFE(WX*TempVec)>0 then
+                                        Add(wt4mat,TempVec);
+                                     fi;
+                                     if TempWeight = 5 and WeightVecFFE(WX*TempVec)>0 then
+                                        Add(wt5mat,TempVec);
+                                     fi;
+                                 fi;
+                                 ######
                                  if (TempWeight > 0) and (TempWeight <= DistBound) then
                                      if WeightVecFFE(WX*TempVec)>0 then # lin-indep from rows of GX
                                          if debug[2]=1 then # Check that H*c = 0
@@ -876,16 +896,18 @@ BindGlobal("DistRandCSS",
                                                  Error("\n");
                                              fi;
                                          fi;
+                                         ########
                                          
+                                         #######
                                          if TempWeight < DistBound then # new min-weight vector found
                                              DistBound:=TempWeight;
                                              VecCount:=1; # reset the overall count of vectors
                                              if debug[4] = 1  or ValueOption("maxav")<> fail then
                                                  CodeWords := [TempVec];;
                                                  mult := [1];;
-                                             fi;                                             
+                                             fi;
                                              if debug[1] = 1 then
-                                                 FirstVecFound := TempVec;;
+                                                FirstVecFound := TempVec;;
                                              fi;
                                              
                                          elif TempWeight=DistBound then
@@ -929,9 +951,17 @@ BindGlobal("DistRandCSS",
 
                          if (debug[1] = 1) then # print additional information
                              Print(i," rounds of ", num," were made.", "\n");
-                             if colsWZ <= 100 then
+                             if colsWZ <= 1000 then
                                  Print("First vector found with lowest weight:\n");
                                  Display([FirstVecFound]);
+                                 ######
+                                 #Print("weight 2 codewords:\n");
+                                 wt2mat:=Set(wt2mat);
+                                 #Display(wt2mat);
+                                 wt3mat:=Set(wt3mat);
+                                 wt4mat:=Set(wt4mat);
+                                 wt5mat:=Set(wt5mat);
+                                 #####
                              fi;
                              Print("Minimum weight vector found ", VecCount, " times\n");
                              Print("[[", colsWZ, ",",colsWZ-RankMat(GX)-RankMat(GZ),",",
@@ -942,9 +972,16 @@ BindGlobal("DistRandCSS",
 #                             Display(CodeWords);                             
                              QDR_DoProbOut(mult,colsWZ,i);
                          fi;
-                         
-                         return DistBound;
-                         
+                         ######
+                         Add(res,DistBound);
+                         Add(res,wt2mat);
+                         Add(res,wt3mat);
+                         Add(res,wt4mat);
+                         Add(res,wt5mat);
+                         ######
+                         #return DistBound;
+                         #Print("qdis: ",res,"\n")
+                         return res;
                      end
                      );
 
