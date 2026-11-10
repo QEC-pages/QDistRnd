@@ -1,8 +1,8 @@
-#! This code searches for one-generator quantum cyclic
-#! codes of length 15 over $GF(8)$, with stabilizer generators of weight 6, 
-#! by going over 10000 random
-#! polynomials of each degree from 4 to 15.  It takes just a couple minutes on a
-#! typical notebook.
+# This code searches for one-generator quantum cyclic
+# codes of length 15 over $GF(8)$, with stabilizer generators of weight 6, 
+# by going over 10000 random
+# polynomials of each degree from 4 to 15.  It takes just a couple minutes on a
+# typical notebook.
 AUTODOC_CreateDirIfMissing("tmp");;
 q:=8;; F:=GF(q);; wei:=6;; x:=Indeterminate(F,"x");; n:=15;;
 dmax:=0*[1..n];  # record the max degrees for the reference 
